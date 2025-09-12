@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // For now, just log the data. In a real app, you'd send it to a server.
+        console.log('Form submitted:', formData);
+        alert('Thank you for your message! We will get back to you soon.');
+        setFormData({ name: '', email: '', message: '' });
+    };
+
     return (
         <section id="contact" className="py-20">
             <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12">
@@ -12,22 +33,42 @@ const Contact = () => {
                     <p><strong>Email:</strong> tejashreeproductions@gmail.com</p>
                 </div>
                 <div>
-                    {/* Uncomment to add a contact form */}
-                    {/* <form className="bg-white shadow-lg p-6 rounded-lg">
+                    <form className="bg-white shadow-lg p-6 rounded-lg" onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block mb-2 font-medium">Your Name</label>
-                            <input type="text" className="w-full border rounded px-4 py-2" />
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="w-full border rounded px-4 py-2"
+                                required
+                            />
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 font-medium">Email</label>
-                            <input type="email" className="w-full border rounded px-4 py-2" />
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="w-full border rounded px-4 py-2"
+                                required
+                            />
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 font-medium">Message</label>
-                            <textarea rows="4" className="w-full border rounded px-4 py-2"></textarea>
+                            <textarea
+                                rows="4"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                className="w-full border rounded px-4 py-2"
+                                required
+                            ></textarea>
                         </div>
                         <button type="submit" className="btn-primary w-full">Send Message</button>
-                    </form> */}
+                    </form>
                 </div>
             </div>
         </section>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle";
 import styled from "styled-components";
-import { FaShoppingCart, FaUser, FaHome, FaPhone, FaStore } from "react-icons/fa";
+import { FaShoppingCart, FaUser, FaHome, FaPhone, FaStore, FaBars, FaTimes } from "react-icons/fa";
 
 // Import components
 import Home from "./Home";
@@ -44,31 +44,77 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   box-shadow: ${({ theme }) => theme.colors.shadow};
-  
+
   .logo {
     font-size: 3rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.heading};
   }
+
+  @media screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    padding: 0 2.4rem;
+    height: 8rem;
+
+    .logo {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 const Nav = styled.nav`
   display: flex;
+  align-items: center;
   gap: 3rem;
-  
-  a {
-    text-decoration: none;
-    color: ${({ theme }) => theme.colors.text};
-    font-size: 1.8rem;
-    font-weight: 500;
+`;
+
+const NavMenu = styled.div`
+  display: flex;
+  gap: 3rem;
+
+  @media screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.3s ease;
-    
-    &:hover {
-      color: ${({ theme }) => theme.colors.btn};
-    }
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+    top: 10rem;
+    left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+    opacity: 1;
+    transition: all 0.5s ease;
+    background-color: ${({ theme }) => theme.colors.bg};
+    padding: 2rem;
+    box-shadow: ${({ theme }) => theme.colors.shadow};
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.btn};
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+const MobileIcon = styled.div`
+  display: none;
+
+  @media screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    display: block;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -90,6 +136,7 @@ const Footer = styled.footer`
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const addToCart = (product) => {
     setCartItems(prevItems => {
@@ -128,12 +175,17 @@ const App = () => {
         <Header>
           <div className="logo">Thapa E-Commerce</div>
           <Nav>
-            <a href="/"><FaHome /> Home</a>
-            <a href="/products"><FaStore /> Products</a>
-            <a href="/cart">
-              <FaShoppingCart /> Cart ({cartItems.reduce((total, item) => total + item.quantity, 0)})
-            </a>
-            <a href="/contact"><FaPhone /> Contact</a>
+            <MobileIcon onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <FaTimes /> : <FaBars />}
+            </MobileIcon>
+            <NavMenu isOpen={isOpen}>
+              <StyledLink to="/" onClick={() => setIsOpen(false)}><FaHome /> Home</StyledLink>
+              <StyledLink to="/products" onClick={() => setIsOpen(false)}><FaStore /> Products</StyledLink>
+              <StyledLink to="/cart" onClick={() => setIsOpen(false)}>
+                <FaShoppingCart /> Cart ({cartItems.reduce((total, item) => total + item.quantity, 0)})
+              </StyledLink>
+              <StyledLink to="/contact" onClick={() => setIsOpen(false)}><FaPhone /> Contact</StyledLink>
+            </NavMenu>
           </Nav>
         </Header>
         
