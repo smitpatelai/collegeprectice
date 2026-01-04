@@ -1,4 +1,6 @@
 import React from "react";
+import "./App.css";
+import Hero from "./Hero";
 
 // PerfectReactTemplate.jsx
 // Single-file React template containing Header, Hero, About, Services, Gallery, Contact, Footer
@@ -31,36 +33,6 @@ const Header = () => (
   </header>
 );
 
-const Hero = () => (
-  <section className="bg-white/80 py-20">
-    <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">Bring your event to life with authentic cultural performances</h2>
-        <p className="mt-4 text-lg text-gray-700">We produce professional dramas, street shows, puppet performances, garba, orchestras, and community awareness programs tailored for Gujarat and beyond.</p>
-        <div className="mt-6 flex gap-3">
-          <a href="#contact" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow hover:scale-[1.02] transition">Get a Quote</a>
-          <a href="#gallery" className="inline-block border border-indigo-600 text-indigo-600 px-6 py-3 rounded-lg">View Gallery</a>
-        </div>
-
-        <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-gray-600">
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <strong>150+</strong>
-            <div>Shows performed</div>
-          </div>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <strong>50+</strong>
-            <div>Community campaigns</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-indigo-50 to-purple-50 p-6">
-        <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">Hero image placeholder</div>
-        <div className="mt-4 text-sm text-gray-600">Replace this with an image or carousel. Recommended: 1200×800 JPG/WEBP</div>
-      </div>
-    </div>
-  </section>
-);
 
 const About = () => (
   <section id="about" className="py-16 bg-gray-50">

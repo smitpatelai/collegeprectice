@@ -8,7 +8,7 @@ import wikipedia
 import pyautogui
 
 # OpenAI API Key (Replace with your own)
-openai.api_key = "your_openai_api_key"
+openai.api_key = None  # Set to your API key if available
 
 # Initialize the TTS engine
 engine = pyttsx3.init()
@@ -39,11 +39,16 @@ def listen():
 
 # Function to get response from OpenAI
 def chat_with_gpt(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response["choices"][0]["message"]["content"]
+    if openai.api_key is None:
+        return "OpenAI API key not set. Please provide your API key to use AI features."
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"Error with OpenAI API: {str(e)}"
 
 # Function to execute commands
 def execute_command(command):
