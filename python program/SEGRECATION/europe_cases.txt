@@ -1,0 +1,48 @@
+name: Albania
+name: Andorra
+name: Austria
+name: Belarus
+name: Belgium
+name: Bosnia
+name: Bulgaria
+name: Channel Islands
+name: Croatia
+name: Czechia
+name: Denmark
+name: Estonia
+name: Faroe Islands
+name: Finland
+name: France
+name: Germany
+name: Gibraltar
+name: Greece
+name: Holy See (Vatican City State)
+name: Hungary
+name: Iceland
+name: Ireland
+name: Isle of Man
+name: Italy
+name: Latvia
+name: Liechtenstein
+name: Lithuania
+name: Luxembourg
+name: Macedonia
+name: Malta
+name: Moldova
+name: Monaco
+name: Montenegro
+name: Netherlands
+name: Norway
+name: Poland
+name: Portugal
+name: Romania
+name: Russia
+name: San Marino
+name: Serbia
+name: Slovakia
+name: Slovenia
+name: Spain
+name: Sweden
+name: Switzerland
+name: UK
+name: Ukraine

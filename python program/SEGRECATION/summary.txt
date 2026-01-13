@@ -1,0 +1,231 @@
+Afghanistan | Cases: 234174| Recoveres: 211080| Daths: 7996
+Albania | Cases: 334863| Recoveres: 330233| Daths: 3605
+Algeria | Cases: 272010| Recoveres: 183061| Daths: 6881
+Andorra | Cases: 48015| Recoveres: 0| Daths: 165
+Angola | Cases: 107327| Recoveres: 103419| Daths: 1937
+Anguilla | Cases: 3904| Recoveres: 0| Daths: 12
+Antigua and Barbuda | Cases: 9106| Recoveres: 8954| Daths: 146
+Argentina | Cases: 10128845| Recoveres: 9997258| Daths: 130841
+Armenia | Cases: 451831| Recoveres: 435162| Daths: 8777
+Aruba | Cases: 44224| Recoveres: 42438| Daths: 292
+Australia | Cases: 11853144| Recoveres: 11820014| Daths: 24414
+Austria | Cases: 6081287| Recoveres: 6054934| Daths: 22542
+Azerbaijan | Cases: 835234| Recoveres: 824089| Daths: 10400
+Bahamas | Cases: 38084| Recoveres: 36366| Daths: 844
+Bahrain | Cases: 729549| Recoveres: 727915| Daths: 1574
+Bangladesh | Cases: 2049377| Recoveres: 0| Daths: 29493
+Barbados | Cases: 110578| Recoveres: 108647| Daths: 648
+Belarus | Cases: 994037| Recoveres: 985592| Daths: 7118
+Belgium | Cases: 4861695| Recoveres: 4826798| Daths: 34376
+Belize | Cases: 71409| Recoveres: 0| Daths: 688
+Benin | Cases: 28036| Recoveres: 27847| Daths: 163
+Bermuda | Cases: 18860| Recoveres: 18685| Daths: 165
+Bhutan | Cases: 62697| Recoveres: 61564| Daths: 21
+Bolivia | Cases: 1212131| Recoveres: 1177145| Daths: 22407
+Bosnia | Cases: 403615| Recoveres: 379084| Daths: 16388
+Botswana | Cases: 330638| Recoveres: 327049| Daths: 2801
+Brazil | Cases: 38743918| Recoveres: 36249161| Daths: 711380
+British Virgin Islands | Cases: 7392| Recoveres: 0| Daths: 64
+Brunei | Cases: 343719| Recoveres: 243601| Daths: 225
+Bulgaria | Cases: 1339851| Recoveres: 1292944| Daths: 38748
+Burkina Faso | Cases: 22114| Recoveres: 21596| Daths: 400
+Burundi | Cases: 54721| Recoveres: 53569| Daths: 38
+Cabo Verde | Cases: 64477| Recoveres: 63755| Daths: 417
+Cambodia | Cases: 139103| Recoveres: 136044| Daths: 3056
+Cameroon | Cases: 125379| Recoveres: 123280| Daths: 1974
+Canada | Cases: 4946090| Recoveres: 4881312| Daths: 59034
+Caribbean Netherlands | Cases: 11682| Recoveres: 10476| Daths: 38
+Cayman Islands | Cases: 31472| Recoveres: 8553| Daths: 37
+Central African Republic | Cases: 15440| Recoveres: 15200| Daths: 113
+Chad | Cases: 7701| Recoveres: 4874| Daths: 194
+Channel Islands | Cases: 101717| Recoveres: 101321| Daths: 228
+Chile | Cases: 5384853| Recoveres: 5252450| Daths: 64497
+China | Cases: 503302| Recoveres: 379053| Daths: 5272
+Colombia | Cases: 6400173| Recoveres: 6212152| Daths: 143200
+Comoros | Cases: 9109| Recoveres: 8939| Daths: 161
+Congo | Cases: 25375| Recoveres: 24006| Daths: 386
+Cook Islands | Cases: 7203| Recoveres: 7150| Daths: 2
+Costa Rica | Cases: 1238883| Recoveres: 0| Daths: 9428
+Croatia | Cases: 1309728| Recoveres: 1258432| Daths: 18687
+Cuba | Cases: 1115251| Recoveres: 1106660| Daths: 8530
+Curaçao | Cases: 45986| Recoveres: 44720| Daths: 295
+Cyprus | Cases: 681110| Recoveres: 679745| Daths: 1365
+Czechia | Cases: 4759041| Recoveres: 4715206| Daths: 43517
+Côte d'Ivoire | Cases: 88384| Recoveres: 87497| Daths: 835
+DRC | Cases: 99338| Recoveres: 84489| Daths: 1468
+Denmark | Cases: 3183756| Recoveres: 3174942| Daths: 8814
+Diamond Princess | Cases: 712| Recoveres: 699| Daths: 13
+Djibouti | Cases: 15690| Recoveres: 15427| Daths: 189
+Dominica | Cases: 16038| Recoveres: 15964| Daths: 74
+Dominican Republic | Cases: 675890| Recoveres: 671316| Daths: 4384
+Ecuador | Cases: 1070188| Recoveres: 1034145| Daths: 36043
+Egypt | Cases: 516023| Recoveres: 442182| Daths: 24613
+El Salvador | Cases: 201855| Recoveres: 179410| Daths: 4230
+Equatorial Guinea | Cases: 17229| Recoveres: 16907| Daths: 183
+Eritrea | Cases: 10189| Recoveres: 10086| Daths: 103
+Estonia | Cases: 628070| Recoveres: 0| Daths: 3001
+Ethiopia | Cases: 501157| Recoveres: 488171| Daths: 7574
+Falkland Islands (Malvinas) | Cases: 1930| Recoveres: 1930| Daths: 0
+Faroe Islands | Cases: 34658| Recoveres: 0| Daths: 28
+Fiji | Cases: 69117| Recoveres: 67226| Daths: 885
+Finland | Cases: 1516117| Recoveres: 1503989| Daths: 11958
+France | Cases: 40138560| Recoveres: 39970918| Daths: 167642
+French Guiana | Cases: 98041| Recoveres: 11254| Daths: 420
+French Polynesia | Cases: 79254| Recoveres: 0| Daths: 650
+Gabon | Cases: 49051| Recoveres: 48674| Daths: 307
+Gambia | Cases: 12626| Recoveres: 12189| Daths: 372
+Georgia | Cases: 1861665| Recoveres: 0| Daths: 17132
+Germany | Cases: 38828995| Recoveres: 38240600| Daths: 183027
+Ghana | Cases: 171889| Recoveres: 170425| Daths: 1462
+Gibraltar | Cases: 20550| Recoveres: 0| Daths: 113
+Greece | Cases: 6101379| Recoveres: 0| Daths: 37869
+Greenland | Cases: 11971| Recoveres: 2761| Daths: 21
+Grenada | Cases: 19693| Recoveres: 19358| Daths: 238
+Guadeloupe | Cases: 203235| Recoveres: 0| Daths: 1021
+Guatemala | Cases: 1291293| Recoveres: 1269891| Daths: 20289
+Guinea | Cases: 38572| Recoveres: 37757| Daths: 468
+Guinea-Bissau | Cases: 9614| Recoveres: 8929| Daths: 177
+Guyana | Cases: 74137| Recoveres: 72013| Daths: 1300
+Haiti | Cases: 34667| Recoveres: 33734| Daths: 860
+Holy See (Vatican City State) | Cases: 29| Recoveres: 29| Daths: 0
+Honduras | Cases: 474590| Recoveres: 0| Daths: 11165
+Hong Kong | Cases: 2937609| Recoveres: 2916005| Daths: 14924
+Hungary | Cases: 2230232| Recoveres: 2152155| Daths: 49048
+Iceland | Cases: 209906| Recoveres: 0| Daths: 229
+India | Cases: 45035393| Recoveres: 0| Daths: 533570
+Indonesia | Cases: 6829221| Recoveres: 6647104| Daths: 162063
+Iran | Cases: 7627186| Recoveres: 0| Daths: 146811
+Iraq | Cases: 2465545| Recoveres: 2439497| Daths: 25375
+Ireland | Cases: 1734582| Recoveres: 1724921| Daths: 9491
+Isle of Man | Cases: 38008| Recoveres: 0| Daths: 116
+Israel | Cases: 4841772| Recoveres: 4798473| Daths: 12707
+Italy | Cases: 26723249| Recoveres: 26361218| Daths: 196487
+Jamaica | Cases: 156869| Recoveres: 0| Daths: 3756
+Japan | Cases: 33803572| Recoveres: 0| Daths: 74694
+Jordan | Cases: 1746997| Recoveres: 1731007| Daths: 14122
+Kazakhstan | Cases: 1411831| Recoveres: 1383020| Daths: 13848
+Kenya | Cases: 344130| Recoveres: 337309| Daths: 5689
+Kiribati | Cases: 5085| Recoveres: 2703| Daths: 24
+Kuwait | Cases: 667158| Recoveres: 0| Daths: 2570
+Kyrgyzstan | Cases: 206897| Recoveres: 196406| Daths: 2991
+Lao People's Democratic Republic | Cases: 218970| Recoveres: 0| Daths: 758
+Latvia | Cases: 982505| Recoveres: 971406| Daths: 6715
+Lebanon | Cases: 1243838| Recoveres: 1087587| Daths: 10952
+Lesotho | Cases: 36138| Recoveres: 25980| Daths: 723
+Liberia | Cases: 8090| Recoveres: 7783| Daths: 295
+Libyan Arab Jamahiriya | Cases: 507274| Recoveres: 500835| Daths: 6437
+Liechtenstein | Cases: 21574| Recoveres: 0| Daths: 94
+Lithuania | Cases: 1397806| Recoveres: 1387478| Daths: 9897
+Luxembourg | Cases: 391232| Recoveres: 0| Daths: 1232
+MS Zaandam | Cases: 9| Recoveres: 7| Daths: 2
+Macao | Cases: 27673| Recoveres: 3487| Daths: 123
+Macedonia | Cases: 350567| Recoveres: 337068| Daths: 9976
+Madagascar | Cases: 68486| Recoveres: 66862| Daths: 1426
+Malawi | Cases: 89535| Recoveres: 0| Daths: 2686
+Malaysia | Cases: 5278406| Recoveres: 5233268| Daths: 37348
+Maldives | Cases: 186694| Recoveres: 163687| Daths: 316
+Mali | Cases: 33164| Recoveres: 32332| Daths: 743
+Malta | Cases: 121420| Recoveres: 120149| Daths: 885
+Marshall Islands | Cases: 16138| Recoveres: 16121| Daths: 17
+Martinique | Cases: 230354| Recoveres: 0| Daths: 1102
+Mauritania | Cases: 63848| Recoveres: 62471| Daths: 997
+Mauritius | Cases: 43025| Recoveres: 41278| Daths: 1051
+Mayotte | Cases: 42027| Recoveres: 0| Daths: 188
+Mexico | Cases: 7702809| Recoveres: 6899865| Daths: 334958
+Micronesia | Cases: 26547| Recoveres: 0| Daths: 65
+Moldova | Cases: 635145| Recoveres: 0| Daths: 12218
+Monaco | Cases: 17181| Recoveres: 0| Daths: 67
+Mongolia | Cases: 1011496| Recoveres: 1009212| Daths: 2284
+Montenegro | Cases: 296542| Recoveres: 291794| Daths: 2846
+Montserrat | Cases: 1403| Recoveres: 1376| Daths: 8
+Morocco | Cases: 1278992| Recoveres: 0| Daths: 16303
+Mozambique | Cases: 233731| Recoveres: 228805| Daths: 2250
+Myanmar | Cases: 641873| Recoveres: 620159| Daths: 19495
+N. Korea | Cases: 4772813| Recoveres: 4772739| Daths: 74
+Namibia | Cases: 172389| Recoveres: 167099| Daths: 4106
+Nauru | Cases: 5393| Recoveres: 5347| Daths: 1
+Nepal | Cases: 1003450| Recoveres: 991322| Daths: 12031
+Netherlands | Cases: 8635786| Recoveres: 8612599| Daths: 22992
+New Caledonia | Cases: 80064| Recoveres: 0| Daths: 314
+New Zealand | Cases: 2621111| Recoveres: 2613791| Daths: 5697
+Nicaragua | Cases: 18491| Recoveres: 4225| Daths: 225
+Niger | Cases: 9931| Recoveres: 8890| Daths: 312
+Nigeria | Cases: 267188| Recoveres: 259953| Daths: 3155
+Niue | Cases: 1059| Recoveres: 1056| Daths: 0
+Norway | Cases: 1509732| Recoveres: 1503094| Daths: 6638
+Oman | Cases: 399449| Recoveres: 0| Daths: 4628
+Pakistan | Cases: 1581936| Recoveres: 1538689| Daths: 30664
+Palau | Cases: 6290| Recoveres: 6276| Daths: 10
+Palestine | Cases: 621008| Recoveres: 615445| Daths: 5404
+Panama | Cases: 1059893| Recoveres: 1051102| Daths: 8727
+Papua New Guinea | Cases: 46864| Recoveres: 46168| Daths: 670
+Paraguay | Cases: 837602| Recoveres: 0| Daths: 20155
+Peru | Cases: 4572667| Recoveres: 4350506| Daths: 222161
+Philippines | Cases: 4140383| Recoveres: 4067381| Daths: 66864
+Poland | Cases: 6661991| Recoveres: 0| Daths: 120598
+Portugal | Cases: 5643062| Recoveres: 5614809| Daths: 28126
+Qatar | Cases: 514524| Recoveres: 513687| Daths: 690
+Romania | Cases: 3529735| Recoveres: 3460149| Daths: 68929
+Russia | Cases: 24124215| Recoveres: 23545818| Daths: 402756
+Rwanda | Cases: 133518| Recoveres: 132039| Daths: 1468
+Réunion | Cases: 494595| Recoveres: 0| Daths: 921
+S. Korea | Cases: 34571873| Recoveres: 34535939| Daths: 35934
+Saint Helena | Cases: 2166| Recoveres: 2| Daths: 0
+Saint Kitts and Nevis | Cases: 6607| Recoveres: 6559| Daths: 48
+Saint Lucia | Cases: 30215| Recoveres: 29805| Daths: 410
+Saint Martin | Cases: 12324| Recoveres: 0| Daths: 63
+Saint Pierre Miquelon | Cases: 3452| Recoveres: 2449| Daths: 2
+Saint Vincent and the Grenadines | Cases: 9674| Recoveres: 9493| Daths: 124
+Samoa | Cases: 17006| Recoveres: 1605| Daths: 31
+San Marino | Cases: 26185| Recoveres: 26011| Daths: 128
+Sao Tome and Principe | Cases: 6778| Recoveres: 6685| Daths: 80
+Saudi Arabia | Cases: 841469| Recoveres: 0| Daths: 9646
+Senegal | Cases: 89053| Recoveres: 87024| Daths: 1971
+Serbia | Cases: 2615054| Recoveres: 2596608| Daths: 18057
+Seychelles | Cases: 51220| Recoveres: 51048| Daths: 172
+Sierra Leone | Cases: 7779| Recoveres: 0| Daths: 126
+Singapore | Cases: 3006155| Recoveres: 3004131| Daths: 2024
+Sint Maarten | Cases: 11051| Recoveres: 10905| Daths: 92
+Slovakia | Cases: 1877605| Recoveres: 1856381| Daths: 21224
+Slovenia | Cases: 1356546| Recoveres: 1349424| Daths: 7100
+Solomon Islands | Cases: 25954| Recoveres: 0| Daths: 199
+Somalia | Cases: 27334| Recoveres: 13182| Daths: 1361
+South Africa | Cases: 4076463| Recoveres: 3912506| Daths: 102595
+South Sudan | Cases: 18819| Recoveres: 18115| Daths: 147
+Spain | Cases: 13914811| Recoveres: 13762417| Daths: 121760
+Sri Lanka | Cases: 672754| Recoveres: 655852| Daths: 16897
+St. Barth | Cases: 5507| Recoveres: 0| Daths: 6
+Sudan | Cases: 63993| Recoveres: 58947| Daths: 5046
+Suriname | Cases: 82588| Recoveres: 0| Daths: 1408
+Swaziland | Cases: 75191| Recoveres: 73116| Daths: 1427
+Sweden | Cases: 2754129| Recoveres: 2726492| Daths: 27407
+Switzerland | Cases: 4453053| Recoveres: 4438309| Daths: 14452
+Syrian Arab Republic | Cases: 57743| Recoveres: 54578| Daths: 3165
+Taiwan | Cases: 10241523| Recoveres: 10222518| Daths: 19005
+Tajikistan | Cases: 17786| Recoveres: 17264| Daths: 125
+Tanzania | Cases: 43223| Recoveres: 0| Daths: 846
+Thailand | Cases: 4770149| Recoveres: 4692636| Daths: 34586
+Timor-Leste | Cases: 23460| Recoveres: 23102| Daths: 138
+Togo | Cases: 39572| Recoveres: 39281| Daths: 290
+Tokelau | Cases: 80| Recoveres: 0| Daths: 0
+Tonga | Cases: 16950| Recoveres: 15638| Daths: 13
+Trinidad and Tobago | Cases: 191496| Recoveres: 187078| Daths: 4390
+Tunisia | Cases: 1153361| Recoveres: 0| Daths: 29423
+Turkey | Cases: 17232066| Recoveres: 0| Daths: 102174
+Turks and Caicos Islands | Cases: 6752| Recoveres: 6709| Daths: 40
+Tuvalu | Cases: 2943| Recoveres: 0| Daths: 1
+UAE | Cases: 1067030| Recoveres: 0| Daths: 2349
+UK | Cases: 24910387| Recoveres: 24678275| Daths: 232112
+USA | Cases: 111820082| Recoveres: 109814428| Daths: 1219487
+Uganda | Cases: 172149| Recoveres: 100431| Daths: 3632
+Ukraine | Cases: 5557995| Recoveres: 5445577| Daths: 112418
+Uruguay | Cases: 1041111| Recoveres: 1030944| Daths: 7664
+Uzbekistan | Cases: 253662| Recoveres: 241486| Daths: 1637
+Vanuatu | Cases: 12019| Recoveres: 11976| Daths: 14
+Venezuela | Cases: 552695| Recoveres: 546537| Daths: 5856
+Vietnam | Cases: 11625195| Recoveres: 10640971| Daths: 43206
+Wallis and Futuna | Cases: 3550| Recoveres: 438| Daths: 8
+Western Sahara | Cases: 10| Recoveres: 9| Daths: 1
+Yemen | Cases: 11945| Recoveres: 9124| Daths: 2159
+Zambia | Cases: 349304| Recoveres: 341316| Daths: 4069
+Zimbabwe | Cases: 266359| Recoveres: 258888| Daths: 5740
