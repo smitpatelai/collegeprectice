@@ -6,7 +6,7 @@ import numpy as np
 
 
 emp_name = np.array(["em1", "em2", "em3", "em4", "em5", "em6", "em7"])
-salaries = np.array([20000,50000,44000,30000,40000,27000,36000])
+salaries = np.array([20000,50000,35000,20000,36000,44000,27000])
 experience = np.array([1,3,2,2,4,5,3])
 
 print("Salaries",salaries)
