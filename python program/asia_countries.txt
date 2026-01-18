@@ -1,0 +1,50 @@
+name: Afghanistan
+name: Armenia
+name: Azerbaijan
+name: Bahrain
+name: Bangladesh
+name: Bhutan
+name: Brunei
+name: Cambodia
+name: China
+name: Cyprus
+name: Georgia
+name: Hong Kong
+name: India
+name: Indonesia
+name: Iran
+name: Iraq
+name: Israel
+name: Japan
+name: Jordan
+name: Kazakhstan
+name: Kuwait
+name: Kyrgyzstan
+name: Lao People's Democratic Republic
+name: Lebanon
+name: Macao
+name: Malaysia
+name: Maldives
+name: Mongolia
+name: Myanmar
+name: N. Korea
+name: Nepal
+name: Oman
+name: Pakistan
+name: Palestine
+name: Philippines
+name: Qatar
+name: S. Korea
+name: Saudi Arabia
+name: Singapore
+name: Sri Lanka
+name: Syrian Arab Republic
+name: Taiwan
+name: Tajikistan
+name: Thailand
+name: Timor-Leste
+name: Turkey
+name: UAE
+name: Uzbekistan
+name: Vietnam
+name: Yemen
