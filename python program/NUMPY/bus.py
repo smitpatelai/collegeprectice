@@ -40,16 +40,16 @@ def book_random_seats(bus_seats: np.ndarray, n: int = 5, seed: int | None = None
 
 def print_seating_numeric(bus_seats: np.ndarray) -> None:
         """Print the raw numeric seating array (0 = available, 1 = booked)."""
-        print("Numeric seating layout (0 = available, 1 = booked):")
-        print(bus_seats)
-        print()
+        # print("Numeric seating layout (0 = available, 1 = booked):")
+        # print(bus_seats)
+        # print()
 
 def print_seating_visual(bus_seats: np.ndarray) -> None:
-        """
-        Print a human-friendly visual of the seating layout.
-        Uses 'O' for available (0) and 'X' for booked (1).
-        Shows row numbers (1-based) and seat labels A,B,C for clarity.
-        """
+        # """
+        # Print a human-friendly visual of the seating layout.
+        # Uses 'O' for available (0) and 'X' for booked (1).
+        # Shows row numbers (1-based) and seat labels A,B,C for clarity.
+        # """
         rows, cols = bus_seats.shape
         seat_labels = [chr(ord('1') + i) for i in range(cols)]
         print("Visual seating layout (O = available, X = booked):")
@@ -63,25 +63,17 @@ def print_seating_visual(bus_seats: np.ndarray) -> None:
 if __name__ == "__main__":
     bus_seats = np.zeros((12, 3), dtype=int)
 
-    # print("Initial seat layout (before bookings):\n")
-    # print_seating_numeric(bus_seats)
-    # print_seating_visual(bus_seats)
-
-    seed = 42  # change/remove for different random outcomes
+# this line is use for  random seats book for bus booking
+    seed = book_random_seats(bus_seats)
     bookings = book_random_seats(bus_seats, n=5, seed=seed)
 
     print("After random bookings:\n")
-    # print("Booked seats (row, col) [0-based]:", bookings)
-    print()
+
+    # print()
     print_seating_numeric(bus_seats)
     print_seating_visual(bus_seats)
 
     print("Row booking counts (number of booked seats per row):")
     print(bus_seats.sum(axis=1))
 
-    # bookings = book_random_seats(bus_seats, n=5, seed=42)
-    #
-    # # print("Booked seats (row, col) [0-based]:", bookings)
-    # print("\nSeating layout (1 = booked, 0 = available):\n", bus_seats)
-    # print("\nRow booking counts:", bus_seats.sum(axis=1))
 
