@@ -44,6 +44,7 @@ def print_seating_numeric(bus_seats: np.ndarray) -> None:
         # print(bus_seats)
         # print()
 
+#Display Initial Seat Layout
 def print_seating_visual(bus_seats: np.ndarray) -> None:
         # """
         # Print a human-friendly visual of the seating layout.
