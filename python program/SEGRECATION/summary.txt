@@ -1,4 +1,4 @@
-Afghanistan | Cases: 234174| Recoveres: 211080| Daths: 7996
+ Afghanistan | Cases: 234174| Recoveres: 211080| Daths: 7996
 Albania | Cases: 334863| Recoveres: 330233| Daths: 3605
 Algeria | Cases: 272010| Recoveres: 183061| Daths: 6881
 Andorra | Cases: 48015| Recoveres: 0| Daths: 165
@@ -48,10 +48,10 @@ Cook Islands | Cases: 7203| Recoveres: 7150| Daths: 2
 Costa Rica | Cases: 1238883| Recoveres: 0| Daths: 9428
 Croatia | Cases: 1309728| Recoveres: 1258432| Daths: 18687
 Cuba | Cases: 1115251| Recoveres: 1106660| Daths: 8530
-Curaçao | Cases: 45986| Recoveres: 44720| Daths: 295
+Curaï¿½ao | Cases: 45986| Recoveres: 44720| Daths: 295
 Cyprus | Cases: 681110| Recoveres: 679745| Daths: 1365
 Czechia | Cases: 4759041| Recoveres: 4715206| Daths: 43517
-Côte d'Ivoire | Cases: 88384| Recoveres: 87497| Daths: 835
+Cï¿½te d'Ivoire | Cases: 88384| Recoveres: 87497| Daths: 835
 DRC | Cases: 99338| Recoveres: 84489| Daths: 1468
 Denmark | Cases: 3183756| Recoveres: 3174942| Daths: 8814
 Diamond Princess | Cases: 712| Recoveres: 699| Daths: 13
@@ -168,7 +168,7 @@ Qatar | Cases: 514524| Recoveres: 513687| Daths: 690
 Romania | Cases: 3529735| Recoveres: 3460149| Daths: 68929
 Russia | Cases: 24124215| Recoveres: 23545818| Daths: 402756
 Rwanda | Cases: 133518| Recoveres: 132039| Daths: 1468
-Réunion | Cases: 494595| Recoveres: 0| Daths: 921
+Rï¿½union | Cases: 494595| Recoveres: 0| Daths: 921
 S. Korea | Cases: 34571873| Recoveres: 34535939| Daths: 35934
 Saint Helena | Cases: 2166| Recoveres: 2| Daths: 0
 Saint Kitts and Nevis | Cases: 6607| Recoveres: 6559| Daths: 48
