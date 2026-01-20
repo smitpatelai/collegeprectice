@@ -2,14 +2,14 @@
 import numpy as np
 
 def book_random_seats(bus_seats: np.ndarray, n: int = 5, seed: int | None = None) -> list:
-    """
-    Randomly book `n` seats in `bus_seats` in-place.
-    Constraints:
-      - Only seats with value 0 may be booked.
-      - No row may contain more than 2 booked seats.
-      - Each seat may only be booked once.
-    Returns a list of booked (row, col) tuples (0-based indices).
-    """
+    # """
+    # Randomly book `n` seats in `bus_seats` in-place.
+    # Constraints:
+    #   - Only seats with value 0 may be booked.
+    #   - No row may contain more than 2 booked seats.
+    #   - Each seat may only be booked once.
+    # Returns a list of booked (row, col) tuples (0-based indices).
+    # """
     rng = np.random.default_rng(seed)
     rows, cols = bus_seats.shape
     booked = []
