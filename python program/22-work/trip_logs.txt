@@ -1,0 +1,49 @@
+Trip ID: 2945, Date: 2026-01-22, Time: 10:52:22, Distance: 13 km, Fare: ₹558, Surge: Morning Peak
+Trip ID: 4260, Date: 2026-01-22, Time: 10:52:44, Distance: 6 km, Fare: ₹285, Surge: Morning Peak
+Trip ID: 3401, Date: 2026-01-22, Time: 10:53:29, Distance: 39 km, Fare: ₹1008, Surge: Morning Peak
+Trip ID: 5025
+, Date: 2026-01-22, Time: 11:06:16, Distance: 27 km, Fare: ₹420, Surge: No Surge
+Trip ID: 7123, Date: 2026-01-22, Time: 11:06:28, Distance: 12 km, Fare: ₹336, Surge: No Surge
+Trip ID: 1648, Date: 2026-01-22, Time: 11:13:16, Distance: 32 km, Duration: 32 minutes, Fare: ₹488, Surge: No Surge
+Trip ID: 9415, Date: 2026-01-22, Time: 11:21:20, Distance: 42 km, Duration: 78 minutes, Fare: ₹700, Surge: No Surge
+Trip ID: 2287, Date: 2026-01-22, Time: 11:21:28, Distance: 5 km, Duration: 48 minutes, Fare: ₹196, Surge: No Surge
+===========================================
+Trip ID: 7436,
+ Date: 2026-01-22,
+ Time: 11:25:48,
+ Distance: 33 km,
+ Duration: 22 minutes,
+ Fare: ₹480,
+ Surge: No Surge
+===== SMART RIDE TRIP SUMMARY =====
+Trip ID: 6896,
+Date: 2026-01-22,
+Time: 11:26:36,
+Distance: 11 km,
+Duration: 34 minutes,
+Fare: ₹240,
+Surge: No Surge
+===== SMART RIDE TRIP SUMMARY =====
+Trip ID:  4680
+Date:  2026-01-22
+Time:  11:27:58
+Distance:  24 km
+Duration:  89 minutes
+Fare:  ₹506
+Surge:  No Surge
+===== SMART RIDE TRIP SUMMARY =====
+Trip ID:  8680
+Date:  2026-01-22
+Time:  11:29:45
+Distance:  8 km
+Duration:  59 minutes
+Fare:  ₹381
+Surge:  Evening Peak
+===== SMART RIDE TRIP SUMMARY =====
+Trip ID:  8450
+Date:  2026-01-22
+Time:  11:30:27
+Distance:  16 km
+Duration:  44 minutes
+Fare:  ₹480
+Surge:  Afternoon Peak
