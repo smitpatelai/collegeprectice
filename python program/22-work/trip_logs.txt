@@ -55,3 +55,11 @@ Distance:  14 km
 Duration:  45 minutes
 Fare:  ₹447
 Surge:  Afternoon Peak
+===== SMART RIDE TRIP SUMMARY =====
+Trip ID:  5555
+Date:  2026-01-22
+Time:  11:47:03
+Distance:  47 km
+Duration:  34 minutes
+Fare:  ₹1008
+Surge:  Afternoon Peak
