@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tejashree Production | Cultural 3D Experience</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Bungee&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1",
+                        "background-light": "#fdf8ff",
+                        "background-dark": "#0f172a",
+                        "accent-yellow": "#fbbf24",
+                        "accent-pink": "#ec4899",
+                        "accent-green": "#10b981",
+                    },
+                    fontFamily: {
+                        display: ["Plus Jakarta Sans", "sans-serif"],
+                        bungee: ["Bungee", "cursive"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        '3xl': "2rem",
+                    },
+                    boxShadow: {
+                        'neubrutalism': '8px 8px 0px 0px #000',
+                        'neubrutalism-sm': '4px 4px 0px 0px #000',
+                    }
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        .skew-divider {
+            clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+        }
+        .skew-divider-bottom {
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .polaroid {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 50;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-[100] bg-white dark:bg-slate-900 border-4 border-black dark:border-white shadow-neubrutalism px-6 py-4 flex justify-between items-center rounded-2xl">
+        <div class="text-2xl font-bungee tracking-tighter text-primary">TEJASHREE</div>
+        <div class="hidden md:flex space-x-8 font-bold text-sm uppercase">
+            <a class="hover:text-primary transition-colors" href="#">Home</a>
+            <a class="hover:text-primary transition-colors" href="#about">About</a>
+            <a class="hover:text-primary transition-colors" href="#services">Services</a>
+            <a class="hover:text-primary transition-colors" href="#gallery">Gallery</a>
+            <a class="hover:text-primary transition-colors" href="#contact">Contact</a>
+        </div>
+        <button class="p-2 border-2 border-black dark:border-white rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800" onclick="document.documentElement.classList.toggle('dark')">
+            <span class="material-icons text-xl dark:hidden">dark_mode</span>
+            <span class="material-icons text-xl hidden dark:block">light_mode</span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <span class="material-icons absolute top-20 left-[10%] text-accent-pink floating opacity-40 text-5xl">celebration</span>
+            <span class="material-icons absolute bottom-40 right-[15%] text-accent-yellow floating opacity-40 text-6xl" style="animation-delay: 1s;">auto_awesome</span>
+            <span class="material-icons absolute top-40 right-[10%] text-primary floating opacity-40 text-4xl" style="animation-delay: 2s;">star</span>
+            <div class="absolute top-[20%] left-[20%] w-24 h-24 bg-accent-green/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-[20%] right-[20%] w-48 h-48 bg-primary/20 rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="text-center md:text-left">
+                <h1 class="font-bungee text-5xl md:text-7xl lg:text-8xl leading-none mb-6 text-black dark:text-white">
+                    DRAMA, <br/>
+                    <span class="text-primary">FILMS</span> &amp; <br/>
+                    CULTURE
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 text-gray-700 dark:text-gray-300 max-w-xl leading-relaxed">
+                    Raising public awareness through engaging entertainment experiences across Gujarat.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <button class="px-8 py-4 bg-primary text-white font-black text-lg border-4 border-black shadow-neubrutalism hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all rounded-xl">
+                        BOOK A SHOW
+                    </button>
+                    <button class="px-8 py-4 bg-white dark:bg-slate-800 text-black dark:text-white font-black text-lg border-4 border-black dark:border-white shadow-neubrutalism hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all rounded-xl">
+                        OUR WORKS
+                    </button>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="relative z-10 border-4 border-black dark:border-white rounded-[3rem] overflow-hidden shadow-neubrutalism bg-primary rotate-3 transform transition-transform hover:rotate-0 duration-500">
+                    <img alt="Traditional Dancers" class="w-full h-full object-cover aspect-[4/5]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU11MrNUfD3EECIV6VQQQnhN8adCNdphKKNrg4zinl2g7_jA9_q5AsiLjqtOR2GbAfXeJ7fU-9DZEax8Z6VoXnrh2ymrJJ3_2iggPSEV1f5KO6g4BLqbHX1zTiQYISO2_Svl6FbHXPVE27ULeGoulSeLqFoWrKK5O34dm2el3OAHlrL7ajToOI0FTzXxYw2-lvCj-95kZrc0_K6uiiQ6VTQMjZoSl7H-DqTcHv-ufVhaLk6QuHEA1jsKpLuTPk-GBy7lwZUOwV4h0"/>
+                    <div class="absolute bottom-6 left-6 right-6 p-6 bg-white dark:bg-slate-900 border-4 border-black dark:border-white rounded-2xl">
+                        <p class="font-bold text-lg">Next Event: Navratri Special</p>
+                        <p class="text-sm opacity-70">Coming soon to Ahmedabad Main Plaza</p>
+                    </div>
+                </div>
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-accent-yellow border-4 border-black rounded-full flex items-center justify-center animate-bounce">
+                    <span class="material-icons text-4xl text-black">theater_comedy</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-24 bg-white dark:bg-slate-950 skew-divider relative z-20" id="about">
+        <div class="container mx-auto px-6 py-20">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 relative">
+                    <div class="absolute -inset-4 bg-accent-pink rounded-3xl -rotate-6"></div>
+                    <img alt="Theatrical Performance" class="relative z-10 border-4 border-black dark:border-white rounded-3xl shadow-neubrutalism w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC763RNfInwa0bpXIgZhZ2vPk-R-YrjNRb7PMndHGKx-lu-yKrfjsoZ0frqm0bhokGcdT1oF-bolxNe_s89_13aa5n2aIQCzVdKjgnsbRUuGem8qOwJ5H0QcsMh2xIQFU4LdARAXYepjtMlgxCVifM9SARk8oWMRPmOdRUKI49ys4uUhM231On4uL9Z4CjZRDR8Ag276C-Ash7trhY-9ZKkdapHNfHpKKfduua-RfAstCjoHSGOF3FH1AfOR6Xnh9Zysv8ZXjLFbig"/>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-4xl md:text-6xl font-bungee mb-8">Our <span class="text-accent-pink">Mission</span></h2>
+                    <div class="space-y-6 text-lg text-gray-700 dark:text-gray-300">
+                        <p class="font-bold border-l-8 border-accent-pink pl-6 py-2 bg-pink-50 dark:bg-pink-900/20">
+                            We specialize in creating professional entertainment programs that serve dual purposes - entertaining audiences while raising public awareness on important social issues.
+                        </p>
+                        <p>
+                            Our team consists of experienced performers committed to preserving and promoting traditional Gujarati art forms while adapting them to contemporary storytelling methods.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 relative" id="services">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-bungee mb-4">Our <span class="text-primary">Services</span></h2>
+                <div class="w-24 h-3 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-slate-900 border-4 border-black dark:border-white p-8 rounded-3xl shadow-neubrutalism hover:-translate-y-4 transition-transform group">
+                    <div class="w-16 h-16 bg-accent-yellow border-4 border-black rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <span class="material-icons text-3xl">theater_comedy</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 uppercase">Professional Dramas</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Thought-provoking theatrical performances that entertain while addressing social issues.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border-4 border-black dark:border-white p-8 rounded-3xl shadow-neubrutalism hover:-translate-y-4 transition-transform group">
+                    <div class="w-16 h-16 bg-accent-pink border-4 border-black rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <span class="material-icons text-3xl">groups</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 uppercase">Street Shows</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Engaging public performances including traditional forms like Bhavai and Dayro.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border-4 border-black dark:border-white p-8 rounded-3xl shadow-neubrutalism hover:-translate-y-4 transition-transform group">
+                    <div class="w-16 h-16 bg-accent-green border-4 border-black rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <span class="material-icons text-3xl">palette</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 uppercase">Cultural Programs</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Showcasing the diversity of Gujarat's artistic traditions through dance and music.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border-4 border-black dark:border-white p-8 rounded-3xl shadow-neubrutalism hover:-translate-y-4 transition-transform group">
+                    <div class="w-16 h-16 bg-primary border-4 border-black rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <span class="material-icons text-3xl">celebration</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 uppercase">Garba Nights</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Festive dance events featuring professional musicians to celebrate Navratri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="pt-24 pb-32 bg-accent-yellow/10 dark:bg-slate-900/50 skew-divider-bottom" id="gallery">
+        <div class="container mx-auto px-6 overflow-hidden">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-bungee mb-4">The <span class="text-accent-yellow">Gallery</span></h2>
+                    <p class="text-xl font-bold opacity-70">EXPLORE OUR PAST PERFORMANCES AND EVENTS</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 border-4 border-black dark:border-white px-8 py-4 rounded-full font-black text-xl shadow-neubrutalism-sm">
+                    SCROLL TO EXPLORE
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 py-10 relative">
+                <div class="absolute -top-10 right-0 pointer-events-none opacity-20">
+                    <span class="material-symbols-outlined text-[12rem] text-accent-yellow floating">theater_comedy</span>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black -rotate-3 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4on3TkhgWuBqGdn-FA6PnmxIE6RvPSsQlGGFzF56cA2Z5TenAp5cPgYR0NobmsNr9ZGmgIzy3ZNuO_IALA-ZGeIj7ugZQMJzoHjVWhxhpBBu4gfEH3SrbvYcf7qvWohaHo1TePDbKvIo5LDutRUDZ-LcPTBGLTqy02F8o1bSJt9Lef9RqHFoh04Vq3o5VOSw12xbVwGwPmtXTEgbow6HYOFItV8UFopbME6nz8NQIjwBgQBMojVYF_h06KOG074EAQx0MoD3k1CY"/>
+                    <p class="font-bungee text-xs text-center text-black">SURAT SHOW '23</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black rotate-6 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2vF99M25ribpDnm5SKCNmKSW_0JgL4CppvCbAf9rW5OACAgx6fiG3dwz6aCZlXpM-8j9atBtuX3RG9fGKrW1qqvcNDUYaFzTehFr2SmYv4AvGCyPFc4AIsFap1_uKkuZ-SkEWDvSJkgJQvParu4rtCV6xgqzZyomSDTi4UD1CNUHwfJs7Xp3zuqN0dDHDlToOU1t_Kn0raIwB082jHF7hQd4W74oaVSahgq1BbmJI_5ER5EUpcvPeqFIUlrAivkiepxPWnrYy4x0"/>
+                    <p class="font-bungee text-xs text-center text-black">VADODARA NIGHTS</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black -rotate-12 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM3GXimUsDp9Yvy-XX_QQy3ny05Qp6vQbJLiRgy8QTb0LNee2C501Zo7DsOYi1iFD732PTrd8dAXwIL4CSiPwldVxwTXfOqJtL4jeXI9TQDwOJWwpyBmI4WbavmAsYU9Vme3wMsy_YLujHau6z1LrxR7XhxbCdZraUhTaMX85e3J9wv5MvCTe3BRly1tVpwUjpMEGzg5m9QdTMWx8aC-3fyKBuoctNPqilKSS0vqBQqWArIcrHSfclKos6uLlWDHrS4QDjKQADPo8"/>
+                    <p class="font-bungee text-xs text-center text-black">BHAVAI SPECIAL</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black rotate-3 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBomZemccAfNHRd0nBN-JPZYuXg0hTXNhlSegB4MOH6R3tJlZtwZ7Z6xfZNkAVgDK_DQBq5b0_yk9UkQVk0EZZjFtbxZUXtoY981dIi1TlPKvqieHBhrJIDiZrCl4r7cDeCL96RbfB66yjt9ou0LDzy5kxai5-NBKlawzidzyBpKDh9jC7cKH4CToRJ-czxz-0vOKuy9cb9NXBuz6IEgPtaalo6aUfBkBX3YtRkl4ssyu6v2QgJzUnIE1vEhfHHI73E_XbEkvsD-mA"/>
+                    <p class="font-bungee text-xs text-center text-black">RAJKOT FESTIVAL</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black rotate-2 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCix9SamLK8pyXH2auNL2pAIJhWmVIDRYaUtwWRJIvv8dPKisnlvUozTz06DjYrbnC_J_L6GREhRp-bS2JAuQitT07ZgmyzL9WlgpHEoMXBCs_Gz0ghQIwfAGbJFp8dmprZtgd3676KZJqzhNHg7r24TZwtpa74Oy34BZsRljKjl-ftmioSdj1X-bEJBx17SRFL-Cah-nMUNIeNvQfDvNFfvRpUGnUzdsZAl6krEPbCo6nGL_s9PrdgbHn-WAUld9rEKlAH3UgWspI"/>
+                    <p class="font-bungee text-xs text-center text-black">KUTCH UTSAV</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black -rotate-6 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3YYMvrBcNf6eQ-zOEC11ENhSeJ2n4yunhkp0OB--07lPGW-jj5PLNBiGgMBt7FhvD_uqsfSQvLKo84fBUhfLbqYTxH3hTu9we1Aar4WR9lkPJdS0xO-eQkxdBN1QUyka3grYb0hJz4Lzcka96xHbwTD_x65-neOqrQiYPPpIeizd7_VbsxVXsQFrCWff8D65rgZ1A1xsSA0RRm1VN26YaO-cwO3Kg8Z4md0983LLO3i_SRONxAQUMri44PLL6OLlRwrKAepJy91k"/>
+                    <p class="font-bungee text-xs text-center text-black">DRAMA NIGHT</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black rotate-12 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8RZplOMfqCPG6Ju8Ea93G91ivHui6PStQ-pqF-VQgc0kCfmgrG3RJn2KUJuRBei0uEnBQ-AB1ROlAi7yZ9JyMYDhb4LeHsfwfjRvoWCoFfxUFLIXo47TzJy_irVz_wI0GUU7ff-iWniL1kxhAlrBU-vAe_c4D5ViDp_pVy-tMMj0zFrR-p6MkVqR365qmrFnrmGkify1qB7GFBYkutJ9QrbgWw0q4diEsTZWZM_ilZMu6PPUNbNOB90mFKtnR6RSi7wz1lwC68Xc"/>
+                    <p class="font-bungee text-xs text-center text-black">MODERN GARBA</p>
+                </div>
+                <div class="polaroid bg-white p-4 border-4 border-black -rotate-3 shadow-neubrutalism">
+                    <img alt="Event photo" class="w-full h-48 object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXOvgVHbj5CB7V71i2UHMSDzLw-pMyLqhpHSt9dIW55hE3VxgH98i2FphEreiaFvZbzr2IkssvDizH3LXdab7BbI6WoaX28xlGaffRBbdlBN8GYmIHFTk2oCZNHUBSOtd95xLDWztxnQgopDhU81VoD5V9hevRxbTJdsmvWhWHyOtGmH-jhMQ-IE7Zi9vcjj0Honced047i-hzuwx5IjBiMT5sBhhc_YLhGOZ3BJPVNYw1UFZ4HLB6uoQfPco-kUYey50i665g0xA"/>
+                    <p class="font-bungee text-xs text-center text-black">STREET PLAY</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-32 bg-white dark:bg-slate-950 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <span class="material-symbols-outlined absolute top-10 left-[5%] text-accent-pink/20 text-4xl floating">auto_awesome</span>
+            <span class="material-symbols-outlined absolute bottom-20 right-[5%] text-primary/20 text-6xl floating" style="animation-delay: 1.5s;">celebration</span>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bungee mb-20 text-center">What They <span class="text-accent-green">Say</span></h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-background-light dark:bg-slate-900 border-4 border-black dark:border-white p-10 rounded-3xl shadow-neubrutalism relative">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-accent-green border-4 border-black rounded-xl flex items-center justify-center">
+                        <span class="material-icons">format_quote</span>
+                    </div>
+                    <p class="text-lg italic mb-8">"The street show they performed on water conservation was both entertaining and educational. The community learned while being thoroughly entertained."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full border-2 border-black bg-accent-yellow overflow-hidden">
+                            <img alt="Mr. Patel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChSlKdWZEfGaDak4yRn4aBbbPtzt7QnHJHKLeULMpl5dmWYkI7PgoqFJ9d1BuaZWC1dJn6eYaNglmToF7JM12WJzbmK8sU4clczGhOzOiE4YbprICfIYSNN9zDUj16OuuYzheEQMFFMrRmv0OF_nZyfcL9bKHDEkBKIrYmNVfPlf1s1Q-406niZEoqjxKX2UY9G_CCZ5tQSN_ziiPxPQKy6GWveWLSLdFKs823rdkcFSAoU1Mr0FnC5syRXZfZVXS-KaMYRB8yGOo"/>
+                        </div>
+                        <div>
+                            <p class="font-black">Mr. Patel</p>
+                            <p class="text-sm opacity-60 uppercase font-bold">Community Organizer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-background-light dark:bg-slate-900 border-4 border-black dark:border-white p-10 rounded-3xl shadow-neubrutalism relative md:translate-y-8">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-accent-pink border-4 border-black rounded-xl flex items-center justify-center">
+                        <span class="material-icons">format_quote</span>
+                    </div>
+                    <p class="text-lg italic mb-8">"Their educational drama on digital safety was perfect for our students. The professional approach and interactive elements kept all students engaged."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full border-2 border-black bg-primary overflow-hidden">
+                            <img alt="Mrs. Desai" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkFKUzBQBaf4ztav0r4erZQPtMD4O6ruBztU0wI8BS81NlZBFPZInohopNsiJCL2sR02d0Wt1yBomvQ751T-pQ_NqWd84qhJaTvpdTViCoHj0iBgZmS2eabDXg3SfNaIyAqiFguQ7PxqJHm31YRIoohAkhwY9EBS2hh9YTMR7sGrivMIhj2WVWShRPfbavP3j1n5-KFJ1mWinKX3Cp2LslkRZTOFfGmH73GoVc54OnxveE3DnHLlDIlLy1wca6_lkbXumDOY-qasI"/>
+                        </div>
+                        <div>
+                            <p class="font-black">Mrs. Desai</p>
+                            <p class="text-sm opacity-60 uppercase font-bold">School Principal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-background-light dark:bg-slate-900 border-4 border-black dark:border-white p-10 rounded-3xl shadow-neubrutalism relative">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-primary border-4 border-black rounded-xl flex items-center justify-center">
+                        <span class="material-icons">format_quote</span>
+                    </div>
+                    <p class="text-lg italic mb-8">"For our corporate event, they delivered a fantastic composite cultural program that showcased Gujarat's diversity beautifully. Very professional team!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full border-2 border-black bg-accent-green overflow-hidden">
+                            <img alt="Mr. Sharma" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCuf0mekOkY6xbnMSyK7PkGhokhzwi8s_G_I1tvpkBS34ve28OG6jQI4agHXvnwGQLma2_BM6YviDmASCx1JX9olm4T8BOIdX9LT01tW_OhibL2TAh7evqo8kMb65yGQ-1pddlcGBwI53C1eEToB3v8I-a8nfIn_d90wOun0GogjEJPLyX4Fn8wVrG6WWN0G-nQwuJwVnua6RsOM_W7bXzbkrNUnG6zXsgWcbC8xXfrEIqc6qSl3HV-jCwcY7s93ZBioHW1rV_vz0"/>
+                        </div>
+                        <div>
+                            <p class="font-black">Mr. Sharma</p>
+                            <p class="text-sm opacity-60 uppercase font-bold">Event Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-24 relative overflow-hidden" id="contact">
+        <div class="absolute bottom-0 right-0 w-96 h-96 opacity-10 pointer-events-none translate-x-1/2 translate-y-1/2">
+            <span class="material-icons text-[20rem] text-primary rotate-12">contact_mail</span>
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="bg-white dark:bg-slate-900 border-8 border-black dark:border-white rounded-[3rem] p-8 md:p-16 shadow-neubrutalism relative overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-16 relative z-10">
+                    <div>
+                        <h2 class="text-5xl font-bungee mb-8">Get In <span class="text-primary">Touch</span></h2>
+                        <div class="space-y-10">
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 bg-accent-yellow border-4 border-black rounded-2xl flex items-center justify-center shrink-0">
+                                    <span class="material-icons text-black text-3xl">location_on</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-xl mb-1 uppercase">Our Base</h4>
+                                    <p class="text-lg opacity-70">C/804, Shreeji Towers, Opp. Himalaya Mall, Drive-in road, Ahmedabad - 380052</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 bg-accent-pink border-4 border-black rounded-2xl flex items-center justify-center shrink-0">
+                                    <span class="material-icons text-black text-3xl">call</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-xl mb-1 uppercase">Call Us</h4>
+                                    <p class="text-lg opacity-70">+91 98255 88922<br/>+91 99744 42337</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 bg-accent-green border-4 border-black rounded-2xl flex items-center justify-center shrink-0">
+                                    <span class="material-icons text-black text-3xl">alternate_email</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-xl mb-1 uppercase">Email Us</h4>
+                                    <p class="text-lg opacity-70">dkpatel1468@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 flex gap-4">
+                            <a class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center hover:scale-110 transition-transform shadow-neubrutalism-sm" href="#">
+                                <span class="material-icons">facebook</span>
+                            </a>
+                            <a class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center hover:scale-110 transition-transform shadow-neubrutalism-sm" href="#">
+                                <span class="material-icons">camera_alt</span>
+                            </a>
+                            <a class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center hover:scale-110 transition-transform shadow-neubrutalism-sm" href="#">
+                                <span class="material-icons">play_circle</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-slate-800 p-8 rounded-3xl border-4 border-black dark:border-white">
+                        <form class="space-y-6">
+                            <!-- Form inputs commented out in original -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-3xl font-bungee text-primary mb-8">TEJASHREE PRODUCTION</div>
+            <p class="opacity-50 mb-8 max-w-lg mx-auto">Drama, Films and Cultural events (Entertainment, Advertisement and Awareness)</p>
+            <div class="flex justify-center gap-8 mb-12 font-bold text-sm uppercase flex-wrap">
+                <a class="hover:text-primary" href="#">Privacy Policy</a>
+                <a class="hover:text-primary" href="#">Terms of Service</a>
+                <a class="hover:text-primary" href="#">Careers</a>
+                <a class="hover:text-primary" href="#">FAQ</a>
+            </div>
+            <div class="pt-12 border-t border-white/10 opacity-30 text-sm">
+                © 2024 Tejashree Production. All rights reserved. Gujarat, India.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

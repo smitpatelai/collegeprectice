@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tejashree Production | Drama, Films &amp; Cultural Events</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#7C3AED",
+                        accent: "#FBBF24",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#0F172A",
+                    },
+                    fontFamily: {
+                        display: ["Outfit", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+        }
+        .masonry-grid {
+            columns: 1;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid { columns: 2; }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid { columns: 3; }
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/20 dark:border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-extrabold text-primary flex items-center">
+                    <span class="material-icons-round text-3xl mr-1">theater_comedy</span>
+                    Tejashree<span class="text-slate-400 font-light">Production</span>
+                </span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a class="hover:text-primary transition-colors" href="#home">Home</a>
+                <a class="hover:text-primary transition-colors" href="#about">About Us</a>
+                <a class="hover:text-primary transition-colors" href="#services">Services</a>
+                <a class="hover:text-primary transition-colors" href="#gallery">Gallery</a>
+                <a class="bg-primary text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-primary/30 transition-all" href="#contact">Contact Us</a>
+                <button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+                    <span class="material-icons-round text-primary dark:text-accent">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden" id="home">
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full animate-float-slow"></div>
+            <div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-accent/20 blur-[120px] rounded-full animate-float"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-widest uppercase">
+                    Cultural Excellence Since 2000
+                </span>
+                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight">
+                    Drama, Films and <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Cultural Events</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                    Raising public awareness through engaging entertainment experiences across Gujarat. We bring stories to life with passion and tradition.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a class="px-8 py-4 bg-primary text-white font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-primary/20" href="#gallery">
+                        Explore Gallery
+                        <span class="material-icons-round">arrow_forward</span>
+                    </a>
+                    <a class="px-8 py-4 glass-card font-bold rounded-2xl flex items-center gap-2 hover:bg-white/90 dark:hover:bg-slate-800/90 transition-all" href="#services">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-gradient-to-tr from-primary to-accent opacity-20 blur-2xl rounded-3xl animate-pulse"></div>
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl animate-float">
+                    <img alt="Cultural performance on stage" class="w-full h-full object-cover aspect-[4/5] lg:aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFbwILmS6hKj9trYQrSgqxhEimLdptLjhxG9Ai4YiB3KpdPfEAIi1QEPbVMnpb0JHBAmC_saMTv1pZx3jmTZ057B2BQn37IgAs-N0Slqm7KhwUgHqU-cFkgJp0j_QxDoclxFymN9c8HD6-kYchCajDLzBFDr2y92WhRlfOjnDIlwFAxx9wsDneKujjFijRMwzDnz8FKj43_oTvN7V4eBFFGB7XPkykCwvCPgiLYaWPEGgomoVMXL1_ri9ZaN5WA1hVupwLI65Ir_k"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex items-end p-8">
+                        <div class="text-white">
+                            <p class="text-2xl font-serif italic">"Preserving the soul of Gujarat through performance art."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-24 relative overflow-hidden" id="about">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 relative group">
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent/30 rounded-full blur-2xl group-hover:bg-accent/50 transition-colors"></div>
+                    <img alt="Our performers on stage" class="rounded-3xl shadow-2xl relative z-10 transition-transform group-hover:scale-[1.02] duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoCXxbeXolCQcVqPjDa7IQtWayYgkW-JQcvJjMfO-FNTfAPRTuZ4iYiQEOhlPCk_zHAgXAIldnf9Z2EftCkZR77nEXJg57yWhzqOxEvrUEPWhxw9T7CI_ke1RgqdtRbUCxo8o2kTd2Ta5opvA-pjOq6pnBfZFVBSNzeWZa085BvWUh10LaYYGp41MtjhXu2CdcyopyiS1fkQWIvcRWLvhfPYsjWh5sPTHzGkRFxXyjiWyqLbkUvhoRNGdc63caVpheMkcwIv3thYA"/>
+                    <div class="absolute -bottom-6 -right-6 glass-card p-6 rounded-2xl z-20 shadow-xl max-w-xs">
+                        <p class="font-bold text-primary text-xl">20+ Years</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Of professional entertainment &amp; awareness programs</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 space-y-6">
+                    <h2 class="text-4xl font-extrabold flex items-center gap-3">
+                        <span class="w-12 h-1.5 bg-primary rounded-full"></span>
+                        Our Mission
+                    </h2>
+                    <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                        We specialize in creating professional entertainment programs that serve dual purposes - entertaining audiences while raising public awareness on important social issues.
+                    </p>
+                    <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                        Our team consists of experienced performers committed to preserving and promoting traditional Gujarati art forms while adapting them to contemporary storytelling methods.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="p-4 glass-card rounded-2xl border-l-4 border-primary">
+                            <span class="material-icons-round text-primary mb-2">volunteer_activism</span>
+                            <h4 class="font-bold">Social Awareness</h4>
+                        </div>
+                        <div class="p-4 glass-card rounded-2xl border-l-4 border-accent">
+                            <span class="material-icons-round text-accent mb-2">auto_awesome</span>
+                            <h4 class="font-bold">Cultural Heritage</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/50" id="services">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="text-4xl font-extrabold">Our Professional Services</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">We offer a wide range of entertainment programs suitable for all occasions and events across the country.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
+                    <div class="overflow-hidden rounded-2xl mb-6">
+                        <img alt="Drama performance" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDstYxf2kcoMEoGDcj2KpEDS7oqoyph2v5hl2-ZmnkmUJi_dmjiRTGh0S9KMQ-m-6R3_LPy6hRB3AqLFms7PesAaRkDTiTKNzKNwiP01lMLg74Ly77fraqtndSvg3wGzgFIpSaAF6I10SYHq0AvtWFvWUGTs8I1VFamsYGJC1zC8oyv4Yj1DubCXuTFjH0gjcnLHFYaNYuOzYoWqIbuU1wsB11rsCoOiwa4zG5gqcvKltpa0ZRroavzZ7BNw7BmsdnNVxgCls5TPqI"/>
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-4">
+                            <span class="material-icons-round">theater_comedy</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Professional Dramas</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Thought-provoking theatrical performances addressing social issues with scripts by experts.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
+                    <div class="overflow-hidden rounded-2xl mb-6">
+                        <img alt="Street show" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK0LkmkFiQnH8JNOa86jy9ek2TYw1Wcr8qhMMgIMPJLrIRfGPk_igDRcQBhWcaBUCy5D63J_5Sf5AFOoDhMZqnzD_xvZ8YUOoyYDttImqVrqDVV5mKcudkBlp93s8E6IbGfImkzv2MOn_R0QHJYo519yV1_WwHB3Fp1LpZr4ILjtRvlItYUTaPVhboDshZH7s6t_xbk438VkLnB-2wHw-sqD4S1VJQV0VBgBIvH_aOiqiN4KCsEGkGY3nJSFIPximOUnAY_eHhReE"/>
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent mb-4">
+                            <span class="material-icons-round">campaign</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Street Shows</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Engaging public performances including traditional forms like Bhavai &amp; Dayro in public spaces.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
+                    <div class="overflow-hidden rounded-2xl mb-6">
+                        <img alt="Cultural program" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYiNlDi7sOZYJVXTI9G7deXETSxeCC1kX3PkL80BCRlvSxld2M7D13f8j2E2PQJJchHQMfXvEsRGAIsg3WB-Gea7YXG_L1lQQCPNS3hDuDY4lVstwhAzjIyA4z-TbYRwREM5O83j-d6fDRuSEqa25Rmu23YzYiQ85SZO-NqBmiAabWDwbiBfLoHYeIpnWJ8oE1CeWNDTvLC-JcUDNZQN2eY6zhfppWlSRWaK3J8VVczV8eJsHYDMSnhZQ5pCRNEefWmSSi45LrbSQ"/>
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 mb-4">
+                            <span class="material-icons-round">groups</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Cultural Programs</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Composite cultural performances showcasing Gujarat's artistic traditions including dance &amp; music.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
+                    <div class="overflow-hidden rounded-2xl mb-6">
+                        <img alt="Garba nights" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCnUjZfG4dHLs27EfpNg6gTJvGIrTflt_ri7s_Wl5oo2y3U9FTVvKBSluyM_4WiGqZpxaWX2dgJ4vzLWhzPwVvWUC4akKLXRM5rAaMcTBfiJTaLw9h6O-jr7Gmbl7eb6JXI1KThgAfnR8Qs88Hw_FYCYdsmciJ8TkfwYytqgq-5k5tZK5U0j5k00Ncfob_d0x77Uw1qY-5M5ySFqO1_blTMoYLrDmzfU2FndPYqB4pVyPFWZglZDnZrl_KTxrkQZEGEEgD4L3vU9s"/>
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="w-12 h-12 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 mb-4">
+                            <span class="material-icons-round">celebration</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Garba Nights</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Festive dance events featuring professional dancers and musicians for authentic spirit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Menu Section -->
+    <section class="py-16 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="glass-card p-8 md:p-12 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 text-primary/10">
+                    <span class="material-icons-round text-9xl">format_list_bulleted</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-center mb-12">Complete Service Menu</h2>
+                <div class="grid md:grid-cols-2 gap-12 relative z-10">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-primary flex items-center gap-2">
+                            <span class="material-icons-round">theater_comedy</span>
+                            Professional Performances
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-primary text-sm">check_circle</span>
+                                Professional Dramas (Social/Historical)
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-primary text-sm">check_circle</span>
+                                Street Shows (Bhavai form)
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-primary text-sm">check_circle</span>
+                                Composite Cultural Programs
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-primary text-sm">check_circle</span>
+                                Dayro (Traditional Folk Music)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-accent flex items-center gap-2">
+                            <span class="material-icons-round">star</span>
+                            Festive &amp; Special Events
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-accent text-sm">check_circle</span>
+                                Garba &amp; Dandiya Performances
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-accent text-sm">check_circle</span>
+                                Traditional Lagangeet Performances
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-accent text-sm">check_circle</span>
+                                Corporate Event Entertainment
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                                <span class="material-icons-round text-accent text-sm">check_circle</span>
+                                School &amp; Community Awareness Programs
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-24" id="gallery">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="space-y-2">
+                    <h2 class="text-4xl font-extrabold">Event Gallery</h2>
+                    <p class="text-slate-500">Glimpses of our soul-stirring performances and community impact.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-3 rounded-2xl glass-card hover:bg-primary hover:text-white transition-all">All Photos</button>
+                    <button class="p-3 rounded-2xl glass-card hover:bg-primary hover:text-white transition-all">Videos</button>
+                </div>
+            </div>
+            <div class="masonry-grid gap-6">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Cultural performance" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web2.jpg"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Village Awareness Program</h4>
+                            <p class="text-sm opacity-80">Mehsana, Gujarat</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Stage event" class="w-full group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5QG6Ab6_j3BV2wjy7c1LkuXQBJbkx2yH5wl63cSAkrQ1n83sPMyenC1xn3YuGV3R9wmrFCnk70tqLCyPcr9XQKh5ZH8cxr87hpG7FUukVC3B3WBA6fhjyCSWQXELoFWi7g8cOxLowsW3OtVK5esRfr6g61g9Bk9sV0MaLAlOYJvHO0-_-uaC-o19BOErnszwzky6oqSvKSbHEMpEaE0UAG8iDgLw2BrJjENXDYl4qpufxU5lGtCJ578YVwV7D8jV900EXT9aMh0o"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Corporate Annual Night</h4>
+                            <p class="text-sm opacity-80">Ahmedabad</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Street theater" class="w-full group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGyruw-yJtPxJYHzZg3VbIOJot9S7FYokUs2C9ALfmlYL5OaD5tL-_3H6zWFYyHa7cIOrt1VWWSLYDsYXT-dFIguykbfN75ACFJuN29YcbRulXV0zFcRGLWQ-vTMYXtGO1V3KnPtZi8kts620jusqonThH3J4nXSs1ia8rpcotHsE3B74pRXCqEMdBreDevkY6LXs4aVawPrfHqi9Pz5bNi7NBAc-HkudJM5eLg2wM2s1CrjAWYXuF2EKFf_XdsrjJGPiyXVxq0Zg"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Street Play (Bhavai)</h4>
+                            <p class="text-sm opacity-80">Rajkot Public Square</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Garba dance" class="w-full group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6rgtnsjvy581ZloKRFD1b7JCen-qb82KgBz7ZTzAYoFZQPf1vyflW5n49H4H49UxXD294bMg5Jc2NkANxBZlTh9KFAOH4Ca7SbifafUNwX6DsjJ1ow5U3tHLbRCtET7eaOL8p0k2xauHUBLaHtOKn-Wjk3OWVp-OIXpjdk7iDLnaZ-vfDLhlhAaTZhfql3gzXZ4Q5NZmPI3aTl6zAj3h5UALismrC42pFv271U98I0B55aZCWkddTmQ4ktuuvnAFF0usLchFWPwo"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Navratri Mahotsav</h4>
+                            <p class="text-sm opacity-80">Surat Stadium</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Music night" class="w-full group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-NMPbksEFTOssbGNSYXzHrw4wADu3bewmcMBaK1Hjnt9D7zfKOKdn_ghPmw-xfm4KT5tmLWdyfBrxkMSCQmYssW-2g72mQGDCnUOHdrs2x-mCoTTkWErNMiFSRvtiaE5NPSNENzKNeUKyuQI_7CQl_L_OxoK7ZynVuw7hn7FBmw9Q2MCrIn0bk5sh_BVPnmDT7s-VCNNwld_S2ODGBRrUOBnFAvMCKaWvaIXPhN74zVuNWs09gjCpYWReIWlRuyWhk4f6Bnjahlc"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Dayro Folk Night</h4>
+                            <p class="text-sm opacity-80">Gandhinagar</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                    <img alt="Performance" class="w-full group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-H4SjJMmjqW4FEvkSoWWRP4yiiFClwxgKZ-QKz36ZF06JfQh8gerEyxng_mSW1F2Yda45hfHxe8Z7AiLa86n5_1DsuhMIwuatfHcVdxeyWm9qInuqqlq7QLkuFXpJCvOtl4UehXs9RDiSUpacJDI4HR_T1TCLxFIUJxspfbya3QkDeJYpb9AKdecKvz1x6uDN3IASnaUrNCAukiLV1-49rFkN0BFQpgXE-xFQPcH1Pp__lYaosNc1oY1I1El8rt0HJPkFf0tgvAc"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Youth Festival</h4>
+                            <p class="text-sm opacity-80">Baroda University</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button class="px-10 py-4 glass-card font-bold rounded-2xl border border-primary/20 hover:border-primary transition-all">
+                    Load More Moments
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Download Section -->
+    <!-- <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-primary rounded-[3rem] p-8 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                    <div class="absolute -top-10 -left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+                </div>
+                <div class="relative z-10 space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-extrabold">Download Our Complete Portfolio</h2>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto">Get detailed information about our programs, team expertise, and pricing packages in one PDF brochure.</p>
+                    <a class="inline-flex items-center gap-2 bg-white text-primary px-10 py-5 rounded-2xl font-bold text-lg hover:bg-accent hover:text-slate-900 transition-all shadow-xl" href="#">
+                        <span class="material-icons-round">download</span>
+                        Download Brochure (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="text-4xl font-extrabold">Words From Our Clients</h2>
+                <div class="w-24 h-1.5 bg-accent mx-auto rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="material-icons-round text-primary/20 text-6xl absolute top-4 right-6">format_quote</span>
+                    <p class="text-slate-600 dark:text-slate-400 italic mb-8 relative z-10">
+                        "The street show they performed on water conservation was both entertaining and educational. The whole community learned while being thoroughly entertained."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img alt="Mr. Patel" class="w-12 h-12 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK9_5uRgzpVQvZWK9qBBI1qGS55ADSPKQxfvHMMXNzVjc1G-w0XEub0LSOxffvdAU6JLM4Uy6VrE4FnUYR7ErBG2qUAJWW9MEaG9KoAT69rVHrLnJfnvL-lH61kgN0i_WjyCnB-qDCo-zIdXwWaj3hYNSkYhSXBxg3eSGACPoreK5io_TdwEgvWoAm3PraXLZjK3VK08en4cjIZRsx5_Ojsz8hPS74L3u-qeG9qzYhwFWHwk1m8Dr2DOyzM0Bbt7EYOJuqQNLg0GY"/>
+                        <div>
+                            <h5 class="font-bold">Mr. Patel</h5>
+                            <p class="text-xs text-slate-500">Community Organizer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl relative border-t-4 border-primary">
+                    <span class="material-icons-round text-primary/20 text-6xl absolute top-4 right-6">format_quote</span>
+                    <p class="text-slate-600 dark:text-slate-400 italic mb-8 relative z-10">
+                        "Their educational drama on digital safety was perfect for our students. The professional approach and interactive elements kept all students engaged throughout."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img alt="Mrs. Desai" class="w-12 h-12 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVjq0bhxdBg2TlQAqquFfd-vFOPYpLZ66LKeRUs8APSSy77SThOtzkifKQmiNKBbfR6LZdibF48-KVB9GwDAT47sSOt_V2s6l9k0E_nu1GqZoRPiGOWq175EaXKGUH2I7J5RGRPiYxKNU046QI6JuNca1aHDnlOduhv6Exffq_3R_QOBOP9Oex2NSz-ROJmlYybCXttP3kOBYuAA6vNouZkh77Ly3jz28iZ81tjzGDsbArsgJeMXu5278Gjjll_4vdthIq3WGXrMU"/>
+                        <div>
+                            <h5 class="font-bold">Mrs. Desai</h5>
+                            <p class="text-xs text-slate-500">School Principal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="material-icons-round text-primary/20 text-6xl absolute top-4 right-6">format_quote</span>
+                    <p class="text-slate-600 dark:text-slate-400 italic mb-8 relative z-10">
+                        "For our corporate event, they delivered a fantastic composite cultural program that showcased Gujarat's diversity beautifully. Very professional team!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img alt="Mr. Sharma" class="w-12 h-12 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByLA4jAZ0LXujSF1pvMrjEzOL3ySv2yX0x9eDBrEYzTdKLFWIB0z6RITnPh0MCRmjWu2MZtGUNNTDkpTS3-lVOyEMUPkSDzMblOzyvaiVBxoOl5kpOvAz7zpOVhmnKBVzCK5xr0P-cz9DWyMmD7y-gnPj1-gKi3cONgQmOH-PlY_Zxxe5WOZDt2w4Lf5Eed5T8__yoB7iIimdZ-bXQr6wsVY9vIMr4aaYE3wZ-roIFQIEK2hTEkkZYpAWb-Y3G-DAEFmOAo3nCgR0"/>
+                        <div>
+                            <h5 class="font-bold">Mr. Sharma</h5>
+                            <p class="text-xs text-slate-500">Event Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-24 relative overflow-hidden" id="contact">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div class="space-y-12">
+                    <div>
+                        <h2 class="text-4xl font-extrabold mb-4">Let's Create Magic Together</h2>
+                        <p class="text-slate-500 text-lg">Planning an event? Need to raise awareness? We're just a message away.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex gap-6 items-start group">
+                            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <span class="material-icons-round">location_on</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Our Address</h4>
+                                <p class="text-slate-500">C/804, Shreeji Towers, Opp. Himalaya Mall, Drive-in Road, Ahmedabad - 380052</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start group">
+                            <div class="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
+                                <span class="material-icons-round">phone</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Call Us</h4>
+                                <p class="text-slate-500">+91 98255 88922, +91 99744 42337</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start group">
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                <span class="material-icons-round">mail</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Email Us</h4>
+                                <p class="text-slate-500">dkpatel1468@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="https://www.facebook.com/share/16M4aBKm19/" class="social-icon text-white-400 hover:text-white-400" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/dhananjay.patel.520" class="social-icon text-white-400 hover:text-white-400" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/919825588922" class="social-icon text-white-400 hover:text-white-400" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-6.33-11.29c-5.516 0-9.987 4.471-9.987 9.987 0 1.902.53 3.731 1.522 5.315L2.09 21.535l4.32-1.258a9.985 9.985 0 0 0 4.72 1.183h.004c5.515 0 9.986-4.473 9.986-9.988 0-5.517-4.472-9.988-9.99-9.988"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="glass-card p-10 rounded-3xl shadow-2xl">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold opacity-70 ml-1">Full Name</label>
+                                <input class="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none" placeholder="John Doe" type="text"/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold opacity-70 ml-1">Email Address</label>
+                                <input class="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none" placeholder="john@example.com" type="email"/>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold opacity-70 ml-1">Service Interested In</label>
+                            <select class="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none">
+                                <option>Professional Drama</option>
+                                <option>Street Show</option>
+                                <option>Garba Night</option>
+                                <option>Corporate Event</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold opacity-70 ml-1">Message</label>
+                            <textarea class="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none resize-none" placeholder="How can we help you?" rows="4"></textarea>
+                        </div>
+                        <button class="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-extrabold text-white flex items-center">
+                        <span class="material-icons-round text-primary text-3xl mr-1">theater_comedy</span>
+                        Tejashree<span class="text-slate-500 font-light">Production</span>
+                    </span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium">
+                    <a class="hover:text-white transition-colors" href="#home">Home</a>
+                    <a class="hover:text-white transition-colors" href="#about">About Us</a>
+                    <a class="hover:text-white transition-colors" href="#services">Services</a>
+                    <a class="hover:text-white transition-colors" href="#gallery">Gallery</a>
+                    <a class="hover:text-white transition-colors" href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="h-px bg-slate-800 w-full mb-12"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-wider">
+                <p>© 2025 Tejashree Production. All rights reserved.</p>
+                <p>Designed with ❤️ for Gujarat's Culture</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
