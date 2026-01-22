@@ -113,8 +113,13 @@
                         Explore Gallery
                         <span class="material-icons-round">arrow_forward</span>
                     </a>
-                    <a class="px-8 py-4 glass-card font-bold rounded-2xl flex items-center gap-2 hover:bg-white/90 dark:hover:bg-slate-800/90 transition-all" href="#services">
-                        Our Services
+                    <a class="px-8 py-4 bg-accent text-white font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-accent/20" href="Video1.html">
+                        Watch Videos
+                        <span class="material-icons-round">play_arrow</span>
+                    </a>
+                    <a class="px-8 py-4 bg-indigo-500 text-white font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-indigo-500/20" href="#services">
+                         Our Services
+                        <span class="material-icons-round">build</span>
                     </a>
                 </div>
             </div>
@@ -192,7 +197,7 @@
                 </div>
                 <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
                     <div class="overflow-hidden rounded-2xl mb-6">
-                        <img alt="Street show" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK0LkmkFiQnH8JNOa86jy9ek2TYw1Wcr8qhMMgIMPJLrIRfGPk_igDRcQBhWcaBUCy5D63J_5Sf5AFOoDhMZqnzD_xvZ8YUOoyYDttImqVrqDVV5mKcudkBlp93s8E6IbGfImkzv2MOn_R0QHJYo519yV1_WwHB3Fp1LpZr4ILjtRvlItYUTaPVhboDshZH7s6t_xbk438VkLnB-2wHw-sqD4S1VJQV0VBgBIvH_aOiqiN4KCsEGkGY3nJSFIPximOUnAY_eHhReE"/>
+                        <img alt="Street show" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f0ec6e42-9fa3-42d6-b2b8-6e5297399459.png"/>
                     </div>
                     <div class="px-4 pb-6">
                         <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent mb-4">
@@ -204,7 +209,7 @@
                 </div>
                 <div class="glass-card p-2 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
                     <div class="overflow-hidden rounded-2xl mb-6">
-                        <img alt="Cultural program" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYiNlDi7sOZYJVXTI9G7deXETSxeCC1kX3PkL80BCRlvSxld2M7D13f8j2E2PQJJchHQMfXvEsRGAIsg3WB-Gea7YXG_L1lQQCPNS3hDuDY4lVstwhAzjIyA4z-TbYRwREM5O83j-d6fDRuSEqa25Rmu23YzYiQ85SZO-NqBmiAabWDwbiBfLoHYeIpnWJ8oE1CeWNDTvLC-JcUDNZQN2eY6zhfppWlSRWaK3J8VVczV8eJsHYDMSnhZQ5pCRNEefWmSSi45LrbSQ"/>
+                        <img alt="Cultural program" class="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9b9b106-cb57-4b62-9abf-14944f4cb0dd.png"/>
                     </div>
                     <div class="px-4 pb-6">
                         <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 mb-4">
@@ -292,7 +297,7 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
+        <!-- Gallery Section -->
     <section class="py-24" id="gallery">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
@@ -302,11 +307,12 @@
                 </div>
                 <div class="flex gap-2">
                     <button class="p-3 rounded-2xl glass-card hover:bg-primary hover:text-white transition-all">All Photos</button>
-                    <button class="p-3 rounded-2xl glass-card hover:bg-primary hover:text-white transition-all">Videos</button>
+                    <a href="Video1.html" class="p-3 rounded-2xl glass-card hover:bg-primary hover:text-white transition-all inline-block">Videos</a>
                 </div>
             </div>
-            <div class="masonry-grid gap-6">
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+            <div class="masonry-grid gap-6" id="galleryContainer">
+                <!-- Initial gallery items (visible by default) -->
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Cultural performance" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web2.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -315,7 +321,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Stage event" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web3.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -324,7 +330,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Street theater" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web4.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -333,7 +339,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Garba dance" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web10.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -342,7 +348,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Music night" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web9.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -351,7 +357,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer">
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item">
                     <img alt="Performance" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web16.jpg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
@@ -360,17 +366,73 @@
                         </div>
                     </div>
                 </div>
-                <video controls width="380" style="border-radius: 20px;">
-                    <source src="videos/vido2.mp4" type="video/mp4">
-                  </video>
+
+                <!-- Hidden gallery items (shown on load more) -->
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item hidden" id="extra1">
+                    <img alt="Festival performance" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web8.jpg"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Festival Celebration</h4>
+                            <p class="text-sm opacity-80">Vadodara</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item hidden" id="extra2">
+                    <img alt="Community event" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web5.jpg"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Community Gathering</h4>
+                            <p class="text-sm opacity-80">Bhavnagar</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 group relative overflow-hidden rounded-3xl cursor-pointer gallery-item hidden" id="extra3">
+                    <img alt="Cultural show" class="w-full group-hover:scale-105 transition-transform duration-700" src="img/web6.jpg"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <div class="text-white">
+                            <h4 class="font-bold text-lg">Cultural Showcase</h4>
+                            <p class="text-sm opacity-80">Jamnagar</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="text-center mt-12">
-                <button class="px-10 py-4 glass-card font-bold rounded-2xl border border-primary/20 hover:border-primary transition-all">
-                    Load More Moments
+                        <div class="text-center mt-12">
+                <button id="loadMoreBtn" class="relative px-10 py-4 bg-primary text-white font-bold rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-300" onclick="loadMoreMoments()">
+                    <div class="absolute inset-0 bg-gradient-to-r from-accent via-primary to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative flex items-center gap-2 justify-center">
+                        <span class="material-icons-round group-hover:-translate-y-1 transition-transform duration-300">folder_open</span>
+                        Load More Moments
+                        <span class="material-icons-round">arrow_forward</span>
+                    </div>
                 </button>
             </div>
         </div>
     </section>
+
+    <script>
+        let itemsLoaded = 0;
+
+        function loadMoreMoments() {
+            const items = document.querySelectorAll('.gallery-item.hidden');
+            const itemsToShow = 3; // Show 3 more items each time
+            
+            let shown = 0;
+            items.forEach(item => {
+                if (shown < itemsToShow) {
+                    item.classList.remove('hidden');
+                    shown++;
+                }
+            });
+
+            itemsLoaded += shown;
+
+            // Hide button if no more items
+            const remainingItems = document.querySelectorAll('.gallery-item.hidden').length;
+            if (remainingItems === 0) {
+                document.getElementById('loadMoreBtn').style.display = 'none';
+            }
+        }
+    </script>
 
     <!-- Portfolio Download Section -->
     <!-- <section class="py-12">

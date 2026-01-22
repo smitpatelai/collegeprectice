@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tejashree Production | Video Gallery</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#7C3AED",
+                        accent: "#FBBF24",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#0F172A",
+                    },
+                    fontFamily: {
+                        display: ["Outfit", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/20 dark:border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-extrabold text-primary flex items-center">
+                    <span class="material-icons-round text-3xl mr-1">theater_comedy</span>
+                    Tejashree<span class="text-slate-400 font-light">Production</span>
+                </span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a class="hover:text-primary transition-colors" href="index3.html#home">Home</a>
+                <a class="hover:text-primary transition-colors" href="index3.html#about">About Us</a>
+                <a class="hover:text-primary transition-colors" href="index3.html#services">Services</a>
+                <a class="hover:text-primary transition-colors" href="index3.html#gallery">Gallery</a>
+                <a class="bg-primary text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-primary/30 transition-all" href="index3.html#contact">Contact Us</a>
+                <button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+                    <span class="material-icons-round text-primary dark:text-accent">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[60vh] flex items-center pt-20 overflow-hidden" id="videos-hero">
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full animate-float-slow"></div>
+            <div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-accent/20 blur-[120px] rounded-full animate-float"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="space-y-6">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-widest uppercase">
+                    Performance Videos
+                </span>
+                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight">
+                    Watch Our <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Performances</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                    Explore our collection of captivating dramas, cultural performances, and awareness programs that have touched hearts across Gujarat.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Gallery Section -->
+    <section class="py-24" id="videos-gallery">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 space-y-4">
+                <h2 class="text-4xl font-extrabold">All Videos</h2>
+                <p class="text-slate-500 max-w-2xl">Experience the magic of our live performances, capturing moments from our most impactful events.</p>
+            </div>
+            
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 1</h3>
+                        <p class="text-sm text-slate-500">Professional Drama</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 2</h3>
+                        <p class="text-sm text-slate-500">Street Show</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 3</h3>
+                        <p class="text-sm text-slate-500">Cultural Program</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/Vido4.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 4</h3>
+                        <p class="text-sm text-slate-500">Awareness Program</p>
+                    </div>
+                </div>
+
+                <!-- Video 5 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido5.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 5</h3>
+                        <p class="text-sm text-slate-500">Live Event</p>
+                    </div>
+                </div>
+
+                <!-- Video 6 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido6.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 6</h3>
+                        <p class="text-sm text-slate-500">Drama Performance</p>
+                    </div>
+                </div>
+
+                <!-- Video 7 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido7.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 7</h3>
+                        <p class="text-sm text-slate-500">Theater Show</p>
+                    </div>
+                </div>
+
+                <!-- Video 8 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido8.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 8</h3>
+                        <p class="text-sm text-slate-500">Cultural Event</p>
+                    </div>
+                </div>
+
+                <!-- Video 9 -->
+                <div class="glass-card p-1 rounded-3xl group overflow-hidden shadow-xl hover:shadow-2xl transition-all">
+                    <video controls class="w-full rounded-2xl bg-black" style="aspect-ratio: 16/9;">
+                        <source src="videos/vido9.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Performance 9</h3>
+                        <p class="text-sm text-slate-500">Community Show</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-extrabold text-white flex items-center">
+                        <span class="material-icons-round text-primary text-3xl mr-1">theater_comedy</span>
+                        Tejashree<span class="text-slate-500 font-light">Production</span>
+                    </span>
+                </div>
+            </div>
+            <div class="h-px bg-slate-800 w-full mb-12"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-wider">
+                <p>© 2025 Tejashree Production. All rights reserved.</p>
+                <p>Designed with ❤️ for Gujarat's Culture</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
