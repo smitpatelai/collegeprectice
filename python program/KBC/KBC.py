@@ -17,5 +17,27 @@ def load_question(filename):
 
         return question
 
-data = load_question("KBC.txt")
-print(data)
+# data = load_question("KBC.txt")
+# print(data)
+
+def save_log(amount, duration):
+    with open("kbc_price.txt","a") as file:
+        file.write(f"QUIZ STARTED ON: {datetime.datetime.now()}\n")
+        file.write(f"TOTAL AMOUNT WIN : {amount}\n")
+        file.write(f"TOTAL DURATION: {duration}\n")
+
+save_log(1000, 10)
+
+def play_kbc():
+    print("Welcome to KBC")
+    question = load_question("KBC.txt")
+
+    if len(question) == 0 :
+        print("INVALID FILE")
+
+    random.shuffle(question)
+    totalamount = 0
+    starttime = datetime.datetime.now()
+    print(f"QUIZ STARTED AT: {starttime.strftime('%Y-%m-%d %H:%M:%S')}")
+
+play_kbc()
