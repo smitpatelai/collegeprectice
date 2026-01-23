@@ -5,17 +5,3 @@ Bill Gates
 Mark Zuckerberg
 1
 3000
-who is the father of Microsoft?
-Elon Musk
-Bill Gates
-Mark Zuckerberg
-Smith Jain
-2
-5000
-What is a correct syntax to output "Hello World" in Python?
-echo("Hello World")
-echo("Hello World");
-p("Hello World")
-print("Hello World")
-4
-7000

@@ -17,8 +17,8 @@ def load_question(filename):
 
         return question
 
-# data = load_question("KBC.txt")
-# print(data)
+data = load_question("KBC.txt")
+print(data)
 
 def save_log(amount, duration):
     with open("kbc_price.txt","a") as file:
