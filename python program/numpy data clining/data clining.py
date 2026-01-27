@@ -65,8 +65,12 @@ loaded_data[:,2] = np.where(np.isnan(loaded_data[:,2]),10, loaded_data[:,2])
 
 #remove negative from array data
 
-loaded_data = np.where(loaded_data[:,1]<0,90000, loaded_data[:,1])
+loaded_data[:,1] = np.where(loaded_data[:,1]<0,90000, loaded_data[:,1])
 print(loaded_data)
+
+print(loaded_data.shape)
+
+
 
 # convert loaded_data into int
 
@@ -74,5 +78,39 @@ loaded_data = loaded_data.astype(int)
 print(loaded_data)
 
 #store this data into final file
-np.savetxt("finalsalarydata.csv", loaded_data, delimiter=",", fmt="%s")
+# np.savetxt("finalsalarydata.csv", loaded_data, delimiter=",", fmt="%s")
 
+#find employee who has highest salary
+#find avg salary
+#find employee who have salary between 12500- 14500
+#total salary
+#store all data according to salary in csv file
+
+print(np.max(loaded_data))
+print("======================================")
+print(np.average(loaded_data))
+print("======================================")
+print(np.sum(loaded_data))
+print("======================================")
+
+# salary_range = loaded_data[(loaded_data[:,1] >= 12500) & (loaded_data[:,1] <= 14500)]
+#
+# print("Employees with salary between 12500 and 14500:\n", salary_range)
+
+salary_range_emp = loaded_data[(loaded_data[:, 1] >= 11500) & (loaded_data[:, 1] <= 13000)]
+print(salary_range_emp)
+
+# sort by salary (2nd column)
+sorted_data = loaded_data[loaded_data[:,1].argsort()]
+
+# save to CSV
+np.savetxt(
+    "salary_sorted.csv",
+    sorted_data,
+    delimiter=",",
+    fmt="%d",
+    header="EmpID,Salary,Dept",
+    comments=""
+)
+
+print("Data saved to salary_sorted.csv")
