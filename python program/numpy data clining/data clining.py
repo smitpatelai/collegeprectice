@@ -89,7 +89,9 @@ print(loaded_data)
 print(np.max(loaded_data))
 print("======================================")
 print(np.average(loaded_data))
+print("AVG SALARY")
 print("======================================")
+print("Total salary")
 print(np.sum(loaded_data))
 print("======================================")
 
@@ -114,3 +116,64 @@ np.savetxt(
 )
 
 print("Data saved to salary_sorted.csv")
+
+
+
+student_data = np.array([
+    [1,78,3],
+    [2,"",2],
+    [3,105,1],
+    [4,-5,""],
+    [5,66,2],
+    [6,None,1],
+    [7,45,0],
+    [8,89,3]
+], dtype=object)
+
+#store data into csv file
+#load data from csv file
+#clean data
+# 1. marks can not be none , null and less than zero and greater than 100
+# 2. status can not be blank , none, greater than 1
+        # 35>--- pass status = 1
+        # 35<--- pass status =0
+#store final result into different student file to pass status
+
+
+np.savetxt("student_data.csv",student_data,delimiter=",",fmt="%s")
+
+loaded_data = np.genfromtxt("student_data.csv",delimiter=",",dtype=object,encoding="utf-8")
+
+# print(loaded_data)
+marks = loaded_data[:,1]
+
+clean_marks = []
+for m in marks:
+    try:
+        m = int(m)
+        if m < 0 or m > 100:
+            clean_marks.append(0)
+        else:
+            clean_marks.append(m)
+    except:
+        clean_marks.append(0)
+
+loaded_data[:,1] = clean_marks
+
+marks = loaded_data[:,1].astype(int)
+
+status = np.where(marks >= 35, 1, 0)
+loaded_data[:,2] = status
+
+
+final_data = loaded_data.astype(int)
+print("Final Cleaned Data:\n", final_data)
+
+pass_students = final_data[final_data[:,2] == 1]
+
+np.savetxt("pass_students.csv",pass_students,delimiter=",",fmt="%d",header="ID,Marks,Status",comments="")
+
+fail_students = final_data[final_data[:,2] == 0]
+
+np.savetxt("fail_students.csv",fail_students,delimiter=",",fmt="%d",header="ID,Marks,Status",comments="")
+
