@@ -99,7 +99,6 @@ report = np.array([
 
 #task:
 
-
 emp_data = np.array([
     [101,30000,6],
     [102,28000,8],
@@ -120,18 +119,11 @@ emp_data = np.array([
 
 # 1. Store original data into CSV
 
-np.savetxt(
-    "emp_data.csv",
-    emp_data,
-    delimiter=",",
-    fmt="%d",
-    header="EmpID,Salary,Performance",
-    comments=""
-)
+np.savetxt("emp_data.csv",emp_data,delimiter=",",fmt="%d",comments="")
 
 # 2. Mask: performance > 7
 
-mask = emp_data[:, 2] > 7
+mask = emp_data[:, 2] > 5
 
 # 3. Make a copy
 
@@ -140,23 +132,25 @@ emp_bonus = emp_data.copy()
 # 4. Apply bonus using np.where & broadcasting
 #    Bonus = 5000 if performance > 7
 
-emp_bonus[:, 1] = np.where(mask,
-                            emp_bonus[:, 1] + 5000,
-                            emp_bonus[:, 1])
+emp_bonus[:, 1] = np.where(mask,emp_bonus[:, 1] + 9000,emp_bonus[:, 1])
 
 # 5. Store updated data into CSV
 
-np.savetxt(
-    "emp_bonus_data.csv",
-    emp_bonus,
-    delimiter=",",
-    fmt="%d",
-    header="EmpID,UpdatedSalary,Performance",
-    comments=""
-)
+np.savetxt("emp_bonus_data.csv",emp_bonus,delimiter=",",fmt="%d",comments="")
 
 # 6. Output check
 
 print("Original Data:\n", emp_data)
 print("\nBonus Applied Data:\n", emp_bonus)
 
+
+
+#new without np.where useing
+
+emp_copy = emp_data.copy()
+
+mask = emp_copy[:, 2] > 5
+
+emp_copy[mask, 1]+=45000
+
+print(emp_copy)
