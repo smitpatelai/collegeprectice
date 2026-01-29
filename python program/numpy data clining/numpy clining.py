@@ -154,3 +154,12 @@ mask = emp_copy[:, 2] > 5
 emp_copy[mask, 1]+=45000
 
 print(emp_copy)
+print("=================================")
+
+arr1 = emp_data[emp_data[:, 2] > 5]
+print(arr1)
+
+bonus1 = np.array([5000])
+
+arr1[:,1] = arr1[:,1]+bonus1
+print(arr1)
