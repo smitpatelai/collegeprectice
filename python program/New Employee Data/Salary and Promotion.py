@@ -26,6 +26,7 @@ np.savetxt("employee_details.csv", employee_data, delimiter=",", fmt="%s")
 data = np.loadtxt("employee_details.csv", delimiter=",", dtype=object, encoding="utf-8")
 print(data)
 print("====================================================================================")
+
 salary_data = np.array([
     [101, 25000, 2000, 3000, 1000],
     [102, 32000, 3000, 4000, 2000],
@@ -38,6 +39,7 @@ salary_data = np.array([
     [109, '', 3000, 3500, 1500],
     [110, 26000, 1500, 2500, 1000]
 ],dtype=object)
+print("=====================================================================================")
 print(salary_data)
 
 #save this data in csv
@@ -48,7 +50,7 @@ np.savetxt("salary_details.csv", salary_data, delimiter=",", fmt="%s")
 
 #gemformtxt
 
-loaded_data = np.genfromtxt("salary_details.csv", delimiter=",",filling_values=np.nan,dtype=float)
+loaded_data = np.genfromtxt("salary_details.csv", delimiter=",", filling_values=np.nan, dtype=float)
 # print(loaded_data)
 
 #cleaning
