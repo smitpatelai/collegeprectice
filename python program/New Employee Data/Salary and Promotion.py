@@ -11,20 +11,19 @@ employee_data = np.array([
     [108, 29, '', 5, 2],
     [109, 33, 4, 7, 1],
     [110, 27, 2, -1, 2]
-])
-# print(employee_data)
-
-print(employee_data.shape)
+],dtype=object)
+print(employee_data)
+# print(employee_data.shape)
 # Missing experience values (empty strings)
 # Missing age values (empty strings)
 # Invalid performance scores (zero or negative values)
 
-
+np.savetxt("employee_details.csv", employee_data, delimiter=",", fmt="%s")
 #load data form csv file
 
 data = np.genfromtxt("employee_details.csv", delimiter=",", dtype=float, missing_values=np.nan, encoding="utf-8")
-data=data.astype(int)
 print(data)
+# print(data)
 print("====================================================================================")
 data[:,1] = np.where(np.isnan(data[:,1]),25,data[:,1])
 data[:,2] = np.where(np.isnan(data[:,2]),8,data[:,2])
@@ -37,7 +36,7 @@ print(data)
 
 print(data.shape)
 print("======================================================================================")
-np.savetxt("employee_details.csv", data, delimiter=",", fmt="%s")
+np.savetxt("employee_detail.csv", data, delimiter=",", fmt="%s")
 print("======================================================================================")
 
 
@@ -63,7 +62,7 @@ print("==================================================")
 
 #gemformtxt
 
-sdata = np.genfromtxt("salary_details.csv", delimiter=",", filling_values=np.nan, dtype=float, encoding="utf-8")
+sdata = np.genfromtxt("salary_details.csv", delimiter=",", missing_values=np.nan, dtype=float, encoding="utf-8")
 # print(sdata)
 
 #cleaning
@@ -85,5 +84,5 @@ print(sdata)
 print(sdata.shape)
 #save this data in csv
 
-np.savetxt("salary_details.csv", salary_data, delimiter=",", fmt="%s")
+np.savetxt("salary_detail.csv", sdata, delimiter=",", fmt="%s")
 print("=====================================================================")
