@@ -22,7 +22,6 @@ np.savetxt("employee_details.csv", employee_data, delimiter=",", fmt="%s")
 #load data form csv file
 
 data = np.genfromtxt("employee_details.csv", delimiter=",", dtype=float, missing_values=np.nan, encoding="utf-8")
-print(data)
 # print(data)
 print("====================================================================================")
 data[:,1] = np.where(np.isnan(data[:,1]),25,data[:,1])
@@ -72,12 +71,12 @@ sdata = np.genfromtxt("salary_details.csv", delimiter=",", missing_values=np.nan
 
 #missing value at first col
 
-sdata[:,1] = np.where(np.isnan(sdata[:,1]),70000, sdata[:,1])
-sdata[:,2] = np.where(np.isnan(sdata[:,2]),1000, sdata[:,2])
+sdata[:,1] = np.where(np.isnan(sdata[:,1]),25000, sdata[:,1])
+sdata[:,2] = np.where(np.isnan(sdata[:,2]),2000, sdata[:,2])
 
 # #remove negative from array data
 
-sdata[:,1] = np.where(sdata[:,1]<0,50000, sdata[:,1])
+sdata[:,1] = np.where(sdata[:,1]<=0,25000, sdata[:,1])
 # print(loaded_data)
 sdata=sdata.astype(int)
 print(sdata)
