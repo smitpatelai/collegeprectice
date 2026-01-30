@@ -102,3 +102,46 @@ master_data = master_data.astype(int)
 print(master_data)
 np.savetxt("master_data.csv", master_data, delimiter=",", fmt="%s")
 
+
+print("=====================================================================")
+print("SALARY INCREMENT & FINAL SALARY CALCULATION")
+
+base_salary = master_data[:, 5]
+bonus = master_data[:, 6]
+dept_allowance = master_data[:, 7]
+tax = master_data[:, 8]
+
+performance = master_data[:, 3]
+experience = master_data[:, 2]
+
+# Increment calculation
+increment = np.zeros(len(master_data), dtype=int)
+
+rule1 = (performance >= 8) & (experience >= 3)
+increment[rule1] = (base_salary[rule1] * 10) // 100
+
+rule2 = (performance >= 6) & (~rule1)
+increment[rule2] = (base_salary[rule2] * 5) // 100
+
+rule3 = ~(rule1 | rule2)
+increment[rule3] = (base_salary[rule3] * 2) // 100
+
+# Final Salary
+final_salary = base_salary + increment + bonus + dept_allowance - tax
+
+# Expand master data
+final_master_data = np.column_stack((master_data, increment, final_salary))
+
+print("EmpID | Age | Exp | Perf | Dept | Base | Bonus | Allow | Tax | Increment | FinalSalary")
+print(final_master_data)
+
+# Save final data
+np.savetxt(
+    "final_master_salary_data.csv",
+    final_master_data,
+    delimiter=",",
+    fmt="%s"
+)
+
+print("FINAL SALARY FILE SAVED SUCCESSFULLY")
+print("=====================================================================")
