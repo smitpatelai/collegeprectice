@@ -19,13 +19,28 @@ print(employee_data.shape)
 # Missing age values (empty strings)
 # Invalid performance scores (zero or negative values)
 
-np.savetxt("employee_details.csv", employee_data, delimiter=",", fmt="%s")
 
 #load data form csv file
 
-data = np.loadtxt("employee_details.csv", delimiter=",", dtype=object, encoding="utf-8")
+data = np.genfromtxt("employee_details.csv", delimiter=",", dtype=float, missing_values=np.nan, encoding="utf-8")
+data=data.astype(int)
 print(data)
 print("====================================================================================")
+data[:,1] = np.where(np.isnan(data[:,1]),25,data[:,1])
+data[:,2] = np.where(np.isnan(data[:,2]),8,data[:,2])
+
+#remove negative from array data
+
+data[:,3] = np.where(data[:,3]<=0,2,data[:,3])
+data=data.astype(int)
+print(data)
+
+print(data.shape)
+print("======================================================================================")
+np.savetxt("employee_details.csv", data, delimiter=",", fmt="%s")
+print("======================================================================================")
+
+
 
 salary_data = np.array([
     [101, 25000, 2000, 3000, 1000],
@@ -41,17 +56,15 @@ salary_data = np.array([
 ],dtype=object)
 print("=====================================================================================")
 print(salary_data)
-
-#save this data in csv
-
 np.savetxt("salary_details.csv", salary_data, delimiter=",", fmt="%s")
 
+print("==================================================")
 #load data form csv
 
 #gemformtxt
 
-loaded_data = np.genfromtxt("salary_details.csv", delimiter=",", filling_values=np.nan, dtype=float)
-# print(loaded_data)
+sdata = np.genfromtxt("salary_details.csv", delimiter=",", filling_values=np.nan, dtype=float, encoding="utf-8")
+# print(sdata)
 
 #cleaning
 
@@ -60,12 +73,17 @@ loaded_data = np.genfromtxt("salary_details.csv", delimiter=",", filling_values=
 
 #missing value at first col
 
-loaded_data[:,1] = np.where(np.isnan(loaded_data[:,1]),100, loaded_data[:,1])
-loaded_data[:,2] = np.where(np.isnan(loaded_data[:,2]),10, loaded_data[:,2])
+sdata[:,1] = np.where(np.isnan(sdata[:,1]),70000, sdata[:,1])
+sdata[:,2] = np.where(np.isnan(sdata[:,2]),1000, sdata[:,2])
 
-#remove negative from array data
+# #remove negative from array data
 
-loaded_data[:,1] = np.where(loaded_data[:,1]<0,10, loaded_data[:,1])
+sdata[:,1] = np.where(sdata[:,1]<0,50000, sdata[:,1])
 # print(loaded_data)
+sdata=sdata.astype(int)
+print(sdata)
+print(sdata.shape)
+#save this data in csv
 
-print(loaded_data.shape)
+np.savetxt("salary_details.csv", salary_data, delimiter=",", fmt="%s")
+print("=====================================================================")
