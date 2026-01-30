@@ -85,3 +85,20 @@ print(sdata.shape)
 
 np.savetxt("salary_detail.csv", sdata, delimiter=",", fmt="%s")
 print("=====================================================================")
+
+
+master_data = []
+
+for emp in data:
+    emp_id = emp[0]
+
+    for sal in sdata:
+        if emp_id == sal[0]:
+            merged_row = np.concatenate((emp, sal[1:]))
+            master_data.append(merged_row)
+
+master_data = np.array(master_data)
+master_data = master_data.astype(int)
+print(master_data)
+np.savetxt("master_data.csv", master_data, delimiter=",", fmt="%s")
+
