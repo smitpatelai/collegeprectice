@@ -8,7 +8,7 @@ expense = {
     "Food":7000,
     "Others":6000
 }
-
-plt.pie(expense.values(),labels=expense.keys(),autopct="%1.1f")
+explode = (0.05,0,0,0,0)
+plt.pie(expense.values(),labels=expense.keys(),autopct="%1.1f",shadow=True,explode=explode)
 plt.title("Expense of Individuals Employee at TCS")
 plt.show()
