@@ -4,7 +4,7 @@ sectors = ["Residential", "Commercial", "Industrial", "Agricultural","Government
 
 consumption = [620, 480, 710, 560, 300, 1340, 290, 410]
 
-plt.bar(sectors, consumption)
+plt.bar(sectors, consumption,edgecolor="black")
 plt.xlabel("Sector")
 plt.ylabel("Consumption")
 plt.xlabel("Sectors")
