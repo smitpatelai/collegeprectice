@@ -11,7 +11,6 @@ print("hist")
 print("pie")
 
 choice = input("Which chart you want to make: ").lower()
-
 if choice == "line":
     plt.plot(y, x)
 
@@ -21,8 +20,8 @@ elif choice == "bar":
 elif choice == "scatter":
     plt.scatter(y, x)
 
-elif choice == "hist":
-    plt.hist(x)
+elif choice == "hist" or choice == "histogram" or choice == "histo":
+    plt.hist(y)
 
 elif choice == "pie":
     plt.pie(x, labels=y)
