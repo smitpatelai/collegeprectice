@@ -8,5 +8,6 @@ adults = [30,40,50,45,55,60,65,90]
 age = [teenegers,young_adults,adults]
 labels = ["teenagers","young_adults","adults"]
 plt.violinplot(age)
-plt.legend(labels=labels)
+plt.xticks([1,2,3],labels)
+plt.legend()
 plt.show()
