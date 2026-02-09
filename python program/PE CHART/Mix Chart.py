@@ -14,39 +14,40 @@ while True:
     print("barh")
 
     choice = input("Which chart you want to make: ").lower()
+    color = input("Enter color (e.g. aquamarine, crimson, gold, olive): ").lower()
 
     if choice == "line":
-        plt.plot(y, x)
+        plt.plot(y, x,color=color)
         plt.show()
         break
 
     elif choice == "bar":
-        plt.bar(y, x)
+        plt.bar(y, x,color=color)
         plt.show()
         break
 
     elif choice == "scatter":
-        plt.scatter(y, x)
+        plt.scatter(y, x,color=color)
         plt.show()
         break
 
     elif choice == "hist":
-        plt.hist(x)
+        plt.hist(x,color=color)
         plt.show()
         break
 
     elif choice == "pie":
-        plt.pie(x, labels=y)
+        plt.pie(x, labels=y,color=color)
         plt.show()
         break
 
     elif choice == "violin":
-        plt.violinplot(a)
+        plt.violinplot(a,color=color)
         plt.show()
         break
 
     elif choice == "barh":
-        plt.barh(y, x)
+        plt.barh(y, x,color=color)
         plt.show()
         break
 
