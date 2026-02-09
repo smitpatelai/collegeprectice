@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 
-x = [10, 40, 30, 50, 60, 20, 70, 90, 80]
+x = [10, 40, 30, 250, 160, 120, 370, 90, 80]
 y = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+a = [x,y]
 while True:
     print("\nAvailable charts")
     print("line")
@@ -10,6 +10,8 @@ while True:
     print("scatter")
     print("hist")
     print("pie")
+    print("violin")
+    print("barh")
 
     choice = input("Which chart you want to make: ").lower()
 
@@ -38,8 +40,15 @@ while True:
         plt.show()
         break
 
-    else:
-        print("Invalid Input")
+    elif choice == "violin":
+        plt.violinplot(a)
+        plt.show()
         break
 
-plt.show()
+    elif choice == "barh":
+        plt.barh(y, x)
+        plt.show()
+        break
+
+    else:
+        print("Invalid Input ❌ Try again")
