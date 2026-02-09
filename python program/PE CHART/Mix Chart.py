@@ -42,7 +42,7 @@ while True:
         break
 
     elif choice == "violin":
-        plt.violinplot(a,color=color)
+        plt.violinplot(a)
         plt.show()
         break
 
