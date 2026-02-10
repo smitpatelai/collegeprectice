@@ -19,8 +19,9 @@ print(blackimage[0,0,2])
 # blackimage[: , : ,1] = 255
 # hlankimanel :.: 21 = 255
 
-# blackimage[:,:,1] = 255
-blackimage[:,:,2] = 255
+blackimage[:,:,0]=255
+blackimage[:,:,1] = 215
+blackimage[:,:,2] = 0
 
 # YELLOW SQUARE
 # blackimage[:,:,0] = 255
@@ -30,8 +31,8 @@ blackimage[:,:,2] = 255
 blackimage[:,:,0] = 255
 
 # remove red color
-blackimage[30:70,30:70,0] = 0
-blackimage[30:70,30:70,1] = 255
+# blackimage[30:70,30:70,0] = 0
+# blackimage[30:70,30:70,1] = 255
 
 # row - 0 , col - 8 , block - 0
 print(blackimage [0,0,0])
@@ -46,6 +47,27 @@ print(blackimage[0,0])
 print(blackimage[90,90])
 
 # 255, 105, 180 -- PINK COLOR
+
+# Top border
+blackimage[0:6, :, 0] = 138
+blackimage[0:6, :, 1] = 43
+blackimage[0:6, :, 2] = 226
+
+# Bottom border
+blackimage[-6:, :, 0] = 0
+blackimage[-6:, :, 1] = 128
+blackimage[-6:, :, 2] = 128
+
+# Left border
+blackimage[:, 0:6, 0] = 0
+blackimage[:, 0:6, 1] = 255
+blackimage[:, 0:6, 2] = 255
+
+# Right border
+blackimage[:, -6:, 0] = 60
+blackimage[:, -6:, 1] = 179
+blackimage[:, -6:, 2] = 113
+
 plt.imshow(blackimage)
 plt.axis("off")
 plt.show()
