@@ -20,7 +20,8 @@ colors = {
     "RED": [255, 0, 0],
     "GREEN": [0, 255, 0],
     "BLUE": [0, 0, 255],
-    "PINK": [255, 103, 180]
+    "PINK": [255, 103, 180],
+    "BLUEVIOLET": [138,43,226]
 }
 
 # Show each color
