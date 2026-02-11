@@ -1,5 +1,7 @@
 import requests
 import matplotlib.pyplot as plt
+import random
+
 
 url = requests.get("https://disease.sh/v3/covid-19/countries")
 response = url.json()
@@ -24,7 +26,9 @@ for i in response[:20]:
 
 
 #cases --->deaths
-plt.scatter(cases, deaths,s=[i/300 for i in active],label=country,alpha=0.4)
+
+colors = [(random.random()) for i in range(len(country))]
+plt.scatter(cases, deaths,s=[i/300 for i in active],label=country,alpha=0.4,c=colors)
 
 for i , j in enumerate(country):
     plt.annotate(j,(cases[i],deaths[i]))
