@@ -12,9 +12,8 @@ data[data > 240] = 240
 print("Min:", data.min())
 print("Max:", data.max())
 total = np.sum(data, axis=2)
-plt.imshow(total)
+plt.imshow(total, cmap="PuBuGn")
 plt.title("Website Heatmap")
-plt.colorbar()
 plt.show()
 
 z1 = np.sum(total[:30, :40])
