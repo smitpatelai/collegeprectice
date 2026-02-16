@@ -75,5 +75,8 @@ print(df_dict["Salary"] [1])
 
 # print all emp name -- access col
 print(df_dict["Name"])
-
+print("==============================")
 # access row -- print 2nd row -- explore by yourself
+
+
+print(df_dict.iloc[1])
