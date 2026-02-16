@@ -80,3 +80,25 @@ print("==============================")
 
 
 print(df_dict.iloc[1])
+
+
+dict_3 = {
+"2024":[10000,20000],
+"2025": [12000, 22660],
+"2026": [14000, 25000]
+}
+
+
+data4 = pd.DataFrame(dict_3, index=["emp1","emp2"])
+print(data4)
+
+List_3 = [
+    [10000,12000,14000],
+    [20000,22000,25000]
+]
+
+data5 = pd.DataFrame(List_3,index=["emp1","emp2"],columns=["2024","2025","2026"])
+print(data5)
+
+# print 2024 spending
+print(sum(data5["2024"]))
