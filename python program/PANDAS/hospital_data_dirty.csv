@@ -1,0 +1,22 @@
+Patient_ID,Name,Age,Gender,Admission_Date,Discharge_Date,Diagnosis,Doctor_Assigned,Bill_Amount,Payment_Status
+101,John Doe,45,Male,2026-01-12,2026-01-18,Diabetes,Dr. Smith,15000,Paid
+102,Jane Smith,29,Female,2026-02-05,2026-02-10,Flu,Dr. Adams,5000,Unpaid
+103,Raj Patel,-5,Male,2026-02-15,2026-02-20,Malaria,Dr. Kumar,8000,Paid
+104,Anita Sharma,abc,Female,2026-02-20,2026-02-25,Covid-19,Dr. Mehta,12000,Paid
+105,Michael Lee,60,,2026-01-30,2026-02-05,Heart Disease,Dr. Brown,45000,Pending
+106,Sara Khan,35,Female,2026/02/10,2026-02-15,Asthma,Dr. NULL,7000,Paid
+107,David Miller,200,Male,2026-02-01,2026-02-03,Cold,Dr. Taylor,3000,Paid
+108,Emily Davis,40,Female,2026-02-12,,Fever,Dr. Wilson,NaN,Unpaid
+109,NULL,50,Male,2026-02-08,2026-02-14,Diabetes,Dr. Smith,15000,Paid
+110,Chris Johnson,38,Unknown,15-02-2026,2026-02-18,Injury,Dr. Adams,10000,Paid
+111,Olivia Brown,27,Female,2026-02-11,2026-02-13,Flu,,4500,Paid
+112,Liam Wilson,,Male,2026-02-09,2026-02-12,Cancer,Dr. Thomas,55000,Unpaid
+113,Ava Thomas,33,Female,2026-02-07,2026-02-09,Malaria,Dr. Kumar,-7000,Paid
+114,Noah Martin,41,Male,2026-02-03,2026-02-08,Diabetes,Dr. Smith,abc,Paid
+115,Emma Garcia,29,Female,2026-02-14,2026-02-16,Flu,Dr. Adams,5000,Completed
+101,John Doe,45,Male,2026-01-12,2026-01-18,Diabetes,Dr. Smith,15000,Paid
+116,Isabella Moore,34,Female,2026-13-01,2026-02-18,Asthma,Dr. Brown,9000,Paid
+117,Lucas Anderson,55,Male,2026-02-05,2026-02-04,Heart Disease,Dr. Brown,40000,Paid
+118,Mia Taylor,48,Female,2026-02-06,2026-02-12,NULL,Dr. Mehta,11000,Paid
+119,Ethan Harris,39,Male,2026-02-10,2026-02-15,Covid-19,Dr. Mehta,13000,
+120,Sophia Clark,31,Female,,2026-02-17,Flu,Dr. Adams,6000,Paid
