@@ -23,10 +23,10 @@ print(df.groupby("Region")["Revenue"].sum())
 print("\n Revenue per Region")
 
 pivot1 = pd.pivot_table(
-df,
-values="Revenue",
-index="Region",
-aggfunc="sum"
+    df,
+    values="Revenue",
+    index="Region",
+    aggfunc="sum"
 )
 
 print(pivot1)
@@ -34,11 +34,11 @@ print(pivot1)
 print("\n Revenue by product and region")
 
 pivot2 = pd.pivot_table(
-df,
-values="Revenue",
-index="Region",
-columns="Product",
-aggfunc="sum"
+    df,
+    values="Revenue",
+    index="Region",
+    columns="Product",
+    aggfunc="sum"
 )
 
 print(pivot2)
@@ -46,42 +46,42 @@ print(pivot2)
 print("\n Unit sold per quarter")
 
 pivot3 = pd.pivot_table(
-df,
-values="Units_Sold",
-index="Quarter",
-aggfunc="sum"
+    df,
+    values="Units_Sold",
+    index="Quarter",
+    aggfunc="sum"
 )
 
 print(pivot3)
 
 pivot4 = pd.pivot_table(
-df,
-values="Revenue",
-index="Region",
-aggfunc=["sum","mean"]
+    df,
+    values="Revenue",
+    index="Region",
+    aggfunc=["sum","mean"]
 )
 
 print(pivot4)
 
 pivot5 = pd.pivot_table(
-df,
-values="Revenue",
-index="Region",
-columns="Product",
-aggfunc="sum",
-margins=True
+    df,
+    values="Revenue",
+    index="Region",
+    columns="Product",
+    aggfunc="sum",
+    margins=True
 )
 
 print(pivot5["Laptop"]["North"])
 
 pivot6 = pd.pivot_table(
-df,
-values="Revenue",
-index=["Salesperson","Region"],
-columns="Quarter",
-aggfunc="sum",
-margins=True,
-fill_value=0
+    df,
+    values="Revenue",
+    index=["Salesperson","Region"],
+    columns="Quarter",
+    aggfunc="sum",
+    margins=True,
+    fill_value=0
 )
 
 print(pivot6)
