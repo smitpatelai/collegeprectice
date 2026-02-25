@@ -1,22 +1,17 @@
 import pandas as pd
 
 data = {
-"Salesperson": ["Amit", "Amit", "Amit", "Neha", "Neha", "Neha",
-"Raj", "Raj", "Raj", "Priya", "Priya", "Priya"],
+"Salesperson": ["Amit", "Amit", "Amit", "Neha", "Neha", "Neha","Raj", "Raj", "Raj", "Priya", "Priya", "Priya"],
 
-"Region": ["North", "South", "West", "North", "South", "West",
-"North", "South", "West", "North", "South", "West"],
+"Region": ["North", "South", "West", "North", "South", "West","North", "South", "West", "North", "South", "West"],
 
-"Product": ["Laptop", "Laptop", "Laptop", "Laptop", "Laptop", "Laptop",
-"Mobile", "Mobile", "Mobile", "Mobile", "Mobile", "Mobile"],
+"Product": ["Laptop", "Laptop", "Laptop", "Laptop", "Laptop", "Laptop","Mobile", "Mobile", "Mobile", "Mobile", "Mobile", "Mobile"],
 
-"Quarter": ["Q1", "Q2", "Q3", "Q1", "Q2", "Q3",
-"Q1", "Q2", "Q3", "Q1", "Q2", "Q3"],
+"Quarter": ["Q1", "Q2", "Q3", "Q1", "Q2", "Q3","Q1", "Q2", "Q3", "Q1", "Q2", "Q3"],
 
 "Units_Sold": [10, 8, 12, 9, 11, 7, 20, 18, 25, 15, 14, 19],
 
-"Revenue": [5888, 488888, 688888, 458888, 558880, 358888,
-300000, 280000, 400000, 250000, 240000, 350000]
+"Revenue": [5888, 488888, 688888, 458888, 558880, 358888,300000, 280000, 400000, 250000, 240000, 350000]
 }
 
 df = pd.DataFrame(data)
