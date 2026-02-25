@@ -43,3 +43,19 @@ print(df.groupby("Movie")["Revenue_Lakhs"].sum())
 print("\nTotal Views by Platform:")
 print(df.groupby("Platform")["Views_Millions"].sum())
 
+print("\nAverage Revenue per Genre:")
+print(df.groupby("Genre")["Revenue_Lakhs"].mean())
+
+print("\nTotal Revenue per Year:")
+print(df.groupby("Year")["Revenue_Lakhs"].sum())
+
+print("\nTotal Views per Genre:")
+print(df.groupby("Genre")["Views_Millions"].sum())
+
+print("\nMovies Sorted by Total Revenue (High to Low):")
+movie_revenue = df.groupby("Movie")["Revenue_Lakhs"].sum()
+print(movie_revenue.sort_values(ascending=False))
+
+print("\nPlatforms Sorted by Total Views (Low to High):")
+platform_views = df.groupby("Platform")["Views_Millions"].sum()
+print(platform_views.sort_values(ascending=True))
