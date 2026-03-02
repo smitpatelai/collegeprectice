@@ -1,0 +1,61 @@
+Order_ID,Customer_ID,Product_Name,Category,City,Price,Quantity,Discount_Percent,Rating,Delivery_Days,Return_Status,Order_Status,Payment_Method
+ORD001,CUST101,Smartphone,Electronics,Ahmedabad,15000,1,10,4.5,3,Yes,Delivered,UPI
+ORD002,CUST102,T-Shirt,Clothing,Mumbai,799,2,5,4,5,no,delivered,card
+ORD003,CUST103,Novel Book,Books,Delhi,abc,1,15,3.5,7,YES,Delivered,Cash
+ORD004,CUST104,Laptop,Electronics,Pune,55000,-1,20,6,4,No,CANCELLED,UPI
+ORD005,CUST105,Headphones,Electronics,Bangalore,2500,2,105,4.2,,yes,Delivered,upi
+ORD006,CUST106,Jeans,Clothing,Ahmedabad,,-3,10,3,6,No,Shipped,CARD
+ORD007,CUST107,Microwave,Electronics,Surat,8000,1,-5,2.5,3,No,delivered,Cash
+ORD008,CUST108,Notebook,Books,Mumbai,120,5,0,0,-2,Yes,Returned,UPI
+ORD009,CUST109,Camera,Electronics,Delhi,30000,1,25,4.8,2,No,Delivered,Card
+ORD010,CUST110,Shoes,Clothing,Jaipur,2999,two,15,3.9,5,NO,Delivered,cash
+ORD011,CUST111,Tablet,Electronics,Ahmedabad,18000,1,30,5.5,4,Yes,Delivered,UPI
+ORD012,CUST112,Backpack,Clothing,Delhi,1500,2,,4.1,3,yes,shipped,Card
+ORD013,CUST113,Fiction Book,Books,Pune,350,1,10,-1,2,No,Delivered,UPI
+ORD014,CUST114,Smartwatch,Electronics,Mumbai,12000,1,50,4.6,,No,Processing,UPI
+ORD015,CUST115,Jacket,Clothing,Bangalore,-2000,1,5,3.8,4,Yes,Delivered,Cash
+ORD016,CUST116,Printer,Electronics,Surat,7000,0,20,4.3,3,No,Delivered,Card
+ORD017,CUST117,Textbook,Books,Ahmedabad,450,3,10,2.9,abc,yes,Delivered,upi
+ORD018,CUST118,Monitor,Electronics,Delhi,15000,1,15,4.7,5,No,Cancelled,Card
+ORD019,CUST119,Sandals,Clothing,Mumbai,1200,2,200,4.0,6,Yes,Delivered,CASH
+ORD020,CUST120,Earbuds,Electronics,Pune,3000,1,10,3.5,4,No,Delivered,
+ORD021,CUST121,Keyboard,Electronics,Ahmedabad,2500,1,5,4.2,3,yes,Delivered,Upi
+ORD022,CUST122,Mouse,Electronics,Delhi,1000,1,10,3.8,2,No,delivered,card
+ORD023,CUST123,Novel Book,Books,Mumbai,400,2,15,4.1,3,,Delivered,Cash
+ORD024,CUST124,Blender,Electronics,Bangalore,3500,1,8,4.4,0,Yes,Delivered,UPI
+ORD025,CUST125,T-Shirt,Clothing,Surat,799,2,xyz,3.6,4,No,Delivered,Card
+ORD026,CUST126,Smart TV,Electronics,Ahmedabad,45000,1,10,4.5,5,Yes,Delivered,UPI
+ORD027,CUST127,Jeans,Clothing,Delhi,1999,2,15,3.9,4,no,Delivered,card
+ORD028,CUST128,Story Book,Books,Mumbai,500,3,5,4.2,3,YES,delivered,Cash
+ORD029,CUST129,Air Conditioner,Electronics,Pune,55000,1,20,4.8,6,No,Delivered,UPI
+ORD030,CUST130,Shirt,Clothing,Bangalore,,2,10,3.5,4,Yes,Shipped,upi
+ORD031,CUST131,Laptop,Electronics,Surat,65000,-2,25,6,3,No,CANCELLED,Card
+ORD032,CUST132,Notebook,Books,Ahmedabad,120,5,-10,2.5,2,yes,Delivered,CASH
+ORD033,CUST133,Camera,Electronics,Delhi,abc,1,15,4.1,3,No,Delivered,Card
+ORD034,CUST134,Shoes,Clothing,Mumbai,2999,2,110,3.8,4,Yes,Delivered,cash
+ORD035,CUST135,Tablet,Electronics,Pune,18000,0,30,4.7,,No,Processing,UPI
+ORD036,CUST136,Backpack,Clothing,Ahmedabad,1500,2, ,4.0,3,YES,Delivered,Card
+ORD037,CUST137,Fiction Book,Books,Delhi,-400,1,10,-2,5,No,Delivered,UPI
+ORD038,CUST138,Smartwatch,Electronics,Mumbai,12000,one,15,4.3,4,Yes,Delivered,UPI
+ORD039,CUST139,Jacket,Clothing,Surat,3500,2,200,3.2,6,No,Delivered,Cash
+ORD040,CUST140,Printer,Electronics,Ahmedabad,7000,1,5,abc,3,Yes,Delivered,Card
+ORD041,CUST141,Textbook,Books,Delhi,450,3,10,2.9,abc,yes,Delivered,upi
+ORD042,CUST142,Monitor,Electronics,Pune,15000,1,15,4.7,5,No,Cancelled,Card
+ORD043,CUST143,Sandals,Clothing,Mumbai,1200,2,5,4.0,-3,Yes,Delivered,CASH
+ORD044,CUST144,Earbuds,Electronics,Bangalore,3000,1,10,3.5,4,No,Delivered,
+ORD045,CUST145,Keyboard,Electronics,Ahmedabad,2500,1,5,4.2,3, yes ,Delivered,Upi
+ORD046,CUST146,Mouse,Electronics,Delhi,1000,1,10,3.8,2,No, delivered ,card
+ORD047,CUST147,Novel Book,Books,Mumbai,400,2,15,4.1,3,,Delivered,Cash
+ORD048,CUST148,Blender,Electronics,Pune,3500,1,xyz,4.4,0,Yes,Delivered,UPI
+ORD049,CUST149,T-Shirt,Clothing,Surat,799,two,5,3.6,4,No,Delivered,Card
+ORD050,CUST150,Headphones,Electronics,Ahmedabad,2500,2,10,7,3,Yes,Delivered,UPI
+ORD051,CUST151,Laptop,Electronics,Delhi,55000,1,20,4.9,4,No,Delivered,Card
+ORD052,CUST152,Microwave,Electronics,Mumbai,8000,1,-5,2.5,3,No,delivered,Cash
+ORD053,CUST153,Notebook,Books,Pune,120,5,0,0,-2,Yes,Returned,UPI
+ORD054,CUST154,Camera,Electronics,Bangalore,30000,1,25,4.8,2,No,Delivered,Card
+ORD055,CUST155,Shoes,Clothing,Ahmedabad,2999,2,15,3.9,5,NO,Delivered,cash
+ORD056,CUST156,Tablet,Electronics,Delhi,18000,1,30,5.5,4,Yes,Delivered,UPI
+ORD057,CUST157,Backpack,Clothing,Mumbai,1500,2,,4.1,3,yes,shipped,Card
+ORD058,CUST158,Fiction Book,Books,Surat,350,1,10,-1,2,No,Delivered,UPI
+ORD059,CUST159,Smartwatch,Electronics,Pune,12000,1,50,4.6,,No,Processing,UPI
+ORD060,CUST160,Jacket,Clothing,Bangalore,-2000,1,5,3.8,4,Yes,Delivered,Cash
