@@ -1,4 +1,6 @@
 import pandas as pd
+
+
 # Load dataset
 df = pd.read_csv("ecomdataset.csv")   # Change filename if needed
 
