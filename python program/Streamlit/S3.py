@@ -14,3 +14,13 @@ with st.sidebar:
 if selected == "Home":
     st.title("Home")
 
+if selected == "Count":
+    st.title("Number Counter")
+    num = st.number_input("Enter Number", value=0)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Increase "):
+            st.write("### Output:", num + 1)
+    with col2:
+        if st.button("Decrease "):
+            st.write("### Output:", num - 1)
