@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 with st.sidebar:
-    selected = option_menu("Style Page",options=["Home","About"],menu_icon=["person"],
+    selected = option_menu("Style Page",options=["Home","About","Count"],menu_icon=["person"],
                            icons=["house","book"],
                            styles={
                                "container":{"padding":"Spx","background-color":"#FOFFFF"},
@@ -13,6 +13,12 @@ with st.sidebar:
 
 if selected == "Home":
     st.title("Home")
+    st.subheader("Welcome to my website")
+
+if selected == "About":
+    st.title("About")
+    st.subheader("About this app")
+
 
 if selected == "Count":
     st.title("Number Counter")
