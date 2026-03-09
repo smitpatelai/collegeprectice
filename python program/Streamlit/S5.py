@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import pandas as pd
 import streamlit as st
 
 st.set_page_config("Expense Tracker")
@@ -52,5 +52,23 @@ if st.button("Add Transaction"):
     else:
         st.warning("Please enter a valid Amount and Description")
     st.write(st.session_state.last_action)
-
+    st.subheader("💳 Current Balance")
+    st.metric("Balance", f"₹ {st.session_state.balance:.2f}")
+    st.subheader("Transaction History")
+    if st.session_state.transaction:
+        df = pd.DataFrame(st.session_state.transaction)
+        # Filter
+        filter_type = st.selectbox(
+            "Filter by Type",
+            ["All", "Income", "Expense"]
+        )
+        if filter_type != "All":
+            df = df[df["Type"] == filter_type]
+        st.dataframe(df, use_container_width=True)
+    else:
+        st.info("No transactions added yet.")
+    if st.button("Clear All Transactions"):
+        st.session_state.transactions = []
+        st.session_state.balance = 0
+        st.warning("All transactions cleared.")
 
