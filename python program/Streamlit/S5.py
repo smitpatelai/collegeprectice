@@ -75,8 +75,25 @@ if st.session_state.transaction:
 else:
     st.info("No transactions added yet.")
 
-if st.button("Clear All Transactions"):
-    st.session_state.transaction = []
-    st.session_state.balance = 0
-    st.warning("All transactions cleared.")
+col5, col6 = st.columns(2)
+with col5:
+        if st.button("Delete Last Transaction"):
+            if st.session_state.transaction:
+                last = st.session_state. transaction. pop()
+                if last["type"] == "Income":
+                    st.session_state.balance -= last["amount"]
+                else:
+                    st.session_state.balance += last["amount"]
 
+            st.success("Last Transaction Deleted")
+            st.rerun()
+
+with col6:
+
+    if st.button("Reset Data"):
+        if st.session_state.transaction:
+            st.session_state.balance = 0.0
+            st.session_state. transaction = []
+
+            st.success("Data is Reset Now")
+            st.rerun()
