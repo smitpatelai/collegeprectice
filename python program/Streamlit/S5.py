@@ -14,10 +14,10 @@ if "balance" not in st.session_state:
 if "last_action" not in st.session_state:
     st.session_state.last_action = ""
 
-
 st.subheader("Add Transaction")
 
 col1, col2, col3, col4 = st.columns(4)
+
 with col1:
     t_type = st.selectbox("Type",["Income","Expense"])
 
@@ -43,32 +43,40 @@ if st.button("Add Transaction"):
 
         if t_type == "Income":
             st.session_state.balance += amount
-
         else:
             st.session_state.balance -= amount
+
         st.session_state.last_action = f"{t_type}"
         st.success("Transaction Added Successfully")
 
     else:
         st.warning("Please enter a valid Amount and Description")
-    st.write(st.session_state.last_action)
-    st.subheader("💳 Current Balance")
-    st.metric("Balance", f"₹ {st.session_state.balance:.2f}")
-    st.subheader("Transaction History")
-    if st.session_state.transaction:
-        df = pd.DataFrame(st.session_state.transaction)
-        # Filter
-        filter_type = st.selectbox(
-            "Filter by Type",
-            ["All", "Income", "Expense"]
-        )
-        if filter_type != "All":
-            df = df[df["Type"] == filter_type]
-        st.dataframe(df, use_container_width=True)
-    else:
-        st.info("No transactions added yet.")
-    if st.button("Clear All Transactions"):
-        st.session_state.transactions = []
-        st.session_state.balance = 0
-        st.warning("All transactions cleared.")
+
+st.write(st.session_state.last_action)
+
+st.subheader("💳 Current Balance")
+st.metric("Balance", f"₹ {st.session_state.balance:.2f}")
+
+st.subheader("Transaction History")
+
+if st.session_state.transaction:
+
+    df = pd.DataFrame(st.session_state.transaction)
+
+    filter_type = st.selectbox(
+        "Filter by Type",
+        ["All","Income","Expense"]
+    )
+    if filter_type != "All":
+        df = df[df["type"] == filter_type]
+
+    st.dataframe(df, use_container_width=True)
+
+else:
+    st.info("No transactions added yet.")
+
+if st.button("Clear All Transactions"):
+    st.session_state.transaction = []
+    st.session_state.balance = 0
+    st.warning("All transactions cleared.")
 
