@@ -29,12 +29,6 @@ background-size: 200% 200%;
 animation: meshMove 15s ease infinite;
 }
 
-/* Title */
-h1, h2, h3 {
-text-align:center;
-color:white;
-}
-
 /* Animation */
 
 @keyframes meshMove{
