@@ -36,7 +36,7 @@ if submit:
     if not first_name or not last_name or not email or not phone or not username or not password or not re_password:
         st.error("Please fill all details")
 
-    elif not re.match(r"^[\w\.-]+@[\w\.-]+\.\w+$", email):
+    elif not re.match(r"^[\w.-]+@[\w.-]+\.\w+$", email):
         st.error("Invalid Email Format")
 
     elif not re.match(r"^\d{10}$", phone):
@@ -79,3 +79,4 @@ if submit:
             df.to_csv(FILE_NAME, index=False)
 
             st.success("Signup Successful!")
+            
