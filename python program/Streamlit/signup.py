@@ -12,7 +12,8 @@ def load_css(file_name):
 load_css("style.css")
 
 FILE_NAME = "users.csv"
-st.header("Sign UP")
+
+st.markdown("<h1 class='signup-title'>Sign UP</h1>", unsafe_allow_html=True)
 
 if not os.path.exists(FILE_NAME):
     df = pd.DataFrame(columns=[
