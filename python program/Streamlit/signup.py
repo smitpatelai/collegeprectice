@@ -68,6 +68,8 @@ if submit:
     elif not re.search(r"[!@#$%^&*]", password):
         st.error("Password must contain one special character")
 
+    elif email in df["Email"]:
+        st.error("Email already exists")
     else:
         df = pd.read_csv(FILE_NAME)
 
@@ -87,4 +89,3 @@ if submit:
             df.to_csv(FILE_NAME, index=False)
 
             st.success("Signup Successful!")
-            
