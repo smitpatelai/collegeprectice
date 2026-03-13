@@ -1,0 +1,4 @@
+username,login_date,login_time,logout_time,funding,team_experience,market_size,competition,business_model,prediction_probability
+varun,2026-03-13,11:25:06,,157890000000,2,5,8,5,1.0
+varun,2026-03-13,11:27:08,,15489866221,1,6,9,5,1.0
+varun,2026-03-13,11:30:21,11:30:43,12458900000,1,9,8,6,1.0

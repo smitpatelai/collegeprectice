@@ -1,3 +1,4 @@
+from datetime import datetime
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -29,6 +30,26 @@ if "page" not in st.session_state:
 if not os.path.exists("users.csv"):
     users = pd.DataFrame(columns=["username","email","password"])
     users.to_csv("users.csv",index=False)
+
+# --------------------------------
+# USER ACTIVITY LOG FILE
+# --------------------------------
+
+if not os.path.exists("user_activity.csv"):
+    activity = pd.DataFrame(columns=[
+        "username",
+        "login_date",
+        "login_time",
+        "logout_time",
+        "funding",
+        "team_experience",
+        "market_size",
+        "competition",
+        "business_model",
+        "prediction_probability"
+    ])
+    activity.to_csv("user_activity.csv", index=False)
+
 
 def signup():
 
@@ -100,6 +121,8 @@ def login():
 
             if not user.empty:
                 st.session_state.logged_in=True
+                st.session_state.username = username
+                st.session_state.login_time = datetime.now()
                 st.rerun()
             else:
                 st.error("Invalid Username or Password")
@@ -113,7 +136,6 @@ def login():
 # --------------------------------
 
 st.title("🚀 AI Startup Success Prediction Dashboard")
-st.markdown('<div class="ai-robot">🤖</div>', unsafe_allow_html=True)
 
 if not st.session_state.logged_in:
 
@@ -123,6 +145,7 @@ if not st.session_state.logged_in:
         signup()
 
     st.stop()
+st.markdown('<div class="ai-robot">🤖</div>', unsafe_allow_html=True)
 
 st.write("Predict startup success probability using a machine learning model built from scratch.")
 
@@ -308,6 +331,29 @@ if st.button("Predict Startup Success"):
     st.progress(float(prob))
     st.write(f"Success Chance: {prob*100:.2f}%")
 
+    # Save work data to activity file
+
+    activity = pd.read_csv("user_activity.csv")
+
+    login_date = st.session_state.login_time.strftime("%Y-%m-%d")
+    login_time = st.session_state.login_time.strftime("%H:%M:%S")
+
+    new_activity = pd.DataFrame({
+        "username": [st.session_state.username],
+        "login_date": [login_date],
+        "login_time": [login_time],
+        "logout_time": [""],
+        "funding": [funding],
+        "team_experience": [team_exp],
+        "market_size": [market_size],
+        "competition": [competition],
+        "business_model": [business_model],
+        "prediction_probability": [prob]
+    })
+
+    activity = pd.concat([activity, new_activity], ignore_index=True)
+    activity.to_csv("user_activity.csv", index=False)
+
 # --------------------------------
 # SUCCESS GAUGE
 # --------------------------------
@@ -429,6 +475,23 @@ st.subheader("📂 Dataset Preview")
 st.dataframe(chart_data.head(50))
 
 if st.button("Logout"):
-    st.session_state.logged_in=False
-    st.session_state.page="login"
+
+    activity = pd.read_csv("user_activity.csv")
+
+    logout_time = datetime.now().strftime("%H:%M:%S")
+
+    # Find last record of this user
+    user_rows = activity[activity["username"] == st.session_state.username]
+
+    if not user_rows.empty:
+
+        last_index = user_rows.index[-1]
+
+        activity.loc[last_index, "logout_time"] = logout_time
+
+    activity.to_csv("user_activity.csv", index=False)
+
+    st.session_state.logged_in = False
+    st.session_state.page = "login"
+
     st.rerun()
