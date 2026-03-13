@@ -14,7 +14,7 @@ def load_css(file_name):
     with open(file_name, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("style.css")
+load_css("stylee.css")
 
 # -----------------------------
 # LOGIN / SIGNUP SYSTEM
@@ -113,6 +113,7 @@ def login():
 # --------------------------------
 
 st.title("🚀 AI Startup Success Prediction Dashboard")
+st.markdown('<div class="ai-robot">🤖</div>', unsafe_allow_html=True)
 
 if not st.session_state.logged_in:
 

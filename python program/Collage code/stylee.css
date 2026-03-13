@@ -1,0 +1,227 @@
+/* 🌌 Animated AI Background */
+
+.stApp {
+    background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#1b2735);
+    background-size: 400% 400%;
+    animation: aiBackground 15s ease infinite;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes aiBackground {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ✨ Glassmorphism Panels */
+
+.main .block-container {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(14px);
+    border-radius: 15px;
+    padding: 25px;
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 0 25px rgba(0,255,255,0.15);
+}
+
+/* 🌟 Titles */
+
+h1 {
+    text-align: center;
+    color: #00ffe0;
+    font-size: 42px;
+    text-shadow: 0 0 12px #00ffe0;
+    animation: neonTitle 3s ease-in-out infinite alternate;
+}
+
+@keyframes neonTitle{
+    from{ text-shadow:0 0 10px #00ffe0;}
+    to{ text-shadow:0 0 25px #00ffff;}
+}
+
+h2, h3 {
+    color: #ffffff;
+    text-shadow: 0 0 6px #00bfff;
+}
+
+/* 🚀 Buttons */
+
+.stButton>button {
+    background: linear-gradient(45deg,#ff00ff,#00ffff);
+    color:white;
+    font-weight:600;
+    border-radius:12px;
+    padding:12px 22px;
+    font-size:16px;
+    transition:0.3s;
+    box-shadow:0 0 15px #00ffff;
+}
+
+.stButton>button:hover {
+    transform: scale(1.07);
+    box-shadow:0 0 25px #ff00ff,0 0 25px #00ffff;
+}
+
+/* 📊 Metric Cards */
+
+[data-testid="stMetric"] {
+    background: rgba(0,255,255,0.08);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px #00ffff;
+    transition:0.3s;
+}
+
+[data-testid="stMetric"]:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 30px #00ffff;
+}
+
+/* 🧾 Inputs */
+
+.stNumberInput input,
+.stSlider,
+.stTextInput input {
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    border: none;
+}
+
+/* 📂 Dataframes */
+
+[data-testid="stDataFrame"] {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 12px;
+}
+
+/* 📈 Plotly Charts */
+
+.plotly-graph-div {
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 12px;
+}
+
+/* -------------------------------- */
+/* 🔐 Login / Signup Glass Card */
+/* -------------------------------- */
+
+.login-container{
+
+    width:420px;
+    margin:auto;
+    margin-top:120px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+
+    border-radius:18px;
+
+    padding:40px;
+
+    text-align:center;
+
+    box-shadow:0 0 25px rgba(0,255,255,0.4);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    animation: floatCard 4s ease-in-out infinite;
+
+}
+
+@keyframes floatCard{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-8px);}
+    100%{transform:translateY(0px);}
+}
+
+/* Login title */
+
+.login-container h1{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+/* Login inputs */
+
+.login-container .stTextInput input{
+
+    background: rgba(255,255,255,0.12);
+
+    border-radius:10px;
+
+    padding:10px;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,0.15);
+
+}
+
+/* Login button */
+
+.login-container .stButton>button{
+
+    width:100%;
+
+    margin-top:10px;
+
+}
+
+/* small text */
+
+.login-container p{
+    color:#dddddd;
+    font-size:14px;
+}
+
+/* 🤖 Floating AI Robot Icon */
+
+.ai-robot{
+
+    position:fixed;
+    right:40px;
+    bottom:40px;
+
+    font-size:60px;
+
+    animation: robotFloat 3s ease-in-out infinite;
+
+    text-shadow:0 0 15px #00ffff;
+
+}
+
+@keyframes robotFloat{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0px);}
+}
+
+/* 🧠 AI Pulse Effect */
+
+.ai-pulse{
+    width:15px;
+    height:15px;
+    background:#00ffff;
+    border-radius:50%;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(0,255,255,0.6);}
+    70%{box-shadow:0 0 0 15px rgba(0,255,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,255,255,0);}
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(#00ffff,#ff00ff);
+    border-radius:10px;
+}
