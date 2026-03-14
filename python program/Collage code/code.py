@@ -461,9 +461,22 @@ fig3d=go.Figure(data=[go.Scatter3d(
         color=chart_data['success'],
         colorscale='Viridis',
         opacity=0.9
+
+
     )
 )])
-
+fig3d.update_layout(
+    scene=dict(
+        xaxis_title='Funding ($M)',
+        yaxis_title='Team Experience',
+        zaxis_title='Market Size',
+        xaxis=dict(backgroundcolor="black"),
+        yaxis=dict(backgroundcolor="black"),
+        zaxis=dict(backgroundcolor="black")
+    ),
+    paper_bgcolor='rgba(0,0,0,0)',
+    margin=dict(l=0, r=0, b=0, t=0)
+)
 st.plotly_chart(fig3d,use_container_width=True)
 
 # --------------------------------
