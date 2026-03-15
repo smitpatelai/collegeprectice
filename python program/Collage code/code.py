@@ -135,9 +135,9 @@ def login():
 # TITLE
 # --------------------------------
 
-st.title("🚀 AI Startup Success Prediction Dashboard")
-
 if not st.session_state.logged_in:
+
+    st.title("🚀 AI Startup Success Prediction Dashboard")
 
     if st.session_state.page=="login":
         login()
@@ -145,6 +145,13 @@ if not st.session_state.logged_in:
         signup()
 
     st.stop()
+
+st.markdown(f"""
+<h1 style='text-align:center; color:#00f7ff;'>
+🚀 Welcome {st.session_state.username}
+</h1>
+""", unsafe_allow_html=True)
+
 st.markdown('<div class="ai-robot">🤖</div>', unsafe_allow_html=True)
 
 st.write("Predict startup success probability using a machine learning model built from scratch.")
