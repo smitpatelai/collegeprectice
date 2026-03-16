@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import os
 import plotly.graph_objects as go
+import plotly.express as px
 
 # --------------------------------
 # PAGE CONFIG
@@ -451,6 +452,41 @@ importance=pd.DataFrame({
 })
 
 st.bar_chart(importance.set_index("Feature"))
+# --------------------------------
+# STARTUP MARKET TREND (STOCK STYLE)
+# --------------------------------
+
+st.subheader("📈 Startup Market Trend")
+
+chart_data["startup_index"] = (
+    chart_data["funding"]/1000000 +
+    chart_data["team_experience"] +
+    chart_data["market_size"] +
+    chart_data["business_model"] -
+    chart_data["competition"]
+)
+
+chart_data["time"] = range(len(chart_data))
+
+fig_trend = go.Figure()
+
+fig_trend.add_trace(go.Scatter(
+    x=chart_data["time"],
+    y=chart_data["startup_index"],
+    mode="lines",
+    name="Startup Market Index",
+    line=dict(color="#00f7ff", width=3)
+))
+
+fig_trend.update_layout(
+    title="Startup Market Growth Trend",
+    xaxis_title="Startup Timeline",
+    yaxis_title="Startup Index Score",
+    template="plotly_dark"
+)
+
+st.plotly_chart(fig_trend, use_container_width=True)
+
 
 # --------------------------------
 # 3D CHART
