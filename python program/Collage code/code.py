@@ -28,9 +28,18 @@ if "logged_in" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "login"
 
+if "role" not in st.session_state:   # ✅ ADD HERE
+    st.session_state.role = "user"
+
 if not os.path.exists("users.csv"):
     users = pd.DataFrame(columns=["username","email","password"])
     users.to_csv("users.csv",index=False)
+# --------------------------------
+# ADMIN FILE
+# --------------------------------
+if not os.path.exists("admin.csv"):
+    admin = pd.DataFrame(columns=["username","email","password"])
+    admin.to_csv("admin.csv", index=False)
 
 # --------------------------------
 # USER ACTIVITY LOG FILE
@@ -63,6 +72,8 @@ def signup():
         <h1 class="cool-title">🚀 Create Account</h1>
         """,unsafe_allow_html=True)
 
+        role = st.selectbox("Account Type", ["User","Admin"])  # ✅ ADDED HERE
+
         username = st.text_input("Username")
         email = st.text_input("Email")
         password = st.text_input("Password",type="password")
@@ -71,25 +82,47 @@ def signup():
 
         if st.button("Sign Up"):
 
-            users = pd.read_csv("users.csv")
+            if role == "User":
 
-            if username in users["username"].values:
-                st.error("Username already exists")
+                users = pd.read_csv("users.csv")
 
-            else:
+                if username in users["username"].values:
+                    st.error("Username already exists")
 
-                new_user = pd.DataFrame({
-                    "username":[username],
-                    "email":[email],
-                    "password":[password]
-                })
+                else:
+                    new_user = pd.DataFrame({
+                        "username":[username],
+                        "email":[email],
+                        "password":[password]
+                    })
 
-                users = pd.concat([users,new_user],ignore_index=True)
-                users.to_csv("users.csv",index=False)
+                    users = pd.concat([users,new_user],ignore_index=True)
+                    users.to_csv("users.csv",index=False)
 
-                st.success("Account created successfully")
-                st.session_state.page="login"
-                st.rerun()
+                    st.success("User Account created")
+                    st.session_state.page="login"
+                    st.rerun()
+
+            else:  # ADMIN SIGNUP
+
+                admin = pd.read_csv("admin.csv")
+
+                if username in admin["username"].values:
+                    st.error("Admin already exists")
+
+                else:
+                    new_admin = pd.DataFrame({
+                        "username":[username],
+                        "email":[email],
+                        "password":[password]
+                    })
+
+                    admin = pd.concat([admin,new_admin],ignore_index=True)
+                    admin.to_csv("admin.csv",index=False)
+
+                    st.success("Admin Account created")
+                    st.session_state.page="login"
+                    st.rerun()
 
         if st.button("Go to Login"):
             st.session_state.page="login"
@@ -106,6 +139,8 @@ def login():
         <h1 class="cool-title">🚀 Login Account</h1>
         """,unsafe_allow_html=True)
 
+        role = st.selectbox("Login As", ["User","Admin"])  # ✅ ADDED
+
         username = st.text_input("Username")
         password = st.text_input("Password",type="password")
 
@@ -113,24 +148,263 @@ def login():
 
         if st.button("Login"):
 
-            users = pd.read_csv("users.csv")
+            if role == "User":
 
-            user = users[
-                (users["username"]==username) &
-                (users["password"]==password)
-            ]
+                users = pd.read_csv("users.csv")
 
-            if not user.empty:
-                st.session_state.logged_in=True
-                st.session_state.username = username
-                st.session_state.login_time = datetime.now()
-                st.rerun()
-            else:
-                st.error("Invalid Username or Password")
+                user = users[
+                    (users["username"]==username) &
+                    (users["password"]==password)
+                ]
+
+                if not user.empty:
+                    st.session_state.logged_in=True
+                    st.session_state.username = username
+                    st.session_state.role = "user"
+                    st.session_state.login_time = datetime.now()
+                    st.rerun()
+                else:
+                    st.error("Invalid User Credentials")
+
+            else:  # ADMIN LOGIN
+
+                admin = pd.read_csv("admin.csv")
+
+                admin_user = admin[
+                    (admin["username"]==username) &
+                    (admin["password"]==password)
+                ]
+
+                if not admin_user.empty:
+                    st.session_state.logged_in=True
+                    st.session_state.username = username
+                    st.session_state.role = "admin"
+                    st.session_state.login_time = datetime.now()
+                    st.rerun()
+                else:
+                    st.error("Invalid Admin Credentials")
 
         if st.button("Create Account"):
             st.session_state.page="signup"
             st.rerun()
+# --------------------------------
+# ADMIN PANEL
+# --------------------------------
+if st.session_state.role == "admin":
+
+    st.markdown(f"""
+    <h1 style='text-align:center; color:red;'>
+    👑 Admin Dashboard - {st.session_state.username}
+    </h1>
+    """, unsafe_allow_html=True)
+
+    users_df = pd.read_csv("users.csv")
+    activity_df = pd.read_csv("user_activity.csv")
+
+    # --------------------------------
+    # SUMMARY CARDS
+    # --------------------------------
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("👤 Total Users", len(users_df))
+    col2.metric("📊 Total Predictions", len(activity_df))
+    col3.metric("🔥 Avg Success Rate",
+                f"{activity_df['prediction_probability'].mean()*100:.2f}%" if not activity_df.empty else "0%")
+
+    # --------------------------------
+    # TABS
+    # --------------------------------
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "👤 Users",
+        "📊 Activity",
+        "📈 Charts",
+        "📂 Raw Data",
+        "🧠 AI Insights"
+    ])
+
+    # --------------------------------
+    # USERS TAB
+    # --------------------------------
+    with tab1:
+        st.subheader("Registered Users")
+        st.dataframe(users_df)
+
+    # --------------------------------
+    # ACTIVITY TAB
+    # --------------------------------
+    with tab2:
+        st.subheader("User Activity Logs")
+        st.dataframe(activity_df)
+
+    # --------------------------------
+    # CHARTS TAB
+    # --------------------------------
+    with tab3:
+
+        if not activity_df.empty:
+
+            st.subheader("📊 Prediction Distribution")
+
+            fig1 = px.histogram(
+                activity_df,
+                x="prediction_probability",
+                nbins=20,
+                title="Prediction Probability Distribution"
+            )
+            st.plotly_chart(fig1, use_container_width=True)
+
+            st.subheader("📈 User Activity Count")
+
+            user_counts = activity_df["username"].value_counts()
+
+            fig2 = px.bar(
+                x=user_counts.index,
+                y=user_counts.values,
+                labels={'x':'Username','y':'Predictions'},
+                title="Predictions per User"
+            )
+            st.plotly_chart(fig2, use_container_width=True)
+
+            st.subheader("📉 Success vs Failure")
+
+            activity_df["result"] = activity_df["prediction_probability"].apply(
+                lambda x: "Success" if x >= 0.5 else "Failure"
+            )
+
+            result_counts = activity_df["result"].value_counts()
+
+            fig3 = px.pie(
+                names=result_counts.index,
+                values=result_counts.values,
+                title="Success vs Failure Ratio"
+            )
+            st.plotly_chart(fig3, use_container_width=True)
+
+        else:
+            st.warning("No activity data available")
+
+    # --------------------------------
+    # RAW DATA TAB
+    # --------------------------------
+    with tab4:
+
+        st.subheader("Download Data")
+
+        st.download_button(
+            "Download Users CSV",
+            users_df.to_csv(index=False),
+            "users.csv"
+        )
+
+        st.download_button(
+            "Download Activity CSV",
+            activity_df.to_csv(index=False),
+            "activity.csv"
+        )
+    tab5 = st.tabs(["🧠 AI Insights"])[0]
+
+    with tab5:
+
+        st.subheader("🤖 AI-Based Insights")
+
+        activity_df = pd.read_csv("user_activity.csv")
+
+        if not activity_df.empty:
+
+            # --------------------------------
+            # 1. SUCCESS RATE
+            # --------------------------------
+            success_rate = (activity_df["prediction_probability"] >= 0.5).mean()
+
+            st.metric("Overall Success Rate", f"{success_rate * 100:.2f}%")
+
+            # --------------------------------
+            # 2. HIGH RISK STARTUPS
+            # --------------------------------
+            high_risk = activity_df[activity_df["prediction_probability"] < 0.4]
+
+            st.subheader("⚠️ High Risk Startups")
+            st.dataframe(high_risk.head(10))
+
+            # --------------------------------
+            # 3. TOP PERFORMING USERS
+            # --------------------------------
+            st.subheader("🏆 Top Users")
+
+            top_users = activity_df.groupby("username")["prediction_probability"].mean().sort_values(ascending=False)
+
+            st.dataframe(top_users.head(5))
+
+            # --------------------------------
+            # 4. FEATURE IMPACT (AI LOGIC)
+            # --------------------------------
+            st.subheader("📈 Feature Impact Analysis")
+
+            corr = activity_df[[
+                "funding",
+                "team_experience",
+                "market_size",
+                "competition",
+                "business_model",
+                "prediction_probability"
+            ]].corr()
+
+            fig_corr = px.imshow(
+                corr,
+                text_auto=True,
+                title="Feature Correlation Heatmap"
+            )
+
+            st.plotly_chart(fig_corr, use_container_width=True)
+
+            # --------------------------------
+            # 5. TREND ANALYSIS
+            # --------------------------------
+            st.subheader("📊 Prediction Trend Over Time")
+
+            activity_df["index"] = range(len(activity_df))
+
+            fig_trend = px.line(
+                activity_df,
+                x="index",
+                y="prediction_probability",
+                title="Prediction Trend"
+            )
+
+            st.plotly_chart(fig_trend, use_container_width=True)
+
+            # --------------------------------
+            # 6. AI TEXT INSIGHTS
+            # --------------------------------
+            st.subheader("🧠 Smart Insights")
+
+            avg_prob = activity_df["prediction_probability"].mean()
+
+            if avg_prob > 0.6:
+                st.success("📈 Most startups show strong success potential.")
+            elif avg_prob > 0.4:
+                st.warning("⚖️ Startups have moderate success chances.")
+            else:
+                st.error("⚠️ Many startups are at high risk of failure.")
+
+            st.info("💡 Insight: Increase funding + team experience to improve success rate.")
+
+        else:
+            st.warning("No activity data available")
+
+    # --------------------------------
+    # LOGOUT
+    # --------------------------------
+    if st.button("Logout"):
+
+        st.session_state.logged_in = False
+        st.session_state.page = "login"
+        st.session_state.username = ""
+        st.session_state.role = "user"
+
+        st.rerun()
+
+    st.stop()
 
 # --------------------------------
 # TITLE
@@ -548,5 +822,7 @@ if st.button("Logout"):
 
     st.session_state.logged_in = False
     st.session_state.page = "login"
+    st.session_state.username = ""
+    st.session_state.role = "user"
 
     st.rerun()
