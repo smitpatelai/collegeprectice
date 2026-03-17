@@ -139,7 +139,6 @@ def login():
 if not st.session_state.logged_in:
 
     st.title("🚀 AI Startup Success Prediction Dashboard")
-
     if st.session_state.page=="login":
         login()
     else:
