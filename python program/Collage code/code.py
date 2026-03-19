@@ -69,7 +69,7 @@ def signup():
 
         st.markdown("""
         <div class="login-container">
-        <h1 class="cool-title">🚀 Create Account</h1>
+        <h1 class="cool-title">👤 Create Account</h1>
         """,unsafe_allow_html=True)
 
         role = st.selectbox("Account Type", ["User","Admin"])  # ✅ ADDED HERE
@@ -136,7 +136,7 @@ def login():
 
         st.markdown("""
         <div class="login-container">
-        <h1 class="cool-title">🚀 Login Account</h1>
+        <h1 class="cool-title">👤 Login Account</h1>
         """,unsafe_allow_html=True)
 
         role = st.selectbox("Login As", ["User","Admin"])  # ✅ ADDED
@@ -301,8 +301,9 @@ if st.session_state.role == "admin":
             activity_df.to_csv(index=False),
             "activity.csv"
         )
-    tab5 = st.tabs(["🧠 AI Insights"])[0]
-
+    #-----------------------------------
+    #AI TAB
+    #-----------------------------------
     with tab5:
 
         st.subheader("🤖 AI-Based Insights")
@@ -422,7 +423,7 @@ if not st.session_state.logged_in:
 
 st.markdown(f"""
 <h1 style='text-align:center; color:#00f7ff;'>
-🚀 Welcome {st.session_state.username}
+👤 Welcome {st.session_state.username}
 </h1>
 """, unsafe_allow_html=True)
 
