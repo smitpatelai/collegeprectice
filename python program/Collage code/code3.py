@@ -491,7 +491,14 @@ if st.session_state.role == "admin":
 
 if not st.session_state.logged_in:
 
-    st.title("🚀 AI Startup Success Prediction Dashboard")
+    st.markdown("""
+    <h1 style='text-align: center; 
+               font-size: 48px; 
+               font-weight: bold;
+               color: white;'>
+    🚀 AI Startup Success Prediction Dashboard
+    </h1>
+    """, unsafe_allow_html=True)
     if st.session_state.page=="login":
         login()
     else:
