@@ -276,7 +276,8 @@ if st.session_state.role == "admin":
             fig3 = px.pie(
                 names=result_counts.index,
                 values=result_counts.values,
-                title="Success vs Failure Ratio"
+                title="Success vs Failure Ratio",
+                hole=0.4
             )
             st.plotly_chart(fig3, use_container_width=True)
 

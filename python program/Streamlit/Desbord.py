@@ -91,3 +91,22 @@ fig_top = px.bar(
 col5.plotly_chart(fig_top)
 
 
+# trendline display -- > sales
+
+fig_line = px. line(filtered_df,
+                            x="Date", y="Sales", markers=True, title="Sales Trend Over Dataset")
+st.plotly_chart(fig_line)
+
+
+profit_product = filtered_df.groupby("Product") ["Profit"].sum().reset_index()
+fig_pie = px.pie(profit_product,
+                            values="Profit",
+                            names="Product",
+                            title="Profit By Product",
+                            hole=0.4)
+st.plotly_chart(fig_pie)
+
+st.markdown("### Download Filtered Dataset")
+csv = filtered_df.to_csv(index=False). encode('UTF-8')
+st. download_button ( "Download CSV", csv,"Filtered_Dashboard_data. csv", "text/csv")
+
