@@ -1,0 +1,277 @@
+/* ================================= */
+/* 🌌 CYBER GRID BACKGROUND (HUD) */
+/* ================================= */
+
+.stApp::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ================================= */
+/* 🧠 HOLOGRAM TEXT EFFECT */
+/* ================================= */
+
+.hologram-text {
+    color: #00ffff;
+    text-shadow:
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff;
+    animation: hologramFlicker 2s infinite alternate;
+}
+
+@keyframes hologramFlicker {
+    0% { opacity: 0.85; }
+    100% { opacity: 1; }
+}
+
+/* ================================= */
+/* ⚡ GLOW BORDER CARDS */
+/* ================================= */
+
+.glow-card {
+    border: 1px solid rgba(0,255,255,0.4);
+    border-radius: 15px;
+    padding: 15px;
+    background: rgba(0,0,0,0.5);
+    box-shadow:
+        0 0 10px #00ffff,
+        inset 0 0 10px rgba(0,255,255,0.2);
+    transition: 0.3s;
+}
+
+.glow-card:hover {
+    transform: scale(1.03);
+    box-shadow:
+        0 0 20px #00ffff,
+        0 0 40px #ff00ff;
+}
+
+/* ================================= */
+/* 🎯 NEON TABLE (DATAFRAME STYLE) */
+/* ================================= */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid rgba(0,255,255,0.3);
+    box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+/* ================================= */
+/* 📊 CHART GLOW EFFECT */
+/* ================================= */
+
+.plotly-graph-div:hover {
+    box-shadow: 0 0 25px #00ffff, 0 0 25px #ff00ff;
+    transition: 0.3s;
+}
+
+/* ================================= */
+/* 🎮 BUTTON PRESS EFFECT */
+/* ================================= */
+
+.stButton>button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px #00ffff inset;
+}
+
+/* ================================= */
+/* ⚙️ FLOATING ACTION BUTTON (FAB) */
+/* ================================= */
+
+.fab-button {
+    position: fixed;
+    bottom: 120px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg,#00ffff,#ff00ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: black;
+    box-shadow: 0 0 20px #00ffff;
+    cursor: pointer;
+    animation: pulseFab 2s infinite;
+}
+
+@keyframes pulseFab {
+    0% { box-shadow: 0 0 10px #00ffff; }
+    50% { box-shadow: 0 0 30px #ff00ff; }
+    100% { box-shadow: 0 0 10px #00ffff; }
+}
+
+/* ================================= */
+/* 🔋 ENERGY BAR (COOL UI ELEMENT) */
+/* ================================= */
+
+.energy-bar {
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.energy-fill {
+    height: 100%;
+    background: linear-gradient(90deg,#00ffff,#00ff9f,#ff00ff);
+    animation: energyFlow 2s infinite linear;
+}
+
+@keyframes energyFlow {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* ================================= */
+/* 🛰️ RADAR ANIMATION */
+/* ================================= */
+
+.radar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #00ffff;
+    position: relative;
+    margin: auto;
+}
+
+.radar::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top: 2px solid #00ffff;
+    animation: radarSpin 2s linear infinite;
+}
+
+@keyframes radarSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ================================= */
+/* 💬 CHAT MESSAGE BUBBLES */
+/* ================================= */
+
+.chat-user {
+    background: rgba(0,255,159,0.2);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    text-align: right;
+}
+
+.chat-bot {
+    background: rgba(0,255,255,0.2);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    text-align: left;
+}
+
+/* ================================= */
+/* 🧊 GLASS NAVBAR */
+/* ================================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,255,255,0.3);
+    z-index: 100;
+}
+
+/* ================================= */
+/* 🌠 PARTICLE EFFECT (LIGHT) */
+/* ================================= */
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#00ffff 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+/* 🔵 Radar Scan */
+.radar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #00ffff;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+.radar::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(#00ffff 0deg, transparent 60deg);
+    animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+/* ⚡ Energy Bar */
+.energy-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.energy-fill {
+    height: 100%;
+    background: linear-gradient(90deg,#00ffff,#ff00ff);
+    animation: energyMove 2s linear infinite;
+}
+@keyframes energyMove {
+    0% {background-position: 0%;}
+    100% {background-position: 200%;}
+}
+
+/* 💎 Glow Card */
+.glow-card {
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(0,255,255,0.05);
+    box-shadow: 0 0 20px #00ffff;
+    margin-bottom: 10px;
+}
+
+/* 🤖 Floating Button */
+.fab-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg,#00ffff,#ff00ff);
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00ffff;
+    animation: float 3s infinite;
+}a

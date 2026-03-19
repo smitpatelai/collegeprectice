@@ -16,7 +16,7 @@ def load_css(file_name):
     with open(file_name, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("stylee.css")
+load_css("stylle.css")
 
 # -----------------------------
 # LOGIN / SIGNUP SYSTEM
@@ -505,6 +505,8 @@ st.markdown(f"""
 </h1>
 """, unsafe_allow_html=True)
 
+st.markdown('<div class="radar"></div>', unsafe_allow_html=True)
+
 st.markdown('<div class="ai-robot">🤖</div>', unsafe_allow_html=True)
 
 st.write("Predict startup success probability using a machine learning model built from scratch.")
@@ -630,6 +632,8 @@ st.dataframe(cm)
 
 st.subheader("🧾 Enter Startup Details")
 
+st.markdown('<div class="glow-card">🚀 Enter Your Startup Data</div>', unsafe_allow_html=True)
+
 col3,col4,col5=st.columns(3)
 
 with col3:
@@ -681,6 +685,7 @@ if st.button("Predict Startup Success"):
     chart_data=pd.concat([chart_data,new_row],ignore_index=True)
 
     st.subheader("Prediction Result")
+    st.markdown('<div class="glow-card">🤖 AI Analysis Running...</div>', unsafe_allow_html=True)
 
     if prob>=0.5:
         st.success("✅ Startup likely to SUCCEED")
@@ -690,6 +695,11 @@ if st.button("Predict Startup Success"):
     st.write("### Success Probability")
     st.progress(float(prob))
     st.write(f"Success Chance: {prob*100:.2f}%")
+    st.markdown(f"""
+    <div class="energy-bar">
+        <div class="energy-fill" style="width:{prob * 100}%"></div>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Save work data to activity file
 
@@ -773,6 +783,7 @@ if st.button("Predict Startup Success"):
 #-----------------------------
 
 st.subheader("🍩 Your Prediction Stats")
+st.markdown('<div class="glow-card">📊 Your Performance Analytics</div>', unsafe_allow_html=True)
 
 user_activity = pd.read_csv("user_activity.csv")
 user_data = user_activity[user_activity["username"] == st.session_state.username]
@@ -802,6 +813,11 @@ if not user_data.empty:
     avg_prob = user_data["prediction_probability"].mean()
 
     st.metric("Your Avg Success Rate", f"{avg_prob*100:.2f}%")
+    st.markdown(f"""
+    <div class="energy-bar">
+        <div class="energy-fill" style="width:{avg_prob * 100}%"></div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.metric("Total Predictions", len(user_data))
 #--------------
