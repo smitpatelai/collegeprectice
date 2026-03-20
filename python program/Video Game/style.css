@@ -1,52 +1,294 @@
-/* MATRIX BACKGROUND */
-body {
-    background: black;
-    overflow: hidden;
+/* ── GOOGLE FONT ── */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap');
+
+/* ── GLOBAL RESET ── */
+* { box-sizing: border-box; }
+
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #050510 !important;
+    color: #c8ffd4 !important;
+    font-family: 'Share Tech Mono', monospace !important;
 }
 
-/* Canvas full screen */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+[data-testid="stAppViewContainer"] {
+    background: radial-gradient(ellipse at 20% 50%, rgba(0,60,30,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(60,0,120,0.12) 0%, transparent 50%),
+                #050510 !important;
 }
 
-/* Glowing text */
-h1, h2, h3, h4, h5 {
+/* ── SIDEBAR ── */
+[data-testid="stSidebar"] {
+    background: rgba(5, 14, 10, 0.97) !important;
+    border-right: 1px solid rgba(0,255,159,0.15) !important;
+    box-shadow: 4px 0 30px rgba(0,255,159,0.05);
+}
+
+[data-testid="stSidebar"] * {
+    color: #c8ffd4 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+}
+
+.sidebar-title {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #00ff9f !important;
+    text-transform: uppercase;
+    padding: 10px 0 14px;
+    border-bottom: 1px solid rgba(0,255,159,0.2);
+    margin-bottom: 12px;
+}
+
+.sidebar-stat {
+    font-size: 12px;
+    color: #6bffb8 !important;
+    padding: 8px 0;
+}
+.sidebar-stat b { color: #00ff9f !important; }
+
+/* Sidebar multiselect tags */
+[data-testid="stSidebar"] .stMultiSelect span[data-baseweb="tag"] {
+    background: rgba(0,255,159,0.15) !important;
+    border: 1px solid rgba(0,255,159,0.4) !important;
+    color: #00ff9f !important;
+    border-radius: 4px !important;
+}
+
+/* Sidebar slider */
+[data-testid="stSidebar"] [data-testid="stSlider"] div[role="slider"] {
+    background: #00ff9f !important;
+    box-shadow: 0 0 10px rgba(0,255,159,0.6) !important;
+}
+[data-testid="stSidebar"] .stSlider div[class*="thumb"] {
+    background: #00ff9f !important;
+}
+
+/* ── TITLE ── */
+.title-wrap {
+    text-align: center;
+    padding: 20px 0 28px;
+    position: relative;
+}
+.title-glow {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 900;
     color: #00ff9f;
-    text-shadow: 0 0 10px #00ff9f;
+    text-shadow:
+        0 0 10px rgba(0,255,159,0.8),
+        0 0 30px rgba(0,255,159,0.4),
+        0 0 60px rgba(0,255,159,0.15);
+    letter-spacing: 2px;
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+.title-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: rgba(0,255,159,0.5);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+@keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 10px rgba(0,255,159,0.8), 0 0 30px rgba(0,255,159,0.4); }
+    50%       { text-shadow: 0 0 20px rgba(0,255,159,1),   0 0 50px rgba(0,255,159,0.6), 0 0 80px rgba(0,255,159,0.2); }
 }
 
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Cards / metrics glow */
-[data-testid="metric-container"] {
-    background-color: rgba(0,0,0,0.6);
-    border: 1px solid #00ff9f;
+/* ── KPI CARDS ── */
+.kpi-card {
+    background: linear-gradient(135deg, rgba(5,14,10,0.9), rgba(10,20,16,0.95));
+    border: 1px solid rgba(0,255,159,0.2);
+    border-top: 2px solid var(--kc, #00ff9f);
     border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 0 10px #00ff9f;
-}
-
-/* Typing animation */
-.typing {
-    font-size: 24px;
-    color: #00ff9f;
-    border-right: 2px solid #00ff9f;
-    white-space: nowrap;
+    padding: 20px 18px;
+    position: relative;
     overflow: hidden;
-    width: 0;
-    animation: typing 4s steps(40, end) forwards, blink 1s infinite;
+    margin-bottom: 4px;
+    transition: transform .2s, box-shadow .2s;
+}
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top left, rgba(0,255,159,0.04), transparent 60%);
+    pointer-events: none;
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 20px rgba(0,255,159,0.08);
+}
+.kpi-icon { font-size: 20px; margin-bottom: 6px; }
+.kpi-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(0,255,159,0.5);
+    margin-bottom: 4px;
+}
+.kpi-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--kc, #00ff9f);
+    line-height: 1.2;
+    text-shadow: 0 0 12px rgba(0,255,159,0.4);
+    word-break: break-word;
+}
+.kpi-value--sm { font-size: 15px !important; margin-top: 3px; }
+.kpi-sub {
+    font-size: 10px;
+    color: rgba(200,255,212,0.4);
+    margin-top: 4px;
 }
 
-@keyframes typing {
-    to { width: 100% }
+/* ── CHART LABEL ── */
+.chart-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: rgba(0,255,159,0.7);
+    text-transform: uppercase;
+    padding: 0 0 8px;
+    border-bottom: 1px solid rgba(0,255,159,0.1);
+    margin-bottom: 4px;
 }
 
-@keyframes blink {
-    50% { border-color: transparent }
+/* ── CHART CONTAINER ── */
+[data-testid="stPlotlyChart"] {
+    background: rgba(5,14,10,0.6) !important;
+    border: 1px solid rgba(0,255,159,0.1) !important;
+    border-radius: 10px !important;
+    padding: 4px !important;
+    margin-bottom: 4px;
 }
+
+/* ── DATAFRAME TABLE ── */
+[data-testid="stDataFrame"] {
+    border: 1px solid rgba(0,255,159,0.15) !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+[data-testid="stDataFrame"] table {
+    background: rgba(5,14,10,0.95) !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 12px !important;
+}
+[data-testid="stDataFrame"] th {
+    background: rgba(0,255,159,0.07) !important;
+    color: #00ff9f !important;
+    border-bottom: 1px solid rgba(0,255,159,0.2) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
+[data-testid="stDataFrame"] td {
+    color: #c8ffd4 !important;
+    border-bottom: 1px solid rgba(0,255,159,0.05) !important;
+}
+[data-testid="stDataFrame"] tr:hover td {
+    background: rgba(0,255,159,0.05) !important;
+}
+
+/* ── METRICS (st.metric fallback) ── */
+[data-testid="stMetric"] {
+    background: rgba(5,14,10,0.8) !important;
+    border: 1px solid rgba(0,255,159,0.2) !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+}
+[data-testid="stMetricLabel"] {
+    font-family: 'Share Tech Mono', monospace !important;
+    color: rgba(0,255,159,0.6) !important;
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+}
+[data-testid="stMetricValue"] {
+    font-family: 'Orbitron', monospace !important;
+    color: #00ff9f !important;
+    font-size: 22px !important;
+    text-shadow: 0 0 10px rgba(0,255,159,0.4);
+}
+
+/* ── INPUTS (multiselect, slider) ── */
+.stSelectbox div, .stMultiSelect div {
+    background: rgba(5,14,10,0.9) !important;
+    border-color: rgba(0,255,159,0.25) !important;
+    color: #c8ffd4 !important;
+    border-radius: 6px !important;
+}
+.stSelectbox label, .stMultiSelect label,
+.stSlider label, [data-testid="stSidebar"] label {
+    color: rgba(0,255,159,0.65) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.8px !important;
+}
+.stSlider [data-baseweb="slider"] div[class*="Track"] {
+    background: rgba(0,255,159,0.15) !important;
+}
+.stSlider [data-baseweb="slider"] div[class*="InnerTrack"] {
+    background: rgba(0,255,159,0.5) !important;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: rgba(0,255,159,0.03); }
+::-webkit-scrollbar-thumb  { background: rgba(0,255,159,0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,159,0.45); }
+
+/* ── WARNING / INFO ── */
+[data-testid="stAlert"] {
+    background: rgba(255,107,107,0.08) !important;
+    border: 1px solid rgba(255,107,107,0.3) !important;
+    border-radius: 8px !important;
+    color: #ff9f9f !important;
+}
+
+/* ── DIVIDER ── */
+hr {
+    border: none !important;
+    border-top: 1px solid rgba(0,255,159,0.12) !important;
+    margin: 16px 0 !important;
+}
+
+/* ── FOOTER ── */
+.footer {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(0,255,159,0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 28px 0 16px;
+    border-top: 1px solid rgba(0,255,159,0.08);
+    margin-top: 20px;
+}
+
+/* ── TYPING ANIMATION (legacy support) ── */
+.typing {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    color: #00ff9f;
+    text-shadow: 0 0 20px rgba(0,255,159,0.6);
+    overflow: hidden;
+    border-right: 3px solid #00ff9f;
+    white-space: nowrap;
+    animation: typing 2.5s steps(35,end), blink-caret 0.7s step-end infinite;
+    max-width: fit-content;
+    margin: 20px auto;
+}
+@keyframes typing      { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00ff9f; } }
+
+/* ── COLUMN GAPS ── */
+[data-testid="stHorizontalBlock"] { gap: 16px !important; }
+
+/* ── REMOVE STREAMLIT DEFAULT TOP PADDING ── */
+.block-container {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* ── HIDE STREAMLIT BRANDING ── */
+#MainMenu, footer, header { visibility: hidden; }
