@@ -437,18 +437,55 @@ if st.session_state.role == "admin":
             )
 
             st.plotly_chart(fig_trend, use_container_width=True)
+            #------------------------------------------
+            #look like trend chart
+            #---------------------------------------
+            st.subheader("📅 User Activity Trend (Candlestick Style)")
 
-            st.subheader("📅 User Activity Trend")
-
+            # Convert to datetime
             activity_df["login_date"] = pd.to_datetime(activity_df["login_date"])
 
-            daily_activity = activity_df.groupby("login_date").size()
+            # Group by date and count logins
+            daily_activity = activity_df.groupby("login_date").size().reset_index(name="count")
 
-            fig_activity = px.line(
-                x=daily_activity.index,
-                y=daily_activity.values
+            # Create OHLC-style data
+            daily_activity["open"] = daily_activity["count"].shift(1)
+            daily_activity["close"] = daily_activity["count"]
+            daily_activity["high"] = daily_activity[["open", "close"]].max(axis=1)
+            daily_activity["low"] = daily_activity[["open", "close"]].min(axis=1)
+
+            # Fill first row NaN
+            daily_activity.fillna(method="bfill", inplace=True)
+
+            # Create candlestick chart
+            fig = go.Figure(data=[go.Candlestick(
+                x=daily_activity["login_date"],
+                open=daily_activity["open"],
+                high=daily_activity["high"],
+                low=daily_activity["low"],
+                close=daily_activity["close"]
+            )])
+
+            # Optional: dark hacker-style UI
+            fig.update_layout(
+                title="User Activity Candlestick Trend",
+                xaxis_title="Date",
+                yaxis_title="Login Count",
+                template="plotly_dark"
             )
 
+            # Show in Streamlit
+            st.plotly_chart(fig, use_container_width=True)
+
+            fig.update_layout(
+                font=dict(family="Courier New", size=14),
+                title_font=dict(size=20),
+            )
+
+            st.subheader("📅 User Activity Trend")
+            activity_df["login_date"] = pd.to_datetime(activity_df["login_date"])
+            daily_activity = activity_df.groupby("login_date").size()
+            fig_activity = px.line(x=daily_activity.index, y=daily_activity.values)
             st.plotly_chart(fig_activity, use_container_width=True)
 
 

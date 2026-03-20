@@ -1,0 +1,52 @@
+/* MATRIX BACKGROUND */
+body {
+    background: black;
+    overflow: hidden;
+}
+
+/* Canvas full screen */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Glowing text */
+h1, h2, h3, h4, h5 {
+    color: #00ff9f;
+    text-shadow: 0 0 10px #00ff9f;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Cards / metrics glow */
+[data-testid="metric-container"] {
+    background-color: rgba(0,0,0,0.6);
+    border: 1px solid #00ff9f;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px #00ff9f;
+}
+
+/* Typing animation */
+.typing {
+    font-size: 24px;
+    color: #00ff9f;
+    border-right: 2px solid #00ff9f;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 4s steps(40, end) forwards, blink 1s infinite;
+}
+
+@keyframes typing {
+    to { width: 100% }
+}
+
+@keyframes blink {
+    50% { border-color: transparent }
+}
