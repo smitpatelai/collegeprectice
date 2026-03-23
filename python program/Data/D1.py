@@ -43,3 +43,49 @@ if selected == "Dataset":
         )]
 
     st.dataframe(filtered_df)
+
+
+#column filter---> column name, value
+#row display ----> no of row
+#dataset table
+#download
+
+    # column filter ---> column name, value
+
+    st.subheader("Column Filter")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        filter_column = st.selectbox("Select Column to Filter", options=["None"] + list(filtered_df.columns))
+    with col_b:
+        filter_value = st.text_input("Enter Filter Value:")
+    if filter_column != "None" and filter_value:
+        filtered_df = filtered_df[filtered_df[filter_column].astype(str).str.contains(filter_value, case=False)]
+
+    st.divider()
+
+    #row display ----> no of row
+
+    st.subheader("Row Display")
+    num_rows = st.slider("Select Number of Rows to Display", min_value=5, max_value=len(filtered_df),
+                         value=min(10, len(filtered_df)), step=5)
+    display_df = filtered_df.head(num_rows)
+
+    st.divider()
+
+    # dataset table
+
+    st.subheader("Dataset Table")
+    st.dataframe(display_df, use_container_width=True)
+
+    st.divider()
+
+    # download
+
+    st.subheader("Download")
+    csv = filtered_df.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        label="Download Filtered Data as CSV",
+        data=csv,
+        file_name="filtered_uber_data.csv",
+        mime="text/csv"
+    )
