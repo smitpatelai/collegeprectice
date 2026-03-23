@@ -9,11 +9,13 @@ df = pd.read_csv("Uber_data .csv")
 # sidebar menu
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Dataset", "Overview", "Ride Analytics"],
-                           icons=["table", "bar-chart", "graph-up"], menu_icon="car-front",
-                           default_index=0)
+    selected = option_menu("🛸Main Menu",
+                           ["Dataset", "Overview", "Ride Analytics"],
+                            icons=["table", "bar-chart", "graph-up"],
+                            menu_icon="car-front",
+                            default_index=0)
 
-if selected == "Dataset":
+if selected == "Dataset":                                    # ✅ Fixed: removed wrong emoji from condition
     st.title("Data Explorer")
     st.divider()
 
@@ -28,31 +30,25 @@ if selected == "Dataset":
 
     # column selection
 
-    st.subheader("Select Column")
+    st.subheader("📊Select Column")
     selected_column = st.multiselect("Select Columns to Display",
                                      df.columns, default=df.columns)
     filtered_df = df[selected_column]
 
     # search
 
-    st.subheader("Search in Dataset")
+    st.subheader("🔍Search in Dataset")
     search_value = st.text_input("Enter Value to Search:")
     if search_value:
         filtered_df = filtered_df[filtered_df.astype(str).apply(
             lambda row: row.str.contains(search_value, case=False).any(), axis=1
         )]
 
-    st.dataframe(filtered_df)
-
-
-#column filter---> column name, value
-#row display ----> no of row
-#dataset table
-#download
+    # ✅ Fixed: removed misplaced st.dataframe(filtered_df) from here
 
     # column filter ---> column name, value
 
-    st.subheader("Column Filter")
+    st.subheader("🛡️Column Filter")
     col_a, col_b = st.columns(2)
     with col_a:
         filter_column = st.selectbox("Select Column to Filter", options=["None"] + list(filtered_df.columns))
@@ -63,9 +59,11 @@ if selected == "Dataset":
 
     st.divider()
 
-    #row display ----> no of row
+    # row display ----> no of row
 
-    st.subheader("Row Display")
+    st.write("📌 Filtered Rows:", len(filtered_df))
+
+    st.subheader("📜Row Display")
     num_rows = st.slider("Select Number of Rows to Display", min_value=5, max_value=len(filtered_df),
                          value=min(10, len(filtered_df)), step=5)
     display_df = filtered_df.head(num_rows)
@@ -74,14 +72,14 @@ if selected == "Dataset":
 
     # dataset table
 
-    st.subheader("Dataset Table")
-    st.dataframe(display_df, use_container_width=True)
+    st.subheader("🧾Dataset Table")
+    st.dataframe(display_df, use_container_width=True)     # ✅ Fixed: moved here, inside the if block
 
     st.divider()
 
     # download
 
-    st.subheader("Download")
+    st.subheader("🕹️Download")
     csv = filtered_df.to_csv(index=False).encode("utf-8")
     st.download_button(
         label="Download Filtered Data as CSV",
@@ -89,3 +87,11 @@ if selected == "Dataset":
         file_name="filtered_uber_data.csv",
         mime="text/csv"
     )
+
+elif selected == "Overview":
+    st.title("📊 Overview")
+    st.info("Add charts here (Trips, Revenue, etc.)")
+
+elif selected == "Ride Analytics":
+    st.title("🚕 Ride Analytics")
+    st.info("Add advanced analytics here (Peak hours, Heatmaps, etc.)")

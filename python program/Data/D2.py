@@ -17,7 +17,7 @@ df = pd.read_csv("Uber_data .csv")
 # --------------------------------
 with st.sidebar:
     selected = option_menu(
-        "Main Menu",
+        "🚔Main Menu",
         ["Dataset", "Overview", "Ride Analytics"],
         icons=["table", "bar-chart", "graph-up"],
         menu_icon="car-front",
@@ -147,3 +147,4 @@ elif selected == "Overview":
 elif selected == "Ride Analytics":
     st.title("🚕 Ride Analytics")
     st.info("Add advanced analytics here (Peak hours, Heatmaps, etc.)")
+
