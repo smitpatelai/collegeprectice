@@ -149,11 +149,12 @@ elif selected == "Overview":
         status_count["Share %"]= (status_count["Count"] / total_rides*100)
         st.dataframe(status_count,use_container_width=True)
     st.divider()
-
-    st.header("🏁Completed Rides by Payment Method")
-    completed_rides = df.groupby("Payment Method")["Booking ID"].count().reset_index()
-    completed_rides.columns = ["Payment Method", "Total Rides"]
-    st.dataframe(completed_rides, use_container_width=True)
+    with col_can:
+        st.header("🏁Completed Rides by Payment Method")
+        completed_rides = df.groupby("Payment Method")["Booking ID"].count().reset_index()
+        completed_rides.columns = ["Payment Method", "Total Rides"]
+        st.dataframe(completed_rides, use_container_width=True)
+    st.divider()
 
     #Financial Analysis
     st.header("🎯Financial Deep Dive")
