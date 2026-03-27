@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
+import plotly.express as px  # FIX: was missing entirely
 
 st.set_page_config("Uber Analytics", layout="wide")
 
@@ -165,9 +166,154 @@ elif selected == "Overview":
         st.dataframe(pay_summary)
 
 
-
-
-
 elif selected == "Ride Analytics":
     st.title("🚕 Ride Analytics")
     st.info("Add advanced analytics here (Peak hours, Heatmaps, etc.)")
+
+    # FIX 5: 'completed' was never defined — used in sunburst, treemap, box charts
+    # completed = df[df["Booking Status"] == "Success"]
+    # FIX: match whatever the actual "completed" status is in your data
+    completed_statuses = [s for s in df["Booking Status"].unique()
+                          if "complet" in str(s).lower() or "success" in str(s).lower()]
+    completed = df[df["Booking Status"].isin(completed_statuses)]
+
+    # Safety check — if still empty, use all data as fallback
+    if completed.empty:
+        st.warning(f"⚠️ No completed rides found. Available statuses: {df['Booking Status'].unique().tolist()}")
+        completed = df
+    # sunburst chart
+    with st.container(border=True):
+        st.subheader("Revenue Hierarchy")
+        fig1 = px.sunburst(completed, path=["Vehicle Type","Payment Method"],
+        values="Booking Value",
+        color="Booking Value",
+        color_continuous_scale="turbo")
+        fig1.update_layout(height=500)
+        st.plotly_chart(fig1)
+
+    with st.container(border=True):
+
+        # treemap
+        st.subheader("Revenue Distribution")
+        fig2 = px.treemap(completed, path=["Vehicle Type", "Payment Method"],
+                          values="Booking Value",
+                          color="Booking Value",
+                          color_continuous_scale="delta")
+        fig2.update_layout(margin=dict(t=20, l=0, r=0, b=0), height=420)
+        st.plotly_chart(fig2)
+
+    with st.container(border=True):
+
+        #box charts
+        st.subheader("Customer Rating Spread")
+        fig3 = px.box(completed, x="Vehicle Type", y="Customer Rating", color="Vehicle Type")
+        fig3.update_layout(showlegend=True, height=420)
+        st.plotly_chart(fig3)
+
+    with st.container(border=True):
+        # sankey diagram
+        st.subheader("Ride Flow Analysis")
+        flow = df.groupby(["Vehicle Type", "Booking Status"]).size().reset_index(name="Count")
+        source_label = flow["Vehicle Type"].unique().tolist()
+        target_label = flow["Booking Status"].unique().tolist()
+
+        labels = source_label + target_label
+
+        source = flow["Vehicle Type"].apply(
+            lambda x:labels.index(x))
+
+        target = flow["Booking Status"].apply(
+            lambda x: labels.index(x))
+
+        value = flow["Count"].tolist()
+
+        import plotly.graph_objects as go
+        fig4 = go.Figure(data=[go.Sankey(
+                node=dict(
+                    pad=15,
+                    thickness=20,
+                    line=dict(color="blue", width=0.5), label=labels),
+
+                link = dict(source=source,
+                             target=target,
+                             value=value)
+        )])
+        st.plotly_chart(fig4)
+
+    chart1,chart2,chart3 = st.columns(3)
+    with chart1.container(border=True):
+        bar_chart = df["Vehicle Type"].value_counts().reset_index(name="Total Booking")
+        fig5 = px.bar(bar_chart,
+                      x="Vehicle Type",
+                      y="Total Booking",
+                      color="Vehicle Type",
+                      title="Ride Demand by Vehicle Type",)
+        st.plotly_chart(fig5)
+
+    with chart3.container(border=True):
+        barh_chart = df.groupby("Vehicle Type")["Booking Value"].sum().reset_index()
+        fig6 = px.bar(barh_chart,
+                      x="Booking Value",
+                      y="Vehicle Type",
+                      color="Vehicle Type",
+                      orientation="h",title="Revenue by Vehicle Type")
+        st.plotly_chart(fig6)
+
+    with chart2.container(border=True):
+        pie_chart = df["Payment Method"].value_counts().reset_index(name="Usage")
+
+        fig7 = px.pie(pie_chart,
+                      values="Usage",
+                      names="Payment Method", title="Payment Method Usage")
+        st.plotly_chart(fig7, use_container_width=True)
+
+    dount,scatter = st.columns([4,6])
+    with dount.container(border=True):
+        donut_chart = df["Booking Status"].value_counts().reset_index(name="Ride Count")
+
+        fig8 = px.pie(donut_chart,
+                      values="Ride Count",
+                      names="Booking Status",
+                      hole=0.5, title="Booking Status Distribution")
+        st.plotly_chart(fig8, use_container_width=True)
+
+    with scatter.container(border=True):
+
+        scatter_plot = df.groupby("Ride Distance")["Booking Value"].sum().reset_index()
+        fig8 = px.scatter(scatter_plot,
+                          x="Ride Distance",
+                          y="Booking Value",
+                          title="Ride Distance vs Booking Value")
+        st.plotly_chart(fig8, use_container_width=True)
+
+
+    fi9 = px.histogram(df, x="Customer Rating", nbins=30,title="Customer Rating Distribution",
+                           color="Customer Rating")
+    st.plotly_chart(fi9)
+
+    barh,bar = st.columns(2)
+    with barh.container(border=True):
+        cancel_reason = pd.concat([df["Reason for cancelling by Customer"],
+                                   df["Driver Cancellation Reason"]])
+        barh_chart = cancel_reason.value_counts()
+
+        # FIX 7: color= can't take a raw list in px.bar — use index for proper color mapping
+        fig10 = px.bar(barh_chart, y=barh_chart.index, x=barh_chart.values,
+                       orientation='h', title="Cancellation Reasons Distribution",
+                       color=barh_chart.index)
+        st.plotly_chart(fig10)
+
+    with bar.container(border=True):
+        bar_chart = df.groupby("Vehicle Type")["Ride Distance"].mean().reset_index()
+        fig11 = px.bar(bar_chart,
+                          x="Vehicle Type",
+                          y="Ride Distance",
+                          color="Vehicle Type",
+                       title="Average Distance by Vehicle Type")
+        st.plotly_chart(fig11)
+
+    # FIX 8: fig12 was outside all if/elif blocks — moved inside Ride Analytics
+    fig12 = px.histogram(df, x="Booking Value", nbins=10, title="Booking Value Distribution",
+                         color_discrete_sequence=["yellowgreen"])
+    st.plotly_chart(fig12)
+
