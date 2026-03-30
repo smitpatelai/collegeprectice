@@ -594,21 +594,21 @@ if selected == "Dashboard":
 
     st.dataframe(chart_data.head(50))
 
-    if st.button("Logout"):
-
-        activity = pd.read_csv("user_activity.csv")
-
-        logout_time = datetime.now().strftime("%H:%M:%S")
-
-        # Find last record of this user
-        user_rows = activity[activity["username"] == st.session_state.username]
-
-        if not user_rows.empty:
-            last_index = user_rows.index[-1]
-
-            activity.loc[last_index, "logout_time"] = logout_time
-
-        activity.to_csv("user_activity.csv", index=False)
+    # if st.button("Logout"):
+    #
+    #     activity = pd.read_csv("user_activity.csv")
+    #
+    #     logout_time = datetime.now().strftime("%H:%M:%S")
+    #
+    #     # Find last record of this user
+    #     user_rows = activity[activity["username"] == st.session_state.username]
+    #
+    #     if not user_rows.empty:
+    #         last_index = user_rows.index[-1]
+    #
+    #         activity.loc[last_index, "logout_time"] = logout_time
+    #
+    #     activity.to_csv("user_activity.csv", index=False)
 
 # ================================
 # PAGE: PREDICT
@@ -759,6 +759,127 @@ elif selected == "Predict":
             st.warning("⚖️ Moderate potential — evaluate risk carefully")
         else:
             st.error("🚫 High risk — investment not recommended at this stage")
+
+        #------------------------------
+        #Donat chart
+        #-----------------------------
+
+        st.subheader("🍩 Your Prediction Stats")
+
+        user_activity = pd.read_csv("user_activity.csv")
+        user_data = user_activity[user_activity["username"] == st.session_state.username]
+
+        if not user_data.empty:
+
+            success = (user_data["prediction_probability"] >= 0.5).sum()
+            failure = (user_data["prediction_probability"] < 0.5).sum()
+
+            fig_user_donut = px.pie(
+                names=["Success", "Failure"],
+                values=[success, failure],
+                hole=0.5,
+                title="Your Success vs Failure"
+            )
+
+            st.plotly_chart(fig_user_donut, use_container_width=True)
+
+        else:
+            st.info("No prediction data yet")
+        # ----------------
+        # parformance
+        # ----------------
+        st.subheader("📊 Your Performance")
+
+        if not user_data.empty:
+            avg_prob = user_data["prediction_probability"].mean()
+
+            st.metric("Your Avg Success Rate", f"{avg_prob * 100:.2f}%")
+
+            st.metric("Total Predictions", len(user_data))
+        # --------------
+        # growth trend
+        # --------------
+        st.subheader("📈 Your Growth Trend")
+
+        if not user_data.empty:
+            user_data = user_data.reset_index()
+
+            fig_user_trend = px.line(
+                user_data,
+                x=user_data.index,
+                y="prediction_probability",
+                title="Your Prediction Improvement"
+            )
+
+            st.plotly_chart(fig_user_trend, use_container_width=True)
+
+        # --------------------------------
+        # STARTUP MARKET TREND (STOCK STYLE)
+        # --------------------------------
+
+        st.subheader("📈 Startup Market Trend")
+
+        chart_data["startup_index"] = (
+                chart_data["funding"] / 1000000 +
+                chart_data["team_experience"] +
+                chart_data["market_size"] +
+                chart_data["business_model"] -
+                chart_data["competition"]
+        )
+
+        chart_data["time"] = range(len(chart_data))
+
+        fig_trend = go.Figure()
+
+        fig_trend.add_trace(go.Scatter(
+            x=chart_data["time"],
+            y=chart_data["startup_index"],
+            mode="lines",
+            name="Startup Market Index",
+            line=dict(color="#00f7ff", width=3)
+        ))
+
+        fig_trend.update_layout(
+            title="Startup Market Growth Trend",
+            xaxis_title="Startup Timeline",
+            yaxis_title="Startup Index Score",
+            template="plotly_dark"
+        )
+
+        st.plotly_chart(fig_trend, use_container_width=True)
+
+        # --------------------------------
+        # 3D CHART
+        # --------------------------------
+
+        st.subheader("🌌 3D Startup Metrics Overview")
+
+        fig3d = go.Figure(data=[go.Scatter3d(
+            x=chart_data['funding'] / 1000000,
+            y=chart_data['team_experience'],
+            z=chart_data['market_size'],
+            mode='markers',
+            marker=dict(
+                size=7,
+                color=chart_data['success'],
+                colorscale='Viridis',
+                opacity=0.9
+
+            )
+        )])
+        fig3d.update_layout(
+            scene=dict(
+                xaxis_title='Funding ($M)',
+                yaxis_title='Team Experience',
+                zaxis_title='Market Size',
+                xaxis=dict(backgroundcolor="black"),
+                yaxis=dict(backgroundcolor="black"),
+                zaxis=dict(backgroundcolor="black")
+            ),
+            paper_bgcolor='rgba(0,0,0,0)',
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
+        st.plotly_chart(fig3d, use_container_width=True)
 
 # ================================
 # PAGE: ANALYTICS
