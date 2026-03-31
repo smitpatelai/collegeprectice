@@ -262,7 +262,7 @@ elif selected == "Industry Analytics":
     </style>
     """, unsafe_allow_html=True)
 
-    
+
 
 # =========================
 # DATA ASSISTANT
