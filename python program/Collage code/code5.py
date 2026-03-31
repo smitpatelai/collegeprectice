@@ -1275,3 +1275,9 @@ elif selected == "Data Assistant":
 
             else:
                 st.info("Try asking: improve startup, why fail, best factor")
+
+
+#ML MODEL AND ALGORIDHAM
+#1. Logistic Regression
+#2. Random Forest Classifier
+#3. (Optional Advanced) Pipeline Model
