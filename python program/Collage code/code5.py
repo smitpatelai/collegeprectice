@@ -407,9 +407,9 @@ def social_buttons_html(action="Login"):
     #   Google  → https://accounts.google.com/o/oauth2/v2/auth?...
     #   GitHub  → https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID
     #   Facebook→ https://www.facebook.com/v17.0/dialog/oauth?client_id=YOUR_APP_ID&...
-    google_url   = "#google-oauth"   # 🔧 Replace with your Google OAuth URL
-    github_url   = "#github-oauth"   # 🔧 Replace with your GitHub OAuth URL
-    facebook_url = "#facebook-oauth" # 🔧 Replace with your Facebook OAuth URL
+    google_url   = "https://accounts.google.com/o/oauth2/v2/auth?..."
+    github_url   = "https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID"
+    facebook_url = "https://www.facebook.com/v17.0/dialog/oauth?client_id=YOUR_APP_ID&..."
 
     st.markdown(f"""
     <div class="social-btn-row">
