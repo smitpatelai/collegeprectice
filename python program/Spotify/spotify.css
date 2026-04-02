@@ -1,213 +1,390 @@
-/* -------------------------
-   🎧 SPOTIFY ANIMATED DASHBOARD UI (UPGRADED)
-------------------------- */
+/* =========================================================
+   SPOTIFY ANALYTICS — Global + Auth Styles
+   ========================================================= */
 
-/* GLOBAL */
-body {
-    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-    color: #FFFFFF;
-    font-family: 'Circular', Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* ── Root tokens ── */
+:root {
+  --sp-green:       #1DB954;
+  --sp-green-hover: #1ed760;
+  --sp-black:       #000000;
+  --sp-dark:        #121212;
+  --sp-surface:     #181818;
+  --sp-surface-2:   #282828;
+  --sp-surface-3:   #333333;
+  --sp-text:        #FFFFFF;
+  --sp-subtext:     #A7A7A7;
+  --sp-muted:       #6A6A6A;
+  --sp-border:      #3E3E3E;
+  --sp-error:       #f15e6c;
+  --radius-sm:      4px;
+  --radius-md:      8px;
+  --radius-full:    500px;
+  --font-main:      'DM Sans', sans-serif;
+  --transition:     0.2s cubic-bezier(.4,0,.2,1);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-thumb {
-    background: #1DB954;
-    border-radius: 10px;
+/* ── Base reset ── */
+html, body, [data-testid="stAppViewContainer"] {
+  background-color: var(--sp-black) !important;
+  color: var(--sp-text) !important;
+  font-family: var(--font-main) !important;
 }
 
-/* -------------------------
-   SIDEBAR
-------------------------- */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #000000, #121212);
-    padding: 20px;
-    animation: slideIn 0.8s ease;
+/* ── Hide Streamlit chrome ── */
+#MainMenu, footer, header { visibility: hidden; }
+[data-testid="stToolbar"] { display: none; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--sp-dark); }
+::-webkit-scrollbar-thumb { background: var(--sp-surface-3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sp-muted); }
+
+/* =========================================================
+   AUTH PAGES
+   ========================================================= */
+
+.sp-auth-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(29,185,84,.35) 0%, transparent 70%),
+    var(--sp-black);
+  z-index: 0;
 }
 
-@keyframes slideIn {
-    from {transform: translateX(-50px); opacity:0;}
-    to {transform: translateX(0); opacity:1;}
+.sp-auth-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 16px;
 }
 
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2 {
-    color: #1DB954;
+.sp-card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--sp-dark);
+  border-radius: 16px;
+  padding: 48px 48px 40px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.85);
+  animation: cardIn .4s cubic-bezier(.16,1,.3,1) both;
 }
 
-/* Sidebar buttons */
-.css-1d391kg button {
-    background-color: transparent;
-    color: #B3B3B3;
-    border: none;
-    text-align: left;
-    transition: 0.3s;
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) scale(.97); }
+  to   { opacity: 1; transform: none; }
 }
 
-.css-1d391kg button:hover {
-    color: #FFFFFF;
-    background-color: #282828;
-    border-radius: 8px;
-    transform: translateX(5px);
+.sp-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
 }
 
-/* -------------------------
+.sp-logo svg {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 0 18px rgba(29,185,84,.5));
+}
+
+.sp-card-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--sp-text);
+  letter-spacing: -.5px;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+/* ── Divider with text ── */
+.sp-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  color: var(--sp-muted);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.sp-divider::before, .sp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--sp-border);
+}
+
+/* ── Social buttons ── */
+.sp-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--sp-border);
+  background: transparent;
+  color: var(--sp-text);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  margin-bottom: 10px;
+  text-align: center;
+}
+.sp-social-btn:hover {
+  border-color: var(--sp-text);
+  background: rgba(255,255,255,.05);
+}
+
+/* ── Form fields ── */
+.sp-field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sp-text);
+  margin-bottom: 6px;
+  letter-spacing: .2px;
+}
+
+/* Streamlit input override */
+[data-testid="stTextInput"] input {
+  background: var(--sp-surface-2) !important;
+  border: 1px solid var(--sp-border) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--sp-text) !important;
+  font-family: var(--font-main) !important;
+  font-size: 15px !important;
+  padding: 14px 16px !important;
+  transition: border-color var(--transition), box-shadow var(--transition) !important;
+  height: 48px !important;
+}
+[data-testid="stTextInput"] input:focus {
+  border-color: var(--sp-text) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+[data-testid="stTextInput"] input::placeholder { color: var(--sp-muted) !important; }
+[data-testid="stTextInput"] label {
+  color: var(--sp-text) !important;
+  font-family: var(--font-main) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+/* ── Primary button (green) ── */
+[data-testid="stButton"] > button[kind="primary"] {
+  background: var(--sp-green) !important;
+  color: var(--sp-black) !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-main) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: .5px !important;
+  padding: 14px 32px !important;
+  height: 50px !important;
+  width: 100% !important;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition) !important;
+  box-shadow: none !important;
+}
+[data-testid="stButton"] > button[kind="primary"]:hover {
+  background: var(--sp-green-hover) !important;
+  transform: scale(1.02) !important;
+}
+[data-testid="stButton"] > button[kind="primary"]:active {
+  transform: scale(.98) !important;
+}
+
+/* ── Secondary / outline button ── */
+[data-testid="stButton"] > button[kind="secondary"],
+[data-testid="stButton"] > button:not([kind]) {
+  background: transparent !important;
+  color: var(--sp-text) !important;
+  border: 1px solid var(--sp-border) !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-main) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 12px 32px !important;
+  height: 48px !important;
+  width: 100% !important;
+  transition: border-color var(--transition), background var(--transition) !important;
+}
+[data-testid="stButton"] > button[kind="secondary"]:hover,
+[data-testid="stButton"] > button:not([kind]):hover {
+  border-color: var(--sp-text) !important;
+  background: rgba(255,255,255,.05) !important;
+}
+
+/* ── Switch text ── */
+.sp-switch-text {
+  text-align: center;
+  color: var(--sp-muted);
+  font-size: 14px;
+  margin-top: 20px;
+}
+.sp-switch-text span {
+  color: var(--sp-text);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Alert overrides ── */
+[data-testid="stAlert"] {
+  border-radius: var(--radius-md) !important;
+  font-family: var(--font-main) !important;
+  font-size: 13px !important;
+}
+
+/* =========================================================
+   SIDEBAR — Spotify style
+   ========================================================= */
+
+[data-testid="stSidebar"] {
+  background: var(--sp-black) !important;
+  border-right: 1px solid var(--sp-surface-2) !important;
+}
+[data-testid="stSidebar"] * {
+  font-family: var(--font-main) !important;
+  color: var(--sp-subtext) !important;
+}
+[data-testid="stSidebar"] .nav-link {
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+  transition: background var(--transition), color var(--transition) !important;
+}
+[data-testid="stSidebar"] .nav-link:hover {
+  background: var(--sp-surface-2) !important;
+  color: var(--sp-text) !important;
+}
+[data-testid="stSidebar"] .nav-link.active {
+  background: var(--sp-surface-2) !important;
+  color: var(--sp-text) !important;
+}
+[data-testid="stSidebar"] .nav-link.active .icon {
+  color: var(--sp-green) !important;
+}
+
+/* ── User pill in sidebar ── */
+.sp-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--sp-surface-2);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+.sp-user-pill .sp-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sp-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sp-black);
+  flex-shrink: 0;
+}
+.sp-user-pill .sp-email {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sp-text) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
    MAIN CONTENT
-------------------------- */
-.main {
-    background-color: #121212;
-    padding: 20px;
-    animation: fadeIn 1s ease-in-out;
+   ========================================================= */
+
+[data-testid="stAppViewContainer"] > .main {
+  background: var(--sp-dark) !important;
 }
 
-/* -------------------------
-   GLASS CARDS + HOVER
-------------------------- */
-.card {
-    background: rgba(24, 24, 24, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 15px;
-    border-radius: 15px;
-    transition: 0.4s;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: fadeUp 0.8s ease-in-out;
+h1, h2, h3, h4 {
+  font-family: var(--font-main) !important;
+  color: var(--sp-text) !important;
+  font-weight: 700 !important;
+  letter-spacing: -.3px !important;
 }
 
-.card:hover {
-    background: rgba(40, 40, 40, 0.9);
-    transform: translateY(-8px) scale(1.04);
+/* Metric cards */
+[data-testid="metric-container"] {
+  background: var(--sp-surface) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 20px !important;
+  border: 1px solid var(--sp-surface-2) !important;
+}
+[data-testid="metric-container"] label {
+  color: var(--sp-subtext) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .8px !important;
+}
+[data-testid="metric-container"] [data-testid="metric-value"] {
+  color: var(--sp-text) !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
 }
 
-@keyframes fadeUp {
-    from {opacity:0; transform: translateY(30px);}
-    to {opacity:1; transform: translateY(0);}
+/* Dataframe */
+[data-testid="stDataFrame"] {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
 }
 
-/* -------------------------
-   MUSIC WAVE ANIMATION 🎵
-------------------------- */
-.wave {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 40px;
-    margin-top: 10px;
+/* Download button */
+[data-testid="stDownloadButton"] > button {
+  background: var(--sp-green) !important;
+  color: var(--sp-black) !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 700 !important;
+  font-family: var(--font-main) !important;
+}
+[data-testid="stDownloadButton"] > button:hover {
+  background: var(--sp-green-hover) !important;
 }
 
-.wave span {
-    width: 5px;
-    height: 10px;
-    background: #1DB954;
-    border-radius: 3px;
-    animation: waveAnim 1s infinite ease-in-out;
+/* Select / multiselect */
+[data-testid="stMultiSelect"] [data-baseweb="select"] > div,
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+  background: var(--sp-surface-2) !important;
+  border-color: var(--sp-border) !important;
+  border-radius: var(--radius-sm) !important;
 }
 
-.wave span:nth-child(2){animation-delay:0.2s}
-.wave span:nth-child(3){animation-delay:0.4s}
-.wave span:nth-child(4){animation-delay:0.6s}
-
-@keyframes waveAnim {
-    0%,100% {height:10px}
-    50% {height:35px}
+/* Slider */
+[data-testid="stSlider"] [data-baseweb="slider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [data-baseweb="slider"] div[role="slider"] {
+  background: var(--sp-green) !important;
 }
 
-/* -------------------------
-   HEADINGS
-------------------------- */
-h1, h2, h3 {
-    color: #FFFFFF;
+/* Divider */
+hr { border-color: var(--sp-surface-2) !important; }
+
+/* Container borders */
+[data-testid="stVerticalBlock"] > [data-testid="stVerticalBlockBorderWrapper"] {
+  border-color: var(--sp-surface-2) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--sp-surface) !important;
 }
 
-p {
-    color: #B3B3B3;
-}
-
-/* -------------------------
-   GLOW BUTTONS
-------------------------- */
-button {
-    background: linear-gradient(45deg, #1DB954, #1ed760);
-    color: white;
-    border-radius: 50px;
-    padding: 10px 20px;
-    border: none;
-    transition: 0.3s;
-    font-weight: bold;
-    box-shadow: 0 0 10px #1DB954;
-}
-
-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #1DB954;
-}
-
-/* -------------------------
-   INPUT FIELDS
-------------------------- */
-input, select {
-    background-color: #282828;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px;
-}
-
-/* -------------------------
-   TABLE STYLING
-------------------------- */
-thead tr {
-    background-color: #1DB954 !important;
-    color: white;
-}
-
-tbody tr {
-    background-color: #181818;
-}
-
-tbody tr:hover {
-    background-color: #282828;
-}
-
-/* -------------------------
-   METRIC CARDS
-------------------------- */
-[data-testid="stMetric"] {
-    background: rgba(24,24,24,0.8);
-    padding: 15px;
-    border-radius: 12px;
-    border-left: 5px solid #1DB954;
-    animation: fadeUp 0.8s ease;
-}
-
-/* -------------------------
-   PULSE (NOW PLAYING)
-------------------------- */
-.pulse {
-    animation: pulseGlow 1.5s infinite;
-}
-
-@keyframes pulseGlow {
-    0% {box-shadow: 0 0 10px #1DB954}
-    50% {box-shadow: 0 0 30px #1DB954}
-    100% {box-shadow: 0 0 10px #1DB954}
-}
-
-/* -------------------------
-   FADE IN
-------------------------- */
-.fade-in {
-    animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* Plotly chart backgrounds */
+.js-plotly-plot .plotly .bg { fill: transparent !important; }
