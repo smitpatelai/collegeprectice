@@ -16,7 +16,7 @@ import hashlib
 # PAGE CONFIG
 # --------------------------------
 
-st.set_page_config(page_title="AI Startup Dashboard", layout="wide", page_icon="🚀")
+st.set_page_config(page_title="AI Startup Dashboard", layout="wide", page_icon="🧊")
 
 # --------------------------------
 # GLOBAL CSS
@@ -442,7 +442,7 @@ def signup():
     with col2:
         st.markdown("""
         <div class="auth-card">
-            <div class="auth-title">🚀 CREATE ACCOUNT</div>
+            <div class="auth-title">🧊 CREATE ACCOUNT</div>
             <div class="auth-subtitle">JOIN THE STARTUP AI PLATFORM</div>
         """, unsafe_allow_html=True)
 
@@ -549,7 +549,7 @@ if not st.session_state.logged_in:
         <div style='font-family:Orbitron; font-size:36px; font-weight:900;
                     color:#ffffff; letter-spacing:-1px;
                     text-shadow: 0 0 40px #00d4ff66;'>
-            🚀 AI STARTUP PREDICTOR
+            🧊 AI STARTUP PREDICTOR
         </div>
         <div style='color:#3a6a8a; font-size:12px; letter-spacing:4px;
                     margin-top:8px; font-family:Rajdhani;'>
@@ -1063,7 +1063,7 @@ elif selected == "Predict":
                     opacity=0.9
 
                 )
-            )])
+        )])
         fig3d.update_layout(
                 scene=dict(
                     xaxis_title='Funding ($M)',
@@ -1075,8 +1075,10 @@ elif selected == "Predict":
                 ),
                 paper_bgcolor='rgba(0,0,0,0)',
                 margin=dict(l=0, r=0, b=0, t=0)
-            )
-    st.markdown('<div class="section-header">AI Recommendations</div>', unsafe_allow_html=True)
+        )
+        st.plotly_chart(fig3d, use_container_width=True)
+
+        st.markdown('<div class="section-header">AI Recommendations</div>', unsafe_allow_html=True)
     if funding < 1000000:
         st.warning("💰 Increase funding — strong impact on success")
     if team_exp < 5:
@@ -1087,19 +1089,19 @@ elif selected == "Predict":
         st.warning("💡 Improve business model strength")
     if market_size < 5:
         st.warning("🌍 Target a larger market")
-    prob = None  # initialize
-
-    if st.button("Predict"):
-        input_data = np.array([[funding, team_exp, market_size, competition, business_model]])
-        input_scaled = scaler.transform(input_data)
-
-        prob = best_model.predict_proba(input_scaled)[0][1]
-
-        st.success(f"Success Probability: {prob * 100:.2f}%")
-
-    # ✅ SAFE CHECK
-    if prob is not None and prob > 0.75:
-        st.success("🚀 Excellent startup potential!")
+    # prob = None  # initialize
+    #
+    # if st.button("Predict"):
+    #     input_data = np.array([[funding, team_exp, market_size, competition, business_model]])
+    #     input_scaled = scaler.transform(input_data)
+    #
+    #     prob = best_model.predict_proba(input_scaled)[0][1]
+    #
+    #     st.success(f"Success Probability: {prob * 100:.2f}%")
+    #
+    # # ✅ SAFE CHECK
+    # if prob is not None and prob > 0.75:
+    #     st.success("🚀 Excellent startup potential!")
 
 # ================================
 # PAGE: ANALYTICS
