@@ -1,4 +1,6 @@
 from datetime import datetime
+
+import confidence
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -324,12 +326,12 @@ def hash_pw(pw): return hashlib.sha256(pw.encode()).hexdigest()
 if not os.path.exists("users.csv"):
     pd.DataFrame(columns=["username","email","password","joined"]).to_csv("users.csv", index=False)
 
-if not os.path.exists("activity.csv"):
+if not os.path.exists("user_activity.csv"):
     pd.DataFrame(columns=[
         "username","date","time","funding","team_exp","market_size",
         "competition","biz_model","years_operating","burn_rate",
         "revenue_growth","debt_ratio","failure_prob","risk_tier"
-    ]).to_csv("activity.csv", index=False)
+    ]).to_csv("user_activity.csv", index=False)
 
 # ─────────────────────────────────────────────
 # DATASET GENERATION (RICHER)
@@ -408,6 +410,65 @@ def risk_tier(prob):
     elif prob >= 0.35: return "MEDIUM",   "risk-medium"
     else:              return "LOW",      "risk-low"
 
+# --------------------------------
+# SOCIAL BUTTON HTML HELPER
+# --------------------------------
+
+GOOGLE_SVG = """<svg width="18" height="18" viewBox="0 0 48 48">
+  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0
+    14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94
+    c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19
+    C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.32-8.16 2.32
+    -6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+</svg>"""
+
+GITHUB_SVG = """<svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
+    0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755
+    -1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998
+    .108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22
+    -.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138
+    3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
+    0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286
+    0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+</svg>"""
+
+FACEBOOK_SVG = """<svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854
+    v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235
+    v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385
+    C19.612 23.027 24 18.062 24 12.073z"/>
+</svg>"""
+
+def social_buttons_html(action="Login"):
+    google_url   = "https://accounts.google.com/o/oauth2/v2/auth?..."
+    github_url   = "https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID"
+    facebook_url = "https://www.facebook.com/v17.0/dialog/oauth?client_id=YOUR_APP_ID&..."
+
+    st.markdown(f"""
+    <div class="social-btn-row">
+        <a href="{google_url}" class="social-btn social-btn-google" title="Continue with Google">
+            {GOOGLE_SVG}
+            <span>{action} with Google</span>
+        </a>
+        <a href="{github_url}" class="social-btn social-btn-github" title="Continue with GitHub">
+            {GITHUB_SVG}
+            <span>{action} with GitHub</span>
+        </a>
+        <a href="{facebook_url}" class="social-btn social-btn-facebook" title="Continue with Facebook">
+            {FACEBOOK_SVG}
+            <span>{action} with Facebook</span>
+        </a>
+    </div>
+    <div class="oauth-info">
+        🔐 OAuth providers require server-side client credentials to activate.
+        Replace the hrefs with your real redirect URLs.
+    </div>
+    """, unsafe_allow_html=True)
+
 # ─────────────────────────────────────────────
 # AUTH PAGES
 # ─────────────────────────────────────────────
@@ -419,6 +480,9 @@ def page_login():
             <div class="auth-logo">🔮 StartupOracle</div>
             <div class="auth-tagline">Failure Prediction · Risk Intelligence · Decision Support</div>
         """, unsafe_allow_html=True)
+
+        social_buttons_html("Sign up")
+        st.markdown('<div class="or-divider">OR CONTINUE WITH EMAIL</div>', unsafe_allow_html=True)
 
         username = st.text_input("Username", key="li_u", placeholder="your_username")
         password = st.text_input("Password", type="password", key="li_p", placeholder="••••••••••")
@@ -454,6 +518,8 @@ def page_signup():
             <div class="auth-logo">🔮 Create Account</div>
             <div class="auth-tagline">Join the intelligence platform</div>
         """, unsafe_allow_html=True)
+        social_buttons_html("Sign up")
+        st.markdown('<div class="or-divider">OR CONTINUE WITH EMAIL</div>', unsafe_allow_html=True)
 
         username = st.text_input("Username", key="su_u", placeholder="choose_username")
         email    = st.text_input("Email",    key="su_e", placeholder="you@company.com")
@@ -718,77 +784,64 @@ if selected == "Dashboard":
 # ─────────────────────────────────────────────
 # ██ RISK EVALUATOR
 # ─────────────────────────────────────────────
-elif selected == "Risk Evaluator":
+elif selected == "RISK EVALUATOR":
 
     st.markdown("""
-    <div style='padding:8px 0 2px;'>
-        <div style='font-family:Syne,sans-serif; font-size:30px; font-weight:800; color:#f0ebe3; letter-spacing:-1px;'>
-            Risk Evaluator
-        </div>
-        <div style='font-family:"Space Mono",monospace; font-size:9px; color:#3a3830; letter-spacing:3px; margin-top:4px;'>
-            INPUT STARTUP PARAMETERS · GENERATE FAILURE PROBABILITY · RECEIVE RECOMMENDATIONS
-        </div>
+    <div style='padding:10px 0 4px;'>
+        <div style='font-family:Orbitron; font-size:28px; font-weight:900; color:#fff;
+                    text-shadow:0 0 30px #00d4ff44;'>Prediction Engine</div>
+        <div style='color:#2a6a8a; font-size:12px; letter-spacing:3px; margin-top:4px;
+                    font-family:Rajdhani;'>ENTER STARTUP PARAMETERS · GET AI VERDICT</div>
     </div>
-    <div class="amber-rule"></div>
+    <div class="glow-div"></div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="sec-header">Financial Profile</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Startup Parameters</div>', unsafe_allow_html=True)
+
     col1, col2, col3 = st.columns(3)
     with col1:
-        funding      = st.number_input("💰 Funding Amount ($)", min_value=0, step=50000, value=0)
-    # with col2:
-    #     burn_rate_in = st.slider("🔥 Monthly Burn Rate (0=low, 1=high)", 0.0, 1.0, 0, 0.01)
-    # with col3:
-    #     debt_ratio_in = st.slider("🏦 Debt Ratio (Debt/Equity)", 0.0, 2.0, 0, 0.05)
+        funding = st.number_input("💰 Funding Amount ($)", min_value=0, step=10000)
+    with col2:
+        team_exp = st.slider("👥 Team Experience", 1, 10, 0)
+    with col3:
+        market_size = st.slider("🌍 Market Size", 1, 10, 0)
 
-    # st.markdown('<div class="sec-header">Growth Indicators</div>', unsafe_allow_html=True)
-    # col4, col5 = st.columns(2)
-    # with col4:
-    #     rev_growth_in = st.slider("📈 Revenue Growth YoY (-30% to +150%)", -0.30, 1.50, 0, 0.01,
-    #                                format="%.2f")
-    # with col5:
-    #     years_op_in = st.slider("📅 Years Operating", 0, 15, 0)
+    col4, col5 = st.columns(2)
+    with col4:
+        competition = st.slider("⚔️ Competition Level", 1, 10, 0)
+    with col5:
+        business_model = st.slider("💡 Business Model Strength", 1, 10, 0)
 
-    st.markdown('<div class="sec-header">Competitive & Team Profile</div>', unsafe_allow_html=True)
-    col6, col7, col8, col9, col10 = st.columns(5)
-    with col6:  team_exp_in    = st.slider("👥 Team Experience", 1, 10, 0)
-    with col7:  market_size_in = st.slider("🌍 Market Size", 1, 10, 0)
-    with col8:  competition_in = st.slider("⚔️ Competition Level", 1, 10, 0)
-    with col9:  biz_model_in   = st.slider("💡 Business Model", 1, 10, 0)
-    with col10: pass  # spacing
+    st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="amber-rule"></div>', unsafe_allow_html=True)
+    if st.button("⚡  LAUNCH PREDICTION", use_container_width=True):
+        input_data   = np.array([[funding, team_exp, market_size, competition, business_model]])
+        input_scaled = scaler.transform(input_data)
+        prob         = best_model.predict_proba(input_scaled)[0][1]
 
-    if st.button("⚡  EVALUATE FAILURE RISK", use_container_width=True):
-        inp = np.array([[funding, team_exp_in, market_size_in, competition_in,
-                         biz_model_in,]])
-        inp_s = scaler.transform(inp)
-        fail_prob  = best_m.predict_proba(inp_s)[0][1]
-        tier, cls  = risk_tier(fail_prob)
-        confidence = abs(fail_prob - 0.5) * 2 * 100
-
-        # Save activity
-        act = pd.read_csv("activity.csv")
-        new_row = pd.DataFrame({
-            "username":[st.session_state.username],
-            "date":[datetime.now().date()], "time":[datetime.now().strftime("%H:%M:%S")],
-            "funding":[funding], "team_exp":[team_exp_in], "market_size":[market_size_in],
-            "competition":[competition_in], "biz_model":[biz_model_in],
-            # "years_operating":[years_op_in], "burn_rate":[burn_rate_in],
-            # "revenue_growth":[rev_growth_in], "debt_ratio":[debt_ratio_in],
-            "failure_prob":[round(fail_prob,4)], "risk_tier":[tier]
+        activity     = pd.read_csv("user_activity.csv")
+        new_activity = pd.DataFrame({
+            "username":    [st.session_state.username],
+            "login_date":  [st.session_state.login_time.strftime("%Y-%m-%d")],
+            "login_time":  [st.session_state.login_time.strftime("%H:%M:%S")],
+            "logout_time": [""],
+            "funding": [funding], "team_experience": [team_exp],
+            "market_size": [market_size], "competition": [competition],
+            "business_model": [business_model], "prediction_probability": [prob]
         })
-        pd.concat([act, new_row], ignore_index=True).to_csv("activity.csv", index=False)
+        pd.concat([activity, new_activity], ignore_index=True).to_csv("user_activity.csv", index=False)
+
+        st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
 
         # RESULT CARD
-        if fail_prob < 0.5:
+        if prob < 0.5:
             st.markdown(f"""
             <div class="result-success">
                 <div style='font-family:Syne,sans-serif; font-size:24px; font-weight:800; color:#5dde8c; letter-spacing:-0.5px;'>
                     ✅ LOW FAILURE RISK DETECTED
                 </div>
                 <div style='font-family:"Space Mono",monospace; font-size:13px; color:#3a8c5c; margin-top:8px;'>
-                    Failure Probability: {fail_prob*100:.2f}% &nbsp;|&nbsp; Risk Tier: {tier}
+                    SUCCESS Probability: {prob*100:.2f}% 
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -796,10 +849,10 @@ elif selected == "Risk Evaluator":
             st.markdown(f"""
             <div class="result-failure">
                 <div style='font-family:Syne,sans-serif; font-size:24px; font-weight:800; color:#e05c5c; letter-spacing:-0.5px;'>
-                    ⚠️ {tier} FAILURE RISK
+                    ⚠️ HIGH RISK OF FAILURE
                 </div>
                 <div style='font-family:"Space Mono",monospace; font-size:13px; color:#8c3a3a; margin-top:8px;'>
-                    Failure Probability: {fail_prob*100:.2f}% &nbsp;|&nbsp; Confidence: {confidence:.1f}%
+                    Failure Probability: {prob*100:.2f}% 
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -808,17 +861,17 @@ elif selected == "Risk Evaluator":
         g1, g2, g3 = st.columns(3)
         with g1:
             fig_g1 = go.Figure(go.Indicator(
-                mode="gauge+number", value=fail_prob*100,
+                mode="gauge+number", value=prob*100,
                 title={'text':"Failure Probability (%)",'font':{'family':'Space Mono','color':'#6b6558','size':11}},
                 number={'font':{'family':'Space Mono','color':'#d4cfc8'},'suffix':'%'},
                 gauge={
                     'axis':{'range':[0,100],'tickcolor':'#2a2820'},
-                    'bar':{'color': RED if fail_prob>0.5 else GREEN},
-                    'bgcolor':"rgba(0,0,0,0)",
+                    'bar':{'color': "#00d4ff"}, 'bgcolor': "rgba(0,0,0,0)",
                     'steps':[{'range':[0,35],'color':'#0a1e0e'},
                               {'range':[35,55],'color':'#1e1800'},
                               {'range':[55,100],'color':'#1e0a0a'}],
-                    'threshold':{'line':{'color':AMBER,'width':3},'thickness':0.75,'value':fail_prob*100}
+                    'threshold': {'line': {'color': "#00ff88", 'width': 3},
+                                  'thickness': 0.75, 'value': prob * 100}
                 }
             ))
             fig_g1.update_layout(height=240, margin=dict(l=10,r=10,t=40,b=10), **PLOT_CFG)
@@ -841,7 +894,7 @@ elif selected == "Risk Evaluator":
 
         with g3:
             # Survival probability
-            surv_prob = (1 - fail_prob) * 100
+            surv_prob = (1 - prob) * 100
             fig_g3 = go.Figure(go.Indicator(
                 mode="gauge+number", value=surv_prob,
                 title={'text':"Survival Probability (%)",'font':{'family':'Space Mono','color':'#6b6558','size':11}},
@@ -861,10 +914,7 @@ elif selected == "Risk Evaluator":
         cats = ["Funding Power","Team Strength","Market Opportunity","Competitive Pressure","Business Viability","Operational Maturity"]
         scores = [
             min(funding/5e6, 1)*10,
-            team_exp_in,
-            market_size_in,
-            10 - competition_in,
-            biz_model_in,
+
         ]
         fig_radar = go.Figure()
         fig_radar.add_trace(go.Scatterpolar(
@@ -897,16 +947,16 @@ elif selected == "Risk Evaluator":
         #     recs.append(("HIGH", "🔥 Burn rate is dangerously high — extend your runway immediately."))
         # if debt_ratio_in > 1.2:
         #     recs.append(("HIGH", "📉 Debt ratio exceeds healthy bounds — restructure liabilities."))
-        if team_exp_in < 4:
-            recs.append(("MEDIUM", "👥 Hire senior talent — team experience significantly predicts survival."))
-        if competition_in > 7:
-            recs.append(("MEDIUM", "⚔️ Competition is intense — consider differentiation or niche focus."))
-        # if rev_growth_in < 0:
-        #     recs.append(("CRITICAL", "📊 Negative revenue growth is a leading indicator of failure."))
-        if biz_model_in < 4:
-            recs.append(("HIGH", "💡 Weak business model — validate unit economics before scaling."))
-        if market_size_in < 3:
-            recs.append(("MEDIUM", "🌍 Small market limits upside — consider adjacency expansion."))
+        if funding < 1000000:
+            st.warning("💰 Increase funding — strong impact on success")
+        if team_exp < 5:
+            st.warning("👥 Build a more experienced team")
+        if competition > 7:
+            st.error("⚔️ High competition — consider niche market")
+        if business_model < 5:
+            st.warning("💡 Improve business model strength")
+        if market_size < 5:
+            st.warning("🌍 Target a larger market")
         if not recs:
             recs.append(("LOW", "✅ Strong startup profile across evaluated dimensions. Focus on execution."))
 
@@ -926,11 +976,11 @@ elif selected == "Risk Evaluator":
 
         # Investor Decision
         st.markdown('<div class="sec-header">Investor Decision Framework</div>', unsafe_allow_html=True)
-        if fail_prob < 0.35:
+        if prob < 0.35:
             st.success("💼 STRONG BUY — Risk profile is well within acceptable investment parameters. High conviction opportunity.")
-        elif fail_prob < 0.55:
+        elif prob < 0.55:
             st.warning("🤝 CONDITIONAL INVESTMENT — Moderate risk. Recommended: staged funding with milestone triggers.")
-        elif fail_prob < 0.75:
+        elif prob < 0.75:
             st.error("⚠️ PASS — Risk-adjusted returns are unfavorable. Material issues need resolution before investment.")
         else:
             st.error("🚫 STRONG PASS — Critical failure indicators present. Investment not advisable at current trajectory.")
@@ -980,7 +1030,7 @@ elif selected == "Analytics Lab":
             fig_vio.add_trace(go.Violin(
                 y=data[data.failure==outcome].burn_rate, name=label,
                 box_visible=True, meanline_visible=True,
-                fillcolor=color.replace("#",""), line_color=color,
+                fillcolor=color, line_color=color,
                 opacity=0.7
             ))
         fig_vio.update_layout(height=280, margin=dict(l=0,r=0,t=10,b=0),

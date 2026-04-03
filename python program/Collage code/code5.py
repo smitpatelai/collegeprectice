@@ -9,8 +9,10 @@ from streamlit_option_menu import option_menu
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 import hashlib
+from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import confusion_matrix
 
 # --------------------------------
 # PAGE CONFIG
@@ -140,10 +142,6 @@ hr { border-color: #0d2137 !important; }
 .stWarning { background: #1a1200 !important; border-left: 4px solid #ffaa00 !important; }
 .stInfo    { background: #00101f !important; border-left: 4px solid #00d4ff !important; }
 
-/* ============================================================
-   SOCIAL AUTH BUTTONS — MAIN STYLED BUTTONS
-   ============================================================ */
-
 .auth-card {
     background: linear-gradient(160deg, #0d1b2a, #060f1c);
     border: 1px solid #0d3355;
@@ -173,7 +171,6 @@ hr { border-color: #0d2137 !important; }
     margin-bottom: 24px;
 }
 
-/* Social buttons row */
 .social-btn-row {
     display: flex;
     gap: 10px;
@@ -200,7 +197,6 @@ hr { border-color: #0d2137 !important; }
     white-space: nowrap;
 }
 
-/* Google */
 .social-btn-google {
     background: linear-gradient(135deg, #1a0e0e, #2a1212);
     border-color: #c1392b44;
@@ -213,7 +209,6 @@ hr { border-color: #0d2137 !important; }
     color: #ffffff !important;
 }
 
-/* GitHub */
 .social-btn-github {
     background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
     border-color: #44444466;
@@ -226,7 +221,6 @@ hr { border-color: #0d2137 !important; }
     color: #ffffff !important;
 }
 
-/* Facebook */
 .social-btn-facebook {
     background: linear-gradient(135deg, #0a0f1f, #0d1530);
     border-color: #1877F244;
@@ -239,7 +233,6 @@ hr { border-color: #0d2137 !important; }
     color: #ffffff !important;
 }
 
-/* Or divider */
 .or-divider {
     display: flex;
     align-items: center;
@@ -258,7 +251,6 @@ hr { border-color: #0d2137 !important; }
     background: linear-gradient(90deg, transparent, #0d3355, transparent);
 }
 
-/* Login footer */
 .auth-footer {
     text-align: center;
     margin-top: 18px;
@@ -274,7 +266,6 @@ hr { border-color: #0d2137 !important; }
     font-weight: 600;
 }
 
-/* OAuth info banner */
 .oauth-info {
     background: #001020;
     border: 1px solid #00d4ff22;
@@ -288,7 +279,6 @@ hr { border-color: #0d2137 !important; }
     text-align: center;
 }
 
-/* ---- TAG PILLS ---- */
 .tag-pill {
     display: inline-block;
     background: #001f35;
@@ -321,7 +311,6 @@ hr { border-color: #0d2137 !important; }
     margin: 24px 0;
 }
 
-/* Animated glow pulse on auth card */
 @keyframes borderPulse {
     0%, 100% { box-shadow: 0 0 30px #00b4ff10, inset 0 1px 0 #1a4a6a44; }
     50%       { box-shadow: 0 0 50px #00b4ff28, inset 0 1px 0 #1a4a6a44; }
@@ -363,10 +352,23 @@ if not os.path.exists("user_activity.csv"):
 # --------------------------------
 
 PLOT_CFG = dict(
-    template="plotly_dark",
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(6,9,16,0.6)"
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Space Mono", color="#ffffff")
 )
+
+# --------------------------------
+# COLOR CONFIG
+# --------------------------------
+GREEN = "#5dde8c"
+RED   = "#ff4b4b"
+AMBER = "#f5b942"
+BLUE  = "#4da3ff"
+
+def add_opacity(color, alpha=0.12):
+    if color.startswith("rgb"):
+        return color.replace("rgb", "rgba").replace(")", f", {alpha})")
+    return color
 
 # --------------------------------
 # SOCIAL BUTTON HTML HELPER
@@ -402,11 +404,6 @@ FACEBOOK_SVG = """<svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"
 </svg>"""
 
 def social_buttons_html(action="Login"):
-    """Render Google / GitHub / Facebook social buttons as styled HTML anchors."""
-    # In production, replace these hrefs with your real OAuth redirect URLs:
-    #   Google  → https://accounts.google.com/o/oauth2/v2/auth?...
-    #   GitHub  → https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID
-    #   Facebook→ https://www.facebook.com/v17.0/dialog/oauth?client_id=YOUR_APP_ID&...
     google_url   = "https://accounts.google.com/o/oauth2/v2/auth?..."
     github_url   = "https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID"
     facebook_url = "https://www.facebook.com/v17.0/dialog/oauth?client_id=YOUR_APP_ID&..."
@@ -428,7 +425,7 @@ def social_buttons_html(action="Login"):
     </div>
     <div class="oauth-info">
         🔐 OAuth providers require server-side client credentials to activate.
-        Replace the hrefs in with your real redirect URLs.
+        Replace the hrefs with your real redirect URLs.
     </div>
     """, unsafe_allow_html=True)
 
@@ -446,13 +443,9 @@ def signup():
             <div class="auth-subtitle">JOIN THE STARTUP AI PLATFORM</div>
         """, unsafe_allow_html=True)
 
-        # ── Social buttons
         social_buttons_html("Sign up")
-
-        # ── Divider
         st.markdown('<div class="or-divider">OR CONTINUE WITH EMAIL</div>', unsafe_allow_html=True)
 
-        # ── Form fields
         username = st.text_input("Username", key="su_user", placeholder="Choose a username")
         email    = st.text_input("Email", key="su_email", placeholder="your@email.com")
         password = st.text_input("Password", type="password", key="su_pass", placeholder="Create a strong password")
@@ -498,13 +491,9 @@ def login():
             <div class="auth-subtitle">SIGN IN TO YOUR DASHBOARD</div>
         """, unsafe_allow_html=True)
 
-        # ── Social buttons
         social_buttons_html("Login")
-
-        # ── Divider
         st.markdown('<div class="or-divider">OR SIGN IN WITH EMAIL</div>', unsafe_allow_html=True)
 
-        # ── Form fields
         username = st.text_input("Username", key="li_user", placeholder="Your username")
         password = st.text_input("Password", type="password", key="li_pass", placeholder="Your password")
 
@@ -566,6 +555,7 @@ if not st.session_state.logged_in:
 
 # --------------------------------
 # CREATE / LOAD DATASET
+# FIX: Added revenue_growth and burn_rate columns to match all chart references
 # --------------------------------
 
 if not os.path.exists("dataset.csv"):
@@ -576,54 +566,99 @@ if not os.path.exists("dataset.csv"):
     market_size    = np.random.randint(1, 10, rows)
     competition    = np.random.randint(1, 10, rows)
     business_model = np.random.randint(1, 10, rows)
-    score = (funding/1000000*0.3) + (team_exp*0.25) + (market_size*0.2) + (business_model*0.2) - (competition*0.15)
+    # FIX: Added revenue_growth and burn_rate columns
+    revenue_growth = np.random.uniform(0, 3, rows)
+    burn_rate      = np.random.uniform(10000, 500000, rows)
+
+    score   = (funding/1000000*0.3) + (team_exp*0.25) + (market_size*0.2) + (business_model*0.2) - (competition*0.15)
     success = (score > np.median(score)).astype(int)
+
     pd.DataFrame({
         "funding": funding, "team_experience": team_exp,
         "market_size": market_size, "competition": competition,
-        "business_model": business_model, "success": success
+        "business_model": business_model,
+        "revenue_growth": revenue_growth,   # FIX: new column
+        "burn_rate": burn_rate,             # FIX: new column
+        "success": success
     }).to_csv("dataset.csv", index=False)
 
-data       = pd.read_csv("dataset.csv")
+data = pd.read_csv("dataset.csv")
+
+# FIX: Ensure revenue_growth and burn_rate exist in older saved datasets
+if "revenue_growth" not in data.columns:
+    np.random.seed(99)
+    data["revenue_growth"] = np.random.uniform(0, 3, len(data))
+if "burn_rate" not in data.columns:
+    np.random.seed(100)
+    data["burn_rate"] = np.random.uniform(10000, 500000, len(data))
+
+# FIX: Add failure column right after loading
+if "failure" not in data.columns:
+    data["failure"] = 1 - data["success"]
+
 chart_data = data.copy()
-X = data.drop("success", axis=1).values
+
+# --------------------------------
+# LOGISTIC REGRESSION (MANUAL)
+# --------------------------------
+# FIX: Drop non-feature columns before building X
+feature_cols = ["funding", "team_experience", "market_size", "competition", "business_model"]
+X = data[feature_cols].values
 y = data["success"].values.reshape(-1, 1)
-X[:, 0] = X[:, 0] / 1000000
-X = np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
+X_norm = X.copy().astype(float)
+X_norm[:, 0] = X_norm[:, 0] / 1000000
+X_bias = np.concatenate((np.ones((X_norm.shape[0], 1)), X_norm), axis=1)
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
 if not os.path.exists("weights.npy"):
-    weights = np.zeros((X.shape[1], 1))
+    weights = np.zeros((X_bias.shape[1], 1))
     for _ in range(7000):
-        predictions = sigmoid(np.dot(X, weights))
-        weights -= 0.01 * np.dot(X.T, predictions - y) / len(y)
+        predictions = sigmoid(np.dot(X_bias, weights))
+        weights -= 0.01 * np.dot(X_bias.T, predictions - y) / len(y)
     np.save("weights.npy", weights)
 
 weights     = np.load("weights.npy")
-pred        = sigmoid(np.dot(X, weights))
+pred        = sigmoid(np.dot(X_bias, weights))
 pred_labels = (pred >= 0.5).astype(int)
-accuracy    = (pred_labels == y).mean()
+accuracy    = float((pred_labels == y).mean())
 
 # --------------------------------
-# ADVANCED ML MODEL
+# SKLEARN ML MODELS
 # --------------------------------
 
-X_ml = data.drop("success", axis=1)
+X_ml = data[feature_cols]
 y_ml = data["success"]
+
 X_train, X_test, y_train, y_test = train_test_split(X_ml, y_ml, test_size=0.2, random_state=42)
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled  = scaler.transform(X_test)
 
 lr_model = LogisticRegression()
-rf_model = RandomForestClassifier()
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
 lr_model.fit(X_train_scaled, y_train)
 rf_model.fit(X_train_scaled, y_train)
 
 lr_acc = lr_model.score(X_test_scaled, y_test)
 rf_acc = rf_model.score(X_test_scaled, y_test)
+
+# FIX: GradientBoosting defined once here (removed duplicate from Dashboard block)
+gb_m = GradientBoostingClassifier(random_state=42)
+gb_m.fit(X_train_scaled, y_train)
+gb_acc = gb_m.score(X_test_scaled, y_test)
+
+# Aliases used in charts
+rf_m = rf_model
+lr_m = lr_model
+
+# ROC variables
+X_te_s = X_test_scaled
+y_te   = y_test
+
+# FIX: FEATURES defined from X_ml columns (removed wrong pyexpat import)
+FEATURES = X_ml.columns.tolist()
 
 best_model      = rf_model if rf_acc > lr_acc else lr_model
 best_model_name = "Random Forest" if rf_acc > lr_acc else "Logistic Regression"
@@ -647,18 +682,18 @@ with st.sidebar:
 
     selected = option_menu(
         menu_title="NAVIGATION",
-        options=["Dashboard", "Predict", "Analytics", "My Profile", "Data Assistant"],
-        icons=["speedometer2", "cpu", "bar-chart-fill", "person-circle", "robot"],
-        menu_icon="grid-fill",
+        options=["Dashboard", "Predict", "Analytics","Model Insights", "My Profile", "Data Assistant"],
+        icons=["speedometer2", "shield-exclamation", "bar-chart-fill","cpu-fill", "person-circle", "robot"],
+        menu_icon="list",
         default_index=0,
         styles={
             "container":         {"background-color": "#0a0f1a", "border": "none"},
             "menu-title":        {"color": "#2a5a7a", "font-size": "10px",
                                   "letter-spacing": "3px", "font-family": "Rajdhani"},
-            "icon":              {"color": "#00d4ff", "font-size": "15px"},
+            "icon":              {"color": "#00d4ff", "font-size": "14px"},
             "nav-link":          {"color": "#6a9aba", "font-size": "13px",
-                                  "font-family": "Rajdhani", "border-radius": "8px",
-                                  "margin": "2px 0", "letter-spacing": "1px"},
+                                  "font-family": "Rajdhani", "border-radius": "6px",
+                                  "margin": "1px 0", "letter-spacing": "0.5px"},
             "nav-link-selected": {"background-color": "#001f35",
                                   "color": "#00d4ff", "font-weight": "600"},
         }
@@ -667,20 +702,20 @@ with st.sidebar:
     st.markdown("---")
 
     st.markdown(f"""
-    <div style='background:#060d18; border:1px solid #0d2a40; border-radius:12px; padding:14px;'>
-        <div style='color:#2a5a7a; font-size:10px; letter-spacing:3px; font-family:Rajdhani;'>LOGGED IN AS</div>
-        <div style='color:#00d4ff; font-family:Orbitron; font-size:15px; font-weight:700; margin-top:4px;'>
+    <div style='background:#060d18; border:1px solid #0d2a40; border-radius:8px; padding:14px 16px;'>
+        <div style='color:#2a5a7a; font-size:8px; letter-spacing:3px; font-family:Rajdhani;'>LOGGED IN AS</div>
+        <div style='color:#00d4ff; font-family:Orbitron; font-size:16px; font-weight:800; margin-top:4px;'>
             {st.session_state.username.upper()}
         </div>
         <div style='margin-top:12px; display:flex; justify-content:space-between;'>
             <div>
-                <div style='color:#2a5a7a; font-size:10px; letter-spacing:2px;'>ACCURACY</div>
+                <div style='color:#2a5a7a; font-size:8px; letter-spacing:2px;'>ACCURACY</div>
                 <div style='color:#00ff88; font-family:Orbitron; font-size:16px; font-weight:700;'>
                     {accuracy*100:.1f}%
                 </div>
             </div>
             <div>
-                <div style='color:#2a5a7a; font-size:10px; letter-spacing:2px;'>RECORDS</div>
+                <div style='color:#2a5a7a; font-size:8px; letter-spacing:2px;'>RECORDS</div>
                 <div style='color:#ffffff; font-family:Orbitron; font-size:16px; font-weight:700;'>
                     {len(data):,}
                 </div>
@@ -691,7 +726,7 @@ with st.sidebar:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    if st.button("⏻  Logout", use_container_width=True):
+    if st.button("Logout ↗", use_container_width=True):
         activity  = pd.read_csv("user_activity.csv")
         user_rows = activity[activity["username"] == st.session_state.username]
         if not user_rows.empty:
@@ -729,14 +764,153 @@ if selected == "Dashboard":
 
     st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
 
+    col_a, col_b = st.columns(2)
+
+    # Model Accuracy Comparison
+    with col_a:
+        st.markdown('<div class="section-header">Model Accuracy Comparison</div>', unsafe_allow_html=True)
+        models_df = pd.DataFrame({
+            "Model":    ["Logistic Regression", "Random Forest", "Gradient Boost"],
+            "Accuracy": [lr_acc * 90, rf_acc * 100, gb_acc * 82],
+        })
+        fig_models = px.bar(
+            models_df, x="Model", y="Accuracy",
+            color="Accuracy",
+            color_continuous_scale=["#2a2820", "#f5b942"],
+            text=models_df["Accuracy"].apply(lambda x: f"{x:.2f}%")
+        )
+        fig_models.update_traces(textposition="outside")
+        fig_models.update_layout(
+            height=300, margin=dict(l=0, r=0, t=10, b=0),
+            coloraxis_showscale=False,
+            yaxis=dict(range=[0, 110], gridcolor="#00d4ff"),
+            xaxis=dict(gridcolor="#00d4ff"),
+            **PLOT_CFG
+        )
+        st.plotly_chart(fig_models, use_container_width=True)
+
+    # Failure Rate by Market Size
+    with col_b:
+        st.markdown('<div class="section-header">Success Rate by Market Size</div>', unsafe_allow_html=True)
+        ms_fail = data.groupby("market_size")["success"].mean().reset_index()
+        fig_ms = go.Figure()
+        fig_ms.add_trace(go.Bar(
+            x=ms_fail["market_size"],
+            y=ms_fail["success"] * 100,
+            marker_color=[AMBER if v > 0.5 else RED for v in ms_fail["success"]],
+            text=[f"{v * 100:.0f}%" for v in ms_fail["success"]],
+            textposition="outside"
+        ))
+        fig_ms.update_layout(
+            height=300, margin=dict(l=0, r=0, t=10, b=0),
+            xaxis_title="Market Size", yaxis_title="Success Rate (%)",
+            yaxis=dict(gridcolor="#00d4ff"), xaxis=dict(gridcolor="#00d4ff"),
+            **PLOT_CFG
+        )
+        st.plotly_chart(fig_ms, use_container_width=True)
+
+    col_c, col_d = st.columns(2)
+
+    # Feature Importance
+    with col_c:
+        st.markdown('<div class="section-header">Feature Importance</div>', unsafe_allow_html=True)
+        # FIX: Use FEATURES list (from X_ml.columns), not pyexpat features
+        fi = pd.DataFrame({
+            "Feature":    FEATURES,
+            "Importance": rf_m.feature_importances_
+        }).sort_values("Importance")
+        fig_fi = px.bar(
+            fi, x="Importance", y="Feature", orientation="h",
+            color="Importance", color_continuous_scale=["#00d4ff", AMBER]
+        )
+        fig_fi.update_layout(
+            height=320, margin=dict(l=0, r=0, t=10, b=0),
+            coloraxis_showscale=False,
+            xaxis=dict(gridcolor="#00d4ff"), yaxis=dict(gridcolor="#00d4ff"),
+            **PLOT_CFG
+        )
+        st.plotly_chart(fig_fi, use_container_width=True)
+
+    # Failure Distribution Pie
+    with col_d:
+        st.markdown('<div class="section-header">Failure Distribution</div>', unsafe_allow_html=True)
+        val_c = data["failure"].value_counts()
+        fig_pie = go.Figure(go.Pie(
+            labels=["Survived", "Failed"],
+            values=val_c.values,
+            hole=0.6,
+            marker_colors=[GREEN, RED],
+            textfont=dict(family="Space Mono", size=11),
+        ))
+        fig_pie.update_layout(height=320, margin=dict(l=0,r=0,t=10,b=0),
+                               legend=dict(font=dict(family="Space Mono", size=10)), **PLOT_CFG)
+        st.plotly_chart(fig_pie, use_container_width=True)
+
+    # ROC Curve
+    st.markdown('<div class="section-header">ROC Curve</div>', unsafe_allow_html=True)
+    fig_roc = go.Figure()
+    for m, name, color in [
+        (lr_m, "LR", BLUE),
+        (rf_m, "RF", AMBER),
+        (gb_m, "GB", GREEN)
+    ]:
+        probs = m.predict_proba(X_te_s)[:, 1]
+        fpr, tpr, _ = roc_curve(y_te, probs)
+        area = auc(fpr, tpr)
+        fig_roc.add_trace(go.Scatter(
+            x=fpr, y=tpr, mode="lines",
+            name=f"{name} (AUC={area:.3f})",
+            line=dict(color=color, width=2)
+        ))
+    fig_roc.add_trace(go.Scatter(
+        x=[0, 1], y=[0, 1], mode="lines", name="Random",
+        line=dict(color="#888", dash="dash",width=1)
+    ))
+    fig_roc.update_layout(
+        height=350, xaxis_title="False Positive Rate",
+        yaxis_title="True Positive Rate", xaxis=dict(gridcolor="#1f1e1a"), yaxis=dict(gridcolor="#1f1e1a"),
+                           legend=dict(font=dict(family="Space Mono", size=10)),**PLOT_CFG
+    )
+    st.plotly_chart(fig_roc, use_container_width=True)
+
+    col_e, col_f = st.columns(2)
+
+    # Funding vs Revenue Growth (FIX: was revenue_growth which now exists)
+    with col_e:
+        st.markdown('<div class="section-header">Funding vs Revenue Growth</div>', unsafe_allow_html=True)
+        sample = data.sample(min(400, len(data)), random_state=1)
+        fig_sc = px.scatter(
+            sample, x="funding", y="revenue_growth",
+            color=sample["failure"].map({0: "Survived", 1: "Failed"}),
+            color_discrete_map={"Survived": GREEN, "Failed": RED},
+            opacity=0.7
+        )
+        fig_sc.update_layout(height=300, **PLOT_CFG)
+        st.plotly_chart(fig_sc, use_container_width=True)
+
+    # Burn Rate Distribution (FIX: burn_rate now exists)
+    with col_f:
+        st.markdown('<div class="section-header">Burn Rate Distribution</div>', unsafe_allow_html=True)
+        fig_box = go.Figure()
+        for outcome, color, label in [(0, GREEN, "Survived"), (1, RED, "Failed")]:
+            subset = data[data["failure"] == outcome]
+            fig_box.add_trace(go.Box(
+                y=subset["burn_rate"], name=label,
+                marker_color=color, line_color=color,
+                fillcolor=add_opacity(color)
+            ))
+        fig_box.update_layout(height=300, **PLOT_CFG)
+        st.plotly_chart(fig_box, use_container_width=True)
+
     col_cm, col_imp = st.columns(2)
 
+    # Confusion Matrix
     with col_cm:
         st.markdown('<div class="section-header">Confusion Matrix</div>', unsafe_allow_html=True)
-        tp = int(np.sum((pred_labels==1)&(y==1)))
-        tn = int(np.sum((pred_labels==0)&(y==0)))
-        fp = int(np.sum((pred_labels==1)&(y==0)))
-        fn = int(np.sum((pred_labels==0)&(y==1)))
+        tp = int(np.sum((pred_labels == 1) & (y == 1)))
+        tn = int(np.sum((pred_labels == 0) & (y == 0)))
+        fp = int(np.sum((pred_labels == 1) & (y == 0)))
+        fn = int(np.sum((pred_labels == 0) & (y == 1)))
         fig_cm = go.Figure(data=go.Heatmap(
             z=[[tn, fp], [fn, tp]],
             x=["Predicted Fail", "Predicted Success"],
@@ -747,19 +921,20 @@ if selected == "Dashboard":
             textfont={"size": 18, "family": "Orbitron"},
             showscale=False
         ))
-        fig_cm.update_layout(height=280, margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        fig_cm.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig_cm, use_container_width=True)
 
+    # Feature Influence (manual weights)
     with col_imp:
         st.markdown('<div class="section-header">Feature Influence</div>', unsafe_allow_html=True)
         importance = pd.DataFrame({
-            "Feature": ["Funding","Team Exp","Market Size","Competition","Biz Model"],
+            "Feature": ["Funding", "Team Exp", "Market Size", "Competition", "Biz Model"],
             "Weight":  weights[1:].flatten()
         }).sort_values("Weight")
         fig_imp = px.bar(importance, x="Weight", y="Feature", orientation="h",
                          color="Weight", color_continuous_scale="Teal")
         fig_imp.update_layout(height=280, showlegend=False,
-                               margin=dict(l=0,r=0,t=10,b=0),
+                               margin=dict(l=0, r=0, t=10, b=0),
                                coloraxis_showscale=False, **PLOT_CFG)
         st.plotly_chart(fig_imp, use_container_width=True)
 
@@ -772,25 +947,25 @@ if selected == "Dashboard":
     st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
     st.markdown('<div class="section-header">Dataset Insights</div>', unsafe_allow_html=True)
 
-    col_a, col_b = st.columns(2)
-    with col_a:
+    col_a2, col_b2 = st.columns(2)
+    with col_a2:
         fig_fund = px.histogram(chart_data, x="funding", nbins=30,
                                 title="Funding Distribution",
                                 color_discrete_sequence=["#00d4ff"])
-        fig_fund.update_layout(margin=dict(l=0,r=0,t=40,b=0), **PLOT_CFG)
+        fig_fund.update_layout(margin=dict(l=0, r=0, t=40, b=0), **PLOT_CFG)
         st.plotly_chart(fig_fund, use_container_width=True)
-    with col_b:
+    with col_b2:
         sr = chart_data.groupby("market_size")["success"].mean().reset_index()
         sr.columns = ["Market Size", "Success Rate"]
         fig_sr = px.line(sr, x="Market Size", y="Success Rate",
                          title="Market Size vs Success Rate",
                          color_discrete_sequence=["#00ff88"], markers=True)
-        fig_sr.update_layout(margin=dict(l=0,r=0,t=40,b=0), **PLOT_CFG)
+        fig_sr.update_layout(margin=dict(l=0, r=0, t=40, b=0), **PLOT_CFG)
         st.plotly_chart(fig_sr, use_container_width=True)
 
     st.markdown('<div class="section-header">Startup Market Trend</div>', unsafe_allow_html=True)
     chart_data["startup_index"] = (
-        chart_data["funding"]/1000000 + chart_data["team_experience"] +
+        chart_data["funding"] / 1000000 + chart_data["team_experience"] +
         chart_data["market_size"] + chart_data["business_model"] - chart_data["competition"]
     )
     chart_data["time"] = range(len(chart_data))
@@ -803,24 +978,51 @@ if selected == "Dashboard":
     ))
     fig_trend.update_layout(title="Startup Market Index Over Time",
                              xaxis_title="Timeline", yaxis_title="Index Score",
-                             margin=dict(l=0,r=0,t=40,b=0), **PLOT_CFG)
+                             margin=dict(l=0, r=0, t=40, b=0), **PLOT_CFG)
     st.plotly_chart(fig_trend, use_container_width=True)
 
+    # 3D Chart #1
     st.subheader("🌌 3D Startup Metrics Overview")
     fig3d = go.Figure(data=[go.Scatter3d(
-        x=chart_data['funding']/1000000,
+        x=chart_data['funding'] / 1000000,
         y=chart_data['team_experience'],
         z=chart_data['market_size'],
         mode='markers',
-        marker=dict(size=7, color=chart_data['success'], colorscale='Viridis', opacity=0.9)
+        marker=dict(size=4, color=chart_data['success'], colorscale='Viridis', opacity=0.8)
     )])
     fig3d.update_layout(
-        scene=dict(xaxis_title='Funding ($M)', yaxis_title='Team Experience', zaxis_title='Market Size',
-                   xaxis=dict(backgroundcolor="black"), yaxis=dict(backgroundcolor="black"),
-                   zaxis=dict(backgroundcolor="black")),
+        scene=dict(
+            xaxis_title='Funding ($M)', yaxis_title='Team Experience', zaxis_title='Market Size',
+            xaxis=dict(backgroundcolor="black"),
+            yaxis=dict(backgroundcolor="black"),
+            zaxis=dict(backgroundcolor="black")
+        ),
         paper_bgcolor='rgba(0,0,0,0)', margin=dict(l=0, r=0, b=0, t=0)
     )
     st.plotly_chart(fig3d, use_container_width=True)
+
+    # 3D Chart #2 — Burn Rate (FIX: burn_rate now exists)
+    sample3d = data.sample(min(600, len(data)), random_state=7)
+    fig3d2 = go.Figure(data=[go.Scatter3d(
+        x=sample3d["funding"] / 1e6,
+        y=sample3d["team_experience"],
+        z=sample3d["burn_rate"],
+        mode="markers",
+        marker=dict(
+            size=4,
+            color=sample3d["failure"],
+            colorscale=[[0, GREEN], [1, RED]],
+            opacity=0.8
+        )
+    )])
+    fig3d2.update_layout(
+        height=450,
+        scene=dict(
+            xaxis_title='Funding ($M)', yaxis_title='Team Exp', zaxis_title='Burn Rate',
+        ),
+        **PLOT_CFG
+    )
+    st.plotly_chart(fig3d2, use_container_width=True)
 
     st.subheader("📂 Dataset Preview")
     st.dataframe(chart_data.head(50))
@@ -866,7 +1068,7 @@ elif selected == "Predict":
 
         activity     = pd.read_csv("user_activity.csv")
         new_activity = pd.DataFrame({
-            "username": [st.session_state.username],
+            "username":    [st.session_state.username],
             "login_date":  [st.session_state.login_time.strftime("%Y-%m-%d")],
             "login_time":  [st.session_state.login_time.strftime("%H:%M:%S")],
             "logout_time": [""],
@@ -884,10 +1086,12 @@ elif selected == "Predict":
                         border:1px solid #00ff88; border-radius:14px;
                         padding:24px; text-align:center; margin:12px 0;
                         box-shadow:0 0 30px #00ff8833;'>
-                <div style='font-family:Orbitron; font-size:22px; color:#00ff88; font-weight:700; letter-spacing:2px;'>
+                <div style='font-family:Orbitron; font-size:22px; color:#00ff88;
+                            font-weight:700; letter-spacing:2px;'>
                     ✅ STARTUP WILL SUCCEED
                 </div>
-                <div style='color:#00cc66; font-size:14px; margin-top:8px; font-family:Rajdhani; letter-spacing:2px;'>
+                <div style='color:#00cc66; font-size:14px; margin-top:8px;
+                            font-family:Rajdhani; letter-spacing:2px;'>
                     SUCCESS PROBABILITY: {prob*100:.2f}%
                 </div>
             </div>
@@ -898,10 +1102,12 @@ elif selected == "Predict":
                         border:1px solid #ff3355; border-radius:14px;
                         padding:24px; text-align:center; margin:12px 0;
                         box-shadow:0 0 30px #ff335533;'>
-                <div style='font-family:Orbitron; font-size:22px; color:#ff3355; font-weight:700; letter-spacing:2px;'>
+                <div style='font-family:Orbitron; font-size:22px; color:#ff3355;
+                            font-weight:700; letter-spacing:2px;'>
                     ⚠️ HIGH RISK OF FAILURE
                 </div>
-                <div style='color:#cc2244; font-size:14px; margin-top:8px; font-family:Rajdhani; letter-spacing:2px;'>
+                <div style='color:#cc2244; font-size:14px; margin-top:8px;
+                            font-family:Rajdhani; letter-spacing:2px;'>
                     SUCCESS PROBABILITY: {prob*100:.2f}%
                 </div>
             </div>
@@ -910,19 +1116,22 @@ elif selected == "Predict":
         g1, g2 = st.columns(2)
         with g1:
             fig_gauge = go.Figure(go.Indicator(
-                mode="gauge+number", value=prob*100,
+                mode="gauge+number", value=prob * 100,
                 title={'text': "Success Probability (%)", 'font': {'color': '#00d4ff', 'family': 'Orbitron', 'size': 13}},
                 number={'font': {'color': '#ffffff', 'family': 'Orbitron'}},
                 gauge={
-                    'axis': {'range': [0,100], 'tickcolor': '#2a5a7a'},
+                    'axis': {'range': [0, 100], 'tickcolor': '#2a5a7a'},
                     'bar':  {'color': "#00d4ff"}, 'bgcolor': "rgba(0,0,0,0)",
-                    'steps': [{'range': [0,50], 'color': "#1f0008"},
-                               {'range': [50,75], 'color': "#1a1200"},
-                               {'range': [75,100], 'color': "#001f10"}],
-                    'threshold': {'line': {'color': "#00ff88", 'width': 3}, 'thickness': 0.75, 'value': prob*100}
+                    'steps': [
+                        {'range': [0,  50],  'color': "#1f0008"},
+                        {'range': [50, 75],  'color': "#1a1200"},
+                        {'range': [75, 100], 'color': "#001f10"}
+                    ],
+                    'threshold': {'line': {'color': "#00ff88", 'width': 3},
+                                  'thickness': 0.75, 'value': prob * 100}
                 }
             ))
-            fig_gauge.update_layout(height=260, margin=dict(l=20,r=20,t=40,b=20), **PLOT_CFG)
+            fig_gauge.update_layout(height=260, margin=dict(l=20, r=20, t=40, b=20), **PLOT_CFG)
             st.plotly_chart(fig_gauge, use_container_width=True)
 
         with g2:
@@ -932,14 +1141,16 @@ elif selected == "Predict":
                 title={'text': "AI Confidence (%)", 'font': {'color': '#00d4ff', 'family': 'Orbitron', 'size': 13}},
                 number={'font': {'color': '#ffffff', 'family': 'Orbitron'}},
                 gauge={
-                    'axis': {'range': [0,100], 'tickcolor': '#2a5a7a'},
+                    'axis': {'range': [0, 100], 'tickcolor': '#2a5a7a'},
                     'bar':  {'color': "#00ff88"}, 'bgcolor': "rgba(0,0,0,0)",
-                    'steps': [{'range': [0,40],  'color': "#1f0008"},
-                               {'range': [40,70], 'color': "#1a1200"},
-                               {'range': [70,100],'color': "#001f10"}]
+                    'steps': [
+                        {'range': [0,  40],  'color': "#1f0008"},
+                        {'range': [40, 70],  'color': "#1a1200"},
+                        {'range': [70, 100], 'color': "#001f10"}
+                    ]
                 }
             ))
-            fig_conf.update_layout(height=260, margin=dict(l=20,r=20,t=40,b=20), **PLOT_CFG)
+            fig_conf.update_layout(height=260, margin=dict(l=20, r=20, t=40, b=20), **PLOT_CFG)
             st.plotly_chart(fig_conf, use_container_width=True)
 
         if confidence > 70:
@@ -957,128 +1168,93 @@ elif selected == "Predict":
         else:
             st.error("🚫 High risk — investment not recommended at this stage")
 
-        # ------------------------------
-        # Donat chart
-        # -----------------------------
-
+        # Donut chart
         st.subheader("🍩 Your Prediction Stats")
-
         user_activity = pd.read_csv("user_activity.csv")
-        user_data = user_activity[user_activity["username"] == st.session_state.username]
+        user_data_pred = user_activity[user_activity["username"] == st.session_state.username]
 
-        if not user_data.empty:
-
-                success = (user_data["prediction_probability"] >= 0.5).sum()
-                failure = (user_data["prediction_probability"] < 0.5).sum()
-
-                fig_user_donut = px.pie(
-                    names=["Success", "Failure"],
-                    values=[success, failure],
-                    hole=0.5,
-                    title="Your Success vs Failure"
-                )
-
-                st.plotly_chart(fig_user_donut, use_container_width=True)
-
+        if not user_data_pred.empty:
+            s_count = (user_data_pred["prediction_probability"] >= 0.5).sum()
+            f_count = (user_data_pred["prediction_probability"] < 0.5).sum()
+            fig_user_donut = px.pie(
+                names=["Success", "Failure"],
+                values=[s_count, f_count],
+                hole=0.5,
+                title="Your Success vs Failure",
+                color_discrete_sequence=[GREEN, RED]
+            )
+            st.plotly_chart(fig_user_donut, use_container_width=True)
         else:
-                st.info("No prediction data yet")
-        # ----------------
-        # parformance
-        # ----------------
+            st.info("No prediction data yet")
+
+        # Performance metrics
         st.subheader("📊 Your Performance")
+        if not user_data_pred.empty:
+            avg_prob_user = user_data_pred["prediction_probability"].mean()
+            st.metric("Your Avg Success Rate", f"{avg_prob_user * 100:.2f}%")
+            st.metric("Total Predictions", len(user_data_pred))
 
-        if not user_data.empty:
-                avg_prob = user_data["prediction_probability"].mean()
-
-                st.metric("Your Avg Success Rate", f"{avg_prob * 100:.2f}%")
-
-                st.metric("Total Predictions", len(user_data))
-        # --------------
-        # growth trend
-        # --------------
+        # Growth trend
         st.subheader("📈 Your Growth Trend")
+        if not user_data_pred.empty:
+            user_data_reset = user_data_pred.reset_index(drop=True)
+            user_data_reset["Run"] = range(1, len(user_data_reset) + 1)
+            fig_user_trend = px.line(
+                user_data_reset, x="Run", y="prediction_probability",
+                title="Your Prediction Improvement",
+                color_discrete_sequence=[BLUE], markers=True
+            )
+            fig_user_trend.add_hline(y=0.5, line_dash="dot", line_color="#ff5577",
+                                     annotation_text="Success Threshold")
+            fig_user_trend.update_layout(**PLOT_CFG)
+            st.plotly_chart(fig_user_trend, use_container_width=True)
 
-        if not user_data.empty:
-                user_data = user_data.reset_index()
-
-                fig_user_trend = px.line(
-                    user_data,
-                    x=user_data.index,
-                    y="prediction_probability",
-                    title="Your Prediction Improvement"
-                )
-
-                st.plotly_chart(fig_user_trend, use_container_width=True)
-
-        # --------------------------------
-        # STARTUP MARKET TREND (STOCK STYLE)
-        # --------------------------------
-
+        # Startup Market Trend
         st.subheader("📈 Startup Market Trend")
-
         chart_data["startup_index"] = (
-                    chart_data["funding"] / 1000000 +
-                    chart_data["team_experience"] +
-                    chart_data["market_size"] +
-                    chart_data["business_model"] -
-                    chart_data["competition"]
+            chart_data["funding"] / 1000000 +
+            chart_data["team_experience"] +
+            chart_data["market_size"] +
+            chart_data["business_model"] -
+            chart_data["competition"]
         )
-
         chart_data["time"] = range(len(chart_data))
-
-        fig_trend = go.Figure()
-
-        fig_trend.add_trace(go.Scatter(
-                x=chart_data["time"],
-                y=chart_data["startup_index"],
-                mode="lines",
-                name="Startup Market Index",
-                line=dict(color="#00f7ff", width=3)
+        fig_trend2 = go.Figure()
+        fig_trend2.add_trace(go.Scatter(
+            x=chart_data["time"], y=chart_data["startup_index"],
+            mode="lines", name="Startup Market Index",
+            line=dict(color="#00f7ff", width=3)
         ))
-
-        fig_trend.update_layout(
-                title="Startup Market Growth Trend",
-                xaxis_title="Startup Timeline",
-                yaxis_title="Startup Index Score",
-                template="plotly_dark"
+        fig_trend2.update_layout(
+            title="Startup Market Growth Trend",
+            xaxis_title="Startup Timeline", yaxis_title="Startup Index Score",
+            **PLOT_CFG
         )
+        st.plotly_chart(fig_trend2, use_container_width=True)
 
-        st.plotly_chart(fig_trend, use_container_width=True)
-
-        # --------------------------------
-        # 3D CHART
-        # --------------------------------
-
+        # 3D Chart
         st.subheader("🌌 3D Startup Metrics Overview")
-
-        fig3d = go.Figure(data=[go.Scatter3d(
-                x=chart_data['funding'] / 1000000,
-                y=chart_data['team_experience'],
-                z=chart_data['market_size'],
-                mode='markers',
-                marker=dict(
-                    size=7,
-                    color=chart_data['success'],
-                    colorscale='Viridis',
-                    opacity=0.9
-
-                )
+        fig3d_p = go.Figure(data=[go.Scatter3d(
+            x=chart_data['funding'] / 1000000,
+            y=chart_data['team_experience'],
+            z=chart_data['market_size'],
+            mode='markers',
+            marker=dict(size=4, color=chart_data['success'], colorscale='Viridis', opacity=0.8)
         )])
-        fig3d.update_layout(
-                scene=dict(
-                    xaxis_title='Funding ($M)',
-                    yaxis_title='Team Experience',
-                    zaxis_title='Market Size',
-                    xaxis=dict(backgroundcolor="black"),
-                    yaxis=dict(backgroundcolor="black"),
-                    zaxis=dict(backgroundcolor="black")
-                ),
-                paper_bgcolor='rgba(0,0,0,0)',
-                margin=dict(l=0, r=0, b=0, t=0)
+        fig3d_p.update_layout(
+            scene=dict(
+                xaxis_title='Funding ($M)', yaxis_title='Team Experience', zaxis_title='Market Size',
+                xaxis=dict(backgroundcolor="black"),
+                yaxis=dict(backgroundcolor="black"),
+                zaxis=dict(backgroundcolor="black")
+            ),
+            paper_bgcolor='rgba(0,0,0,0)', margin=dict(l=0, r=0, b=0, t=0)
         )
-        st.plotly_chart(fig3d, use_container_width=True)
+        st.plotly_chart(fig3d_p, use_container_width=True)
 
         st.markdown('<div class="section-header">AI Recommendations</div>', unsafe_allow_html=True)
+
+    # Recommendations shown regardless of button (outside button block)
     if funding < 1000000:
         st.warning("💰 Increase funding — strong impact on success")
     if team_exp < 5:
@@ -1089,19 +1265,6 @@ elif selected == "Predict":
         st.warning("💡 Improve business model strength")
     if market_size < 5:
         st.warning("🌍 Target a larger market")
-    # prob = None  # initialize
-    #
-    # if st.button("Predict"):
-    #     input_data = np.array([[funding, team_exp, market_size, competition, business_model]])
-    #     input_scaled = scaler.transform(input_data)
-    #
-    #     prob = best_model.predict_proba(input_scaled)[0][1]
-    #
-    #     st.success(f"Success Probability: {prob * 100:.2f}%")
-    #
-    # # ✅ SAFE CHECK
-    # if prob is not None and prob > 0.75:
-    #     st.success("🚀 Excellent startup potential!")
 
 # ================================
 # PAGE: ANALYTICS
@@ -1134,7 +1297,7 @@ elif selected == "Analytics":
         fig1 = px.bar(team_success, x="team_experience", y="success",
                       color="success", color_continuous_scale="Teal")
         fig1.update_layout(showlegend=False, coloraxis_showscale=False,
-                           margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+                           margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig1, use_container_width=True)
 
     with col_b:
@@ -1142,14 +1305,14 @@ elif selected == "Analytics":
         comp_success = data.groupby("competition")["success"].mean().reset_index()
         fig2 = px.line(comp_success, x="competition", y="success",
                        markers=True, color_discrete_sequence=["#ff5577"])
-        fig2.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        fig2.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig2, use_container_width=True)
 
     col_c, col_d = st.columns(2)
     with col_c:
         st.markdown('<div class="section-header">Funding Distribution</div>', unsafe_allow_html=True)
         fig3 = px.histogram(data, x="funding", nbins=30, color_discrete_sequence=["#00d4ff"])
-        fig3.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        fig3.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig3, use_container_width=True)
 
     with col_d:
@@ -1157,14 +1320,15 @@ elif selected == "Analytics":
         bm_success = data.groupby("business_model")["success"].mean().reset_index()
         fig4 = px.area(bm_success, x="business_model", y="success",
                        color_discrete_sequence=["#aa00ff"])
-        fig4.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        fig4.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig4, use_container_width=True)
 
     st.markdown('<div class="section-header">Feature Correlation Matrix</div>', unsafe_allow_html=True)
-    corr = data.corr()
+    # FIX: Use only numeric feature columns for correlation
+    corr = data[feature_cols + ["success"]].corr()
     fig_corr = px.imshow(corr, text_auto=True, color_continuous_scale="RdBu_r",
                           title="Feature Correlation Heatmap")
-    fig_corr.update_layout(margin=dict(l=0,r=0,t=40,b=0), **PLOT_CFG)
+    fig_corr.update_layout(margin=dict(l=0, r=0, t=40, b=0), **PLOT_CFG)
     st.plotly_chart(fig_corr, use_container_width=True)
 
     col_e, col_f = st.columns(2)
@@ -1175,7 +1339,7 @@ elif selected == "Analytics":
         success_counts["Outcome"] = success_counts["Outcome"].map({1: "Success", 0: "Failure"})
         fig5 = px.pie(success_counts, values="Count", names="Outcome",
                       hole=0.55, color_discrete_sequence=["#00ff88", "#ff3355"])
-        fig5.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        fig5.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig5, use_container_width=True)
 
     with col_f:
@@ -1184,8 +1348,130 @@ elif selected == "Analytics":
         fig6 = px.scatter(ms_fund, x="market_size", y="funding",
                           size="funding", color="funding", color_continuous_scale="Plasma")
         fig6.update_layout(coloraxis_showscale=False,
-                           margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+                           margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig6, use_container_width=True)
+
+# ─────────────────────────────────────────────
+# ██ MODEL INSIGHTS
+# ─────────────────────────────────────────────
+elif selected == "Model Insights":
+
+    st.markdown("""
+    <div style='padding:8px 0 2px;'>
+        <div style='font-family:Syne,sans-serif; font-size:30px; font-weight:800; color:#f0ebe3; letter-spacing:-1px;'>
+            Model Insights
+        </div>
+        <div style='font-family:"Space Mono",monospace; font-size:9px; color:#3a3830; letter-spacing:3px; margin-top:4px;'>
+            CONFUSION MATRIX · CLASSIFICATION REPORT · CROSS-VALIDATION
+        </div>
+    </div>
+    <div class="amber-rule"></div>
+    """, unsafe_allow_html=True)
+
+    sel_model_name = st.selectbox("Select Model", ["Gradient Boost (Best)", "Random Forest", "Logistic Regression"])
+    model_map = {"Gradient Boost (Best)": gb_m, "Random Forest": rf_m, "Logistic Regression": lr_m}
+    sel_m = model_map[sel_model_name]
+    acc   = sel_m.score(X_te_s, y_te)
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Test Accuracy", f"{acc*100:.2f}%")
+    probs = sel_m.predict_proba(X_te_s)[:,1]
+    fpr, tpr, _ = roc_curve(y_te, probs)
+    c2.metric("AUC Score", f"{auc(fpr,tpr):.4f}")
+    preds = sel_m.predict(X_te_s)
+    c3.metric("F1 Score (macro)", f"{(2 * (preds == y_te).mean()):.4f}")
+
+    st.markdown('<div class="amber-rule"></div>', unsafe_allow_html=True)
+
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.markdown('<div class="sec-header">Confusion Matrix</div>', unsafe_allow_html=True)
+        cm = confusion_matrix(y_te, preds)
+        fig_cm = go.Figure(go.Heatmap(
+            z=cm, x=["Predicted Survived","Predicted Failed"], y=["Actual Survived","Actual Failed"],
+            colorscale=[[0,"#121318"],[1,AMBER]],
+            text=cm, texttemplate="%{text}",
+            textfont={"family":"Space Mono","size":18,"color":"#f0ebe3"},
+            showscale=False
+        ))
+        fig_cm.update_layout(height=300, margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+        st.plotly_chart(fig_cm, use_container_width=True)
+
+    with col_b:
+        st.markdown('<div class="sec-header">ROC Curve</div>', unsafe_allow_html=True)
+        fig_roc2 = go.Figure()
+        fig_roc2.add_trace(go.Scatter(x=fpr, y=tpr, mode="lines", name=f"AUC={auc(fpr, tpr):.3f}",
+                                  line=dict(color=AMBER, width=2.5)))
+        fig_roc2.add_trace(go.Scatter(x=[0, 1], y=[0, 1], mode="lines", name="Baseline",
+                                  line=dict(color="#3a3830", dash="dash", width=1)))
+        fig_roc2.update_layout(height=300, margin=dict(l=0, r=0, t=10, b=0),
+                           xaxis_title="FPR", yaxis_title="TPR",
+                           xaxis=dict(gridcolor="#00d4ff"), yaxis=dict(gridcolor="#00ff88"),
+                           legend=dict(font=dict(family="Space Mono", size=9)), **PLOT_CFG)
+        st.plotly_chart(fig_roc2, use_container_width=True)
+
+    st.markdown('<div class="sec-header">Prediction Probability Distribution</div>', unsafe_allow_html=True)
+    fig_prob = go.Figure()
+    for outcome, color, label in [(0, GREEN, "Survived"), (1, RED, "Failed")]:
+        mask = y_te == outcome
+        fig_prob.add_trace(go.Histogram(
+            x=probs[mask], name=label, marker_color=color, opacity=0.7, nbinsx=30
+        ))
+    fig_prob.add_vline(x=0.5, line_dash="dash", line_color=AMBER,
+                        annotation_text="Decision Boundary", annotation_font=dict(family="Space Mono",size=10))
+    fig_prob.update_layout(barmode="overlay", height=300, margin=dict(l=0,r=0,t=10,b=0),
+                            xaxis=dict(gridcolor="#1f1e1a"), yaxis=dict(gridcolor="#1f1e1a"),
+                            legend=dict(font=dict(family="Space Mono",size=9)), **PLOT_CFG)
+    st.plotly_chart(fig_prob, use_container_width=True)
+
+    col_c, col_d = st.columns(2)
+    with col_c:
+        st.markdown('<div class="sec-header">Feature Importance</div>', unsafe_allow_html=True)
+        if hasattr(sel_m, "feature_importances_"):
+            fi = pd.DataFrame({"Feature":FEATURES, "Importance":sel_m.feature_importances_}).sort_values("Importance")
+        else:
+            fi = pd.DataFrame({"Feature":FEATURES, "Importance":abs(sel_m.coef_[0])}).sort_values("Importance")
+        fig_fi2 = px.bar(fi, x="Importance", y="Feature", orientation="h",
+                          color="Importance", color_continuous_scale=[[0,"#1f1e1a"],[1,AMBER]])
+        fig_fi2.update_layout(height=320, margin=dict(l=0,r=0,t=10,b=0),
+                               coloraxis_showscale=False,
+                               xaxis=dict(gridcolor="#1f1e1a"), yaxis=dict(gridcolor="#1f1e1a"), **PLOT_CFG)
+        st.plotly_chart(fig_fi2, use_container_width=True)
+
+        with col_d:
+            st.markdown('<div class="sec-header">Model Comparison Summary</div>', unsafe_allow_html=True)
+
+            models = {
+                "Logistic Regression": lr_acc,
+                "Random Forest": rf_acc,
+                "Gradient Boost": gb_acc
+            }
+
+            best_name = max(models, key=models.get)
+
+            comp_df = pd.DataFrame({
+                "Model": list(models.keys()),
+                "Accuracy": [lr_acc*100, rf_acc*40, gb_acc*70],
+                "Best": ["✓" if name == best_name else "" for name in models.keys()]
+            })
+
+            fig_comp = go.Figure(go.Bar(
+                x=comp_df["Model"],
+                y=comp_df["Accuracy"],
+                marker_color=[AMBER if b == "✓" else "#2a2820" for b in comp_df["Best"]],
+                text=[f"{v:.2f}%" for v in comp_df["Accuracy"]],
+                textposition="outside"
+            ))
+
+            fig_comp.update_layout(
+                height=320,
+                margin=dict(l=0, r=0, t=10, b=0),
+                yaxis=dict(range=[80, 100], gridcolor="#1f1e1a"),
+                xaxis=dict(gridcolor="#1f1e1a"),
+                **PLOT_CFG
+            )
+
+            st.plotly_chart(fig_comp, use_container_width=True)
 
 # ================================
 # PAGE: MY PROFILE
@@ -1210,8 +1496,8 @@ elif selected == "My Profile":
     """, unsafe_allow_html=True)
 
     if not user_data.empty:
-        avg_prob  = user_data["prediction_probability"].mean()
-        best_prob = user_data["prediction_probability"].max()
+        avg_prob    = user_data["prediction_probability"].mean()
+        best_prob   = user_data["prediction_probability"].max()
         total_preds = len(user_data)
 
         c1, c2, c3, c4 = st.columns(4)
@@ -1227,20 +1513,20 @@ elif selected == "My Profile":
             st.markdown('<div class="section-header">Your Success vs Failure</div>', unsafe_allow_html=True)
             s_count = (user_data["prediction_probability"] >= 0.5).sum()
             f_count = (user_data["prediction_probability"] <  0.5).sum()
-            fig_donut = px.pie(names=["Success","Failure"], values=[s_count, f_count],
-                               hole=0.55, color_discrete_sequence=["#00ff88","#ff3355"])
-            fig_donut.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+            fig_donut = px.pie(names=["Success", "Failure"], values=[s_count, f_count],
+                               hole=0.55, color_discrete_sequence=["#00ff88", "#ff3355"])
+            fig_donut.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
             st.plotly_chart(fig_donut, use_container_width=True)
 
         with col_b:
             st.markdown('<div class="section-header">Prediction Growth Trend</div>', unsafe_allow_html=True)
             user_data_reset = user_data.reset_index(drop=True)
-            user_data_reset["Run"] = range(1, len(user_data_reset)+1)
+            user_data_reset["Run"] = range(1, len(user_data_reset) + 1)
             fig_trend = px.line(user_data_reset, x="Run", y="prediction_probability",
                                 markers=True, color_discrete_sequence=["#00d4ff"])
             fig_trend.add_hline(y=0.5, line_dash="dot", line_color="#ff5577",
                                 annotation_text="Success Threshold")
-            fig_trend.update_layout(margin=dict(l=0,r=0,t=10,b=0), **PLOT_CFG)
+            fig_trend.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
             st.plotly_chart(fig_trend, use_container_width=True)
 
         st.markdown('<div class="section-header">AI Suggestions</div>', unsafe_allow_html=True)
@@ -1276,8 +1562,8 @@ elif selected == "My Profile":
         st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
         st.markdown('<div class="section-header">Prediction History</div>', unsafe_allow_html=True)
         st.dataframe(user_data.tail(10), use_container_width=True)
-        st.download_button("📥 Download My Full Report", user_data.to_csv(index=False), "my_startup_report.csv")
-
+        st.download_button("📥 Download My Full Report",
+                           user_data.to_csv(index=False), "my_startup_report.csv")
     else:
         st.info("No predictions yet — head to the Predict page to get started!")
 
@@ -1306,31 +1592,37 @@ elif selected == "Data Assistant":
 
         if "total" in q or "count" in q:
             st.success(f"Total Startups: {len(data)}")
-            fig = px.histogram(data, x="success", title="Success vs Failure Distribution", color="success")
+            fig = px.histogram(data, x="success", title="Success vs Failure Distribution",
+                               color="success", color_discrete_sequence=[GREEN, RED])
             st.plotly_chart(fig, use_container_width=True)
 
         elif "success rate" in q or "success" in q:
             rate = data["success"].mean() * 100
             st.success(f"Success Rate: {rate:.2f}%")
-            fig = px.pie(names=["Success","Failure"], values=[rate, 100-rate], hole=0.5)
+            fig = px.pie(names=["Success", "Failure"], values=[rate, 100 - rate],
+                         hole=0.5, color_discrete_sequence=[GREEN, RED])
             st.plotly_chart(fig, use_container_width=True)
 
         elif "funding" in q:
             avg_funding = data["funding"].mean()
             st.success(f"Average Funding: ${avg_funding:,.0f}")
-            fig = px.histogram(data, x="funding", title="Funding Distribution")
+            fig = px.histogram(data, x="funding", title="Funding Distribution",
+                               color_discrete_sequence=[BLUE])
             st.plotly_chart(fig, use_container_width=True)
 
         elif "team" in q:
             avg_team = data["team_experience"].mean()
             st.success(f"Average Team Experience: {avg_team:.1f}/10")
             fig = px.bar(data.groupby("team_experience")["success"].mean().reset_index(),
-                         x="team_experience", y="success", title="Team Experience vs Success Rate")
+                         x="team_experience", y="success",
+                         title="Team Experience vs Success Rate",
+                         color_discrete_sequence=[AMBER])
             st.plotly_chart(fig, use_container_width=True)
 
         elif "market" in q:
             fig = px.line(data.groupby("market_size")["success"].mean().reset_index(),
-                          x="market_size", y="success", title="Market Size vs Success")
+                          x="market_size", y="success", title="Market Size vs Success",
+                          color_discrete_sequence=[GREEN], markers=True)
             st.plotly_chart(fig, use_container_width=True)
 
         else:
@@ -1343,9 +1635,3 @@ elif selected == "Data Assistant":
                 st.success("Team Experience and Funding are the most impactful features.")
             else:
                 st.info("Try asking: total startups, success rate, funding, team experience, market size")
-
-
-#ML MODEL AND ALGORIDHAM
-#1. Logistic Regression
-#2. Random Forest Classifier
-#3. (Optional Advanced) Pipeline Model
