@@ -18,7 +18,7 @@ from sklearn.metrics import confusion_matrix
 # PAGE CONFIG
 # --------------------------------
 
-st.set_page_config(page_title="AI Startup Dashboard", layout="wide", page_icon="🧊")
+st.set_page_config(page_title="AI Startup Dashboard", layout="wide", page_icon="🔮")
 
 # --------------------------------
 # GLOBAL CSS
@@ -439,7 +439,7 @@ def signup():
     with col2:
         st.markdown("""
         <div class="auth-card">
-            <div class="auth-title">🧊 CREATE ACCOUNT</div>
+            <div class="auth-title">🔮 CREATE ACCOUNT</div>
             <div class="auth-subtitle">JOIN THE STARTUP AI PLATFORM</div>
         """, unsafe_allow_html=True)
 
@@ -471,7 +471,7 @@ def signup():
                         st.rerun()
         with c2:
             if st.button("← Back to Login", use_container_width=True):
-                st.session_state.page = "login"
+                st.session_state.page = "login →"
                 st.rerun()
 
         st.markdown("""
@@ -499,7 +499,7 @@ def login():
 
         c1, c2 = st.columns(2)
         with c1:
-            if st.button("🚀  Login", use_container_width=True):
+            if st.button("Login →", use_container_width=True):
                 if not username or not password:
                     st.error("Please fill in all fields")
                 else:
@@ -538,7 +538,7 @@ if not st.session_state.logged_in:
         <div style='font-family:Orbitron; font-size:36px; font-weight:900;
                     color:#ffffff; letter-spacing:-1px;
                     text-shadow: 0 0 40px #00d4ff66;'>
-            🧊 AI STARTUP PREDICTOR
+            🔮 AI STARTUP PREDICTOR
         </div>
         <div style='color:#3a6a8a; font-size:12px; letter-spacing:4px;
                     margin-top:8px; font-family:Rajdhani;'>
@@ -671,7 +671,7 @@ with st.sidebar:
     st.markdown("""
     <div style='text-align:center; padding:24px 0 12px;'>
         <div style='font-family:Orbitron; font-size:20px; font-weight:900;
-                    color:#00d4ff; letter-spacing:2px;'>🚀 STARTUP AI</div>
+                    color:#00d4ff; letter-spacing:2px;'>🔮 STARTUP AI</div>
         <div style='font-size:10px; color:#2a5a7a; letter-spacing:3px; margin-top:4px;'>
             PREDICTION PLATFORM
         </div>
@@ -1168,6 +1168,28 @@ elif selected == "Predict":
         else:
             st.error("🚫 High risk — investment not recommended at this stage")
 
+        st.markdown('<div class="sec-header">Risk Radar Profile</div>', unsafe_allow_html=True)
+        cats = ["Funding Power", "Team Strength", "Market Opportunity", "Competitive Safety", "Business Viability"]
+        scores = [
+            min(funding / 5e6, 1) * 10,
+            team_exp,
+            market_size,
+            10 - competition,
+            business_model,
+        ]
+        fig_radar = go.Figure()
+        fig_radar.add_trace(go.Scatterpolar(r=scores + [scores[0]], theta=cats + [cats[0]], fill="toself",
+                                            fillcolor="rgba(245,185,66,0.1)", line=dict(color=AMBER, width=2),
+                                            name="Your Startup"))
+        fig_radar.add_trace(go.Scatterpolar(r=[5] * len(cats) + [5], theta=cats + [cats[0]], fill="toself",
+                                            fillcolor="rgba(90,158,214,0.05)",
+                                            line=dict(color=BLUE, width=1, dash="dot"), name="Median Startup"))
+        fig_radar.update_layout(
+            polar=dict(radialaxis=dict(range=[0, 10], gridcolor="#1f1e1a", tickfont=dict(family="Space Mono", size=8)),
+                       angularaxis=dict(tickfont=dict(family="Space Mono", size=9), gridcolor="#1f1e1a")), height=380,
+            margin=dict(l=40, r=40, t=20, b=20), legend=dict(font=dict(family="Space Mono", size=9)), **PLOT_CFG)
+        st.plotly_chart(fig_radar, use_container_width=True)
+
         # Donut chart
         st.subheader("🍩 Your Prediction Stats")
         user_activity = pd.read_csv("user_activity.csv")
@@ -1289,6 +1311,48 @@ elif selected == "Analytics":
     c4.metric("Success Rate",   f"{data['success'].mean()*100:.1f}%")
 
     st.markdown('<div class="glow-div"></div>', unsafe_allow_html=True)
+    col_g, col_h = st.columns(2)
+    with col_g:
+        st.markdown('<div class="sec-header">Failure Rate by Team Experience</div>', unsafe_allow_html=True)
+        tef = data.groupby("team_experience")["failure"].mean().reset_index()
+        fig = px.bar(tef, x="team_experience", y="failure", color="failure",
+                     color_continuous_scale=[[0, GREEN], [1, RED]], text=tef.failure.apply(lambda x: f"{x * 100:.0f}%"))
+        fig.update_traces(textposition="outside", textfont=dict(family="Space Mono", size=10))
+        fig.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0), coloraxis_showscale=False,
+                          yaxis_tickformat=".0%", yaxis=dict(gridcolor="#1f1e1a"), **PLOT_CFG)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_h:
+        st.markdown('<div class="sec-header">Burn Rate vs Failure (Violin)</div>', unsafe_allow_html=True)
+        fig = go.Figure()
+        for outcome, color, label in [(0, GREEN, "Survived"), (1, RED, "Failed")]:
+            fig.add_trace(go.Violin(y=data[data.failure == outcome].burn_rate, name=label, box_visible=True,
+                                    meanline_visible=True, fillcolor=color, line_color=color, opacity=0.7))
+        fig.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0), violingap=0.3, yaxis=dict(gridcolor="#1f1e1a"),
+                          **PLOT_CFG)
+        st.plotly_chart(fig, use_container_width=True)
+
+    col_i, col_j = st.columns(2)
+    with col_i:
+        st.markdown('<div class="sec-header">Revenue Growth Distribution</div>', unsafe_allow_html=True)
+        fig = go.Figure()
+        for outcome, color, label in [(0, GREEN, "Survived"), (1, RED, "Failed")]:
+            fig.add_trace(go.Histogram(x=data[data.failure == outcome].revenue_growth, name=label, marker_color=color,
+                                       opacity=0.7, nbinsx=30))
+        fig.update_layout(barmode="overlay", height=280, margin=dict(l=0, r=0, t=10, b=0),
+                          xaxis=dict(gridcolor="#1f1e1a"), yaxis=dict(gridcolor="#1f1e1a"),
+                          legend=dict(font=dict(family="Space Mono", size=9)), **PLOT_CFG)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_j:
+        st.markdown('<div class="sec-header">Funding vs Revenue Growth</div>', unsafe_allow_html=True)
+        samp = data.sample(500,replace=True, random_state=3)
+        fig = px.scatter(samp, x="funding", y="revenue_growth", color=samp.failure.map({0: "Survived", 1: "Failed"}),
+                         color_discrete_map={"Survived": GREEN, "Failed": RED}, opacity=0.6)
+        fig.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0), xaxis=dict(gridcolor="#1f1e1a"),
+                          yaxis=dict(gridcolor="#1f1e1a"), legend=dict(font=dict(family="Space Mono", size=9)),
+                          **PLOT_CFG)
+        st.plotly_chart(fig, use_container_width=True)
 
     col_a, col_b = st.columns(2)
     with col_a:
@@ -1322,6 +1386,12 @@ elif selected == "Analytics":
                        color_discrete_sequence=["#aa00ff"])
         fig4.update_layout(margin=dict(l=0, r=0, t=10, b=0), **PLOT_CFG)
         st.plotly_chart(fig4, use_container_width=True)
+
+    st.markdown('<div class="sec-header">Correlation Heatmap</div>', unsafe_allow_html=True)
+    corr = data[FEATURES + ["failure"]].corr()
+    fig = px.imshow(corr, text_auto=".2f", color_continuous_scale="RdBu_r", aspect="auto", zmin=-1, zmax=1)
+    fig.update_layout(height=420, margin=dict(l=0, r=0, t=20, b=0), **PLOT_CFG)
+    st.plotly_chart(fig, use_container_width=True)
 
     st.markdown('<div class="section-header">Feature Correlation Matrix</div>', unsafe_allow_html=True)
     # FIX: Use only numeric feature columns for correlation
@@ -1543,8 +1613,10 @@ elif selected == "My Profile":
             badge, badge_color, label = "🥇", "#ffd700", "PRO FOUNDER"
         elif avg_prob > 0.5:
             badge, badge_color, label = "🥈", "#c0c0c0", "GROWING ENTREPRENEUR"
-        else:
+        elif avg_prob > 0.25:
             badge, badge_color, label = "🥉", "#cd7f32", "BEGINNER LEVEL"
+        else:
+            badge, label, color = "🔍", "TRAINEE ANALYST", "#6b6558"
 
         st.markdown(f"""
         <div style='background:#0d1b2a; border:1px solid {badge_color}44; border-radius:14px;
