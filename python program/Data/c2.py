@@ -2,7 +2,7 @@ import cv2
 import os
 
 # 🔥 GIVE YOUR IMAGE FOLDER PATH HERE
-input_folder = r"C:\Users\preet\Desktop\10 Images"   # change this
+input_folder = r"C:\Users\SMIT\Pictures\5 Images"   # change this
 
 # ✅ FIX: check if folder exists (ADDED ONLY THIS)
 if not os.path.exists(input_folder):
