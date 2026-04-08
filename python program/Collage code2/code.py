@@ -997,7 +997,7 @@ if selected == "Dashboard":
                           xaxis=dict(gridcolor="#1e2235"), yaxis=dict(gridcolor="#1e2235"),
                           legend=dict(font=dict(size=11)), **PLOT_CFG)
         st.plotly_chart(fig, use_container_width=True)
-    
+
     # 3D Metrics
     st.markdown('<div class="section-label">3D Startup Universe</div>', unsafe_allow_html=True)
     samp3d = DATA.sample(min(800, len(DATA)), random_state=9)
@@ -1038,10 +1038,10 @@ elif selected == "Predict":
     c1, c2, c3 = st.columns(3)
     with c1:
         funding     = st.number_input("💰 Funding ($)", min_value=0, max_value=200_000_000,
-                                       value=500_000, step=50_000, format="%d")
-        team_size   = st.number_input("👥 Team Size", min_value=1, max_value=500, value=10)
+                                       value=0, step=50_000, format="%d")
+        team_size   = st.number_input("👥 Team Size", min_value=0, max_value=500, value=0)
     with c2:
-        team_exp    = st.slider("🎓 Team Experience (yrs)", 1, 15, 5)
+        team_exp    = st.slider("🎓 Team Experience (yrs)", 0, 15, 0)
         market_sz   = st.number_input("🌍 Market Size ($Bn)", min_value=0.1, max_value=500.0, value=10.0, step=0.5)
     with c3:
         sector_sel  = st.selectbox("🏭 Sector",
@@ -1052,14 +1052,14 @@ elif selected == "Predict":
 
     st.markdown('<div class="section-label">Business Metrics</div>', unsafe_allow_html=True)
     c4, c5, c6, c7 = st.columns(4)
-    with c4: burn_rate  = st.number_input("🔥 Burn Rate ($/mo)", 0, 2_000_000, 80_000, 5_000)
+    with c4: burn_rate  = st.number_input("🔥 Burn Rate ($/mo)", 0, 2_000_000, 0, 5_000)
     with c5: rev_growth = st.number_input("📈 Revenue Growth (x)", -0.5, 10.0, 1.2, 0.1)
-    with c6: runway     = st.slider("⛽ Runway (months)", 1, 48, 18)
-    with c7: nps        = st.slider("⭐ NPS Score", -100, 100, 30)
+    with c6: runway     = st.slider("⛽ Runway (months)", 0, 48, 0)
+    with c7: nps        = st.slider("⭐ NPS Score", -100, 100, 0)
 
     c8, c9 = st.columns(2)
-    with c8: competition = st.slider("⚔️ Competition Level (1-10)", 1, 10, 5)
-    with c9: biz_model   = st.slider("💡 Business Model Score (1-10)", 1, 10, 6)
+    with c8: competition = st.slider("⚔️ Competition Level (1-10)", 1, 10, 0)
+    with c9: biz_model   = st.slider("💡 Business Model Score (1-10)", 1, 10, 0)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
