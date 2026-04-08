@@ -842,13 +842,15 @@ with st.sidebar:
                "cpu-fill", "chat-dots-fill", "person-fill"],
         default_index=0,
         styles={
-            "container":         {"background-color": "transparent", "padding": "8px 0"},
-            "icon":              {"color": "#6b738f", "font-size": "14px"},
-            "nav-link":          {"color": "#6b738f", "font-size": "14px", "font-family": "Space Grotesk",
-                                  "border-radius": "8px", "margin": "2px 0", "padding": "10px 14px"},
-            "nav-link-selected": {"background-color": "#131620", "color": "#e4e8f5",
-                                  "font-weight": "600", "border": "1px solid #2a2f4a"},
-            "menu-title":        {"display": "none"},
+            "container": {"background-color": "#0a0f1a", "border": "none"},
+            "menu-title": {"color": "#2a5a7a", "font-size": "10px",
+                           "letter-spacing": "3px", "font-family": "Rajdhani"},
+            "icon": {"color": "#00d4ff", "font-size": "14px"},
+            "nav-link": {"color": "#6a9aba", "font-size": "13px",
+                         "font-family": "Rajdhani", "border-radius": "6px",
+                         "margin": "1px 0", "letter-spacing": "0.5px"},
+            "nav-link-selected": {"background-color": "#001f35",
+                                  "color": "#00d4ff", "font-weight": "600"},
         }
     )
 
@@ -879,7 +881,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("Sign Out", use_container_width=True):
+    if st.button("Sign Out ↗", use_container_width=True):
         for k in ["logged_in","username","login_time","chat_history"]:
             st.session_state[k] = False if k == "logged_in" else ([] if k == "chat_history" else "")
         st.session_state.page = "login"
@@ -983,19 +985,6 @@ if selected == "Dashboard":
 
     col_e, col_f = st.columns(2)
 
-    # Burn rate box
-    with col_e:
-        st.markdown('<div class="section-label">Burn Rate vs Outcome</div>', unsafe_allow_html=True)
-        fig = go.Figure()
-        for outcome, color, label in [(1,C_SUCCESS,"Survived"),(0,C_DANGER,"Failed")]:
-            subset = DATA[DATA.success==outcome]
-            fig.add_trace(go.Box(y=subset["burn_rate"], name=label,
-                                 marker_color=color, line_color=color,
-                                 fillcolor=color.replace("#","rgba(").replace(")",",0.15)") if "#" in color else color,
-                                 boxmean=True))
-        fig.update_layout(height=320, yaxis=dict(gridcolor="#1e2235"), **PLOT_CFG)
-        st.plotly_chart(fig, use_container_width=True)
-
     # NPS distribution
     with col_f:
         st.markdown('<div class="section-label">NPS Score Distribution</div>', unsafe_allow_html=True)
@@ -1008,7 +997,7 @@ if selected == "Dashboard":
                           xaxis=dict(gridcolor="#1e2235"), yaxis=dict(gridcolor="#1e2235"),
                           legend=dict(font=dict(size=11)), **PLOT_CFG)
         st.plotly_chart(fig, use_container_width=True)
-
+    
     # 3D Metrics
     st.markdown('<div class="section-label">3D Startup Universe</div>', unsafe_allow_html=True)
     samp3d = DATA.sample(min(800, len(DATA)), random_state=9)
