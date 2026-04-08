@@ -676,29 +676,67 @@ BEST_MODEL = MODEL_RESULTS[BEST_NAME]["model"]
 # ─────────────────────────────────────────────
 # CLAUDE API CHATBOT
 # ─────────────────────────────────────────────
+def _get_api_key() -> str:
+    """Load Anthropic API key from Streamlit secrets or environment variable."""
+    # Method 1: Streamlit secrets  →  create .streamlit/secrets.toml with: ANTHROPIC_API_KEY = "sk-ant-..."
+    try:
+        key = st.secrets.get("ANTHROPIC_API_KEY", "")
+        if key:
+            return key
+    except Exception:
+        pass
+    # Method 2: OS environment variable  →  export ANTHROPIC_API_KEY="sk-ant-..."
+    return os.environ.get("ANTHROPIC_API_KEY", "")
+
 def call_claude(messages: list, system: str) -> str:
     """Call Anthropic API and return assistant text."""
+    api_key = _get_api_key()
+    if not api_key:
+        return (
+            "⚠️ **API key not configured.**\n\n"
+            "To activate the AI Analyst, add your Anthropic API key using **one** of these methods:\n\n"
+            "**Method 1 — Streamlit secrets (recommended):**\n"
+            "Create `.streamlit/secrets.toml` in your project folder:\n"
+            "```\nANTHROPIC_API_KEY = \"sk-ant-api03-C5T...sgAA\"\n```\n\n"
+            "**Method 2 — Environment variable:**\n"
+            "```\nexport ANTHROPIC_API_KEY=\"sk-ant-api03-C5T...sgAA\"\nstreamlit run app.py\n```\n\n"
+            "Get your key at: https://console.anthropic.com"
+        )
     try:
         resp = requests.post(
             "https://api.anthropic.com/v1/messages",
-            headers={"Content-Type": "application/json",
-                     "anthropic-version": "2023-06-01"},
-            json={
-                "model": "claude-sonnet-4-20250514",
-                "max_tokens": 1000,
-                "system": system,
-                "messages": messages
+            headers={
+                "Content-Type":    "application/json",
+                "anthropic-version": "2023-06-01",
+                "x-api-key":       api_key,
             },
-            timeout=30
+            json={
+                "model":      "claude-sonnet-4-20250514",
+                "max_tokens": 1000,
+                "system":     system,
+                "messages":   messages,
+            },
+            timeout=30,
         )
         data = resp.json()
-        if "content" in data:
+        if resp.status_code == 200 and "content" in data:
             return "".join(b["text"] for b in data["content"] if b.get("type") == "text")
         elif "error" in data:
-            return f"⚠️ API Error: {data['error'].get('message','Unknown error')}"
-        return "⚠️ Unexpected response from AI."
+            err = data["error"]
+            code = err.get("type", "unknown")
+            msg  = err.get("message", "Unknown error")
+            if code == "authentication_error":
+                return "⚠️ **Invalid API key.** Check your key at https://console.anthropic.com"
+            if code == "rate_limit_error":
+                return "⚠️ **Rate limit hit.** Wait a moment and try again."
+            return f"⚠️ **API Error ({code}):** {msg}"
+        return f"⚠️ Unexpected response (HTTP {resp.status_code}). Check your API key and try again."
+    except requests.exceptions.Timeout:
+        return "⚠️ **Request timed out.** The API took too long — please try again."
+    except requests.exceptions.ConnectionError:
+        return "⚠️ **Connection error.** Check your internet connection and try again."
     except Exception as e:
-        return f"⚠️ Connection error: {str(e)}"
+        return f"⚠️ **Unexpected error:** {str(e)}"
 
 def build_data_context() -> str:
     d = DATA
@@ -984,6 +1022,24 @@ if selected == "Dashboard":
     st.plotly_chart(fig_roc, use_container_width=True)
 
     col_e, col_f = st.columns(2)
+    def _hex_rgba(hex_color, alpha=0.15):
+        hex_color = hex_color.lstrip("#")
+        r = int(hex_color[0:2], 16)
+        g = int(hex_color[2:4], 16)
+        b = int(hex_color[4:6], 16)
+        return f"rgba({r},{g},{b},{alpha})"
+    # Burn rate box
+    with col_e:
+        st.markdown('<div class="section-label">Burn Rate vs Outcome</div>', unsafe_allow_html=True)
+        fig = go.Figure()
+        for outcome, color, label in [(1, C_SUCCESS, "Survived"), (0, C_DANGER, "Failed")]:
+            subset = DATA[DATA.success == outcome]
+            fig.add_trace(go.Box(y=subset["burn_rate"], name=label,
+                                 marker_color=color, line_color=color,
+                                 fillcolor=_hex_rgba(color) if color.startswith("#") else color,
+                                 boxmean=True))
+        fig.update_layout(height=320, yaxis=dict(gridcolor="#1e2235"), **PLOT_CFG)
+        st.plotly_chart(fig, use_container_width=True)
 
     # NPS distribution
     with col_f:
